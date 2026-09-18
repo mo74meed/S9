@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Recensement S9 - Suivi des Cours & Avancement Médical</title>
+  <meta name="description" content="Dashboard clair de suivi des cours S9 Médecine - Recensement faculté et avancement personnel">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+  
+  <!-- Tailwind CSS CDN (with dev notice filter) -->
+  <script>
+    (function() {
+      const origWarn = console.warn;
+      console.warn = function(...args) {
+        if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+        origWarn.apply(console, args);
+      };
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Light Theme Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 lg:px-8 py-3.5 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-600/20 text-white flex-shrink-0">
+          <i data-lucide="stethoscope" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-base md:text-lg text-slate-900 tracking-tight">
+              Recensement S9
+            </h1>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+              2026/2027
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 hidden sm:block">Faculté de Médecine & Pharmacie • Suivi Personnalisé des Enseignements</p>
+        </div>
+      </div>
+
+      <!-- Sync Info & Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Next Sync Badge -->
+        <div id="syncBadge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-medium text-slate-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-indicator"></span>
+          <span id="nextSyncLabel">Synchro à 20:00</span>
+        </div>
+
+        <!-- Manual Sync Button -->
+        <button id="btnSyncManual" title="Synchroniser avec la feuille Google Sheets" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs md:text-sm font-semibold shadow-sm transition">
+          <i data-lucide="refresh-cw" id="syncIcon" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Synchroniser</span>
+        </button>
+
+        <!-- Settings / Backup Modal Trigger -->
+        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 pt-5 pb-12 space-y-6">
+
+    <!-- UPDATE NOTIFICATION BANNER -->
+    <div id="bannerAlert" class="hidden rounded-xl p-3.5 border flex items-center justify-between gap-3 text-xs md:text-sm transition-all duration-300">
+      <div class="flex items-center gap-3">
+        <i data-lucide="info" id="bannerIcon" class="w-5 h-5 flex-shrink-0"></i>
+        <span id="bannerMessage">Information</span>
+      </div>
+      <button id="btnCloseBanner" class="p-1 text-slate-400 hover:text-slate-700 rounded">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- COCKPIT STATS -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+      
+      <!-- Card 1: Dual Progress (Student vs Faculty) -->
+      <div class="light-card rounded-2xl p-5 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="activity" class="w-4 h-4"></i>
+            Progression Globale S9
+          </span>
+          <span id="statMyPercent" class="text-xl font-extrabold text-indigo-600">0%</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs text-slate-600 font-medium">
+            <span>Moi: <strong id="statMyCount" class="text-slate-900">0</strong> / 119 étudiés</span>
+            <span>Faculté: <strong id="statFacCount" class="text-slate-900">0</strong> / 119 dispensés</span>
+          </div>
+
+          <!-- Dual Progress Bars -->
+          <div class="space-y-1">
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div id="statMyBar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+              <div id="statFacBar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Mon avancement</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Dispensé faculté</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Priority Catch-up Queue (À rattraper) -->
+      <div id="cardPriorityCatchup" class="light-card rounded-2xl p-5 flex flex-col justify-between border-amber-300 hover:border-amber-400 cursor-pointer bg-gradient-to-br from-white to-amber-50/40 transition group">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
+            File Prioritaire : À Rattraper
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+          </span>
+          <div class="p-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs">
+            Priorité
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-baseline gap-2">
+            <span id="statCatchupCount" class="text-3xl font-black tracking-tight text-amber-600">0</span>
+            <span class="text-xs font-medium text-slate-600">cours dispensés en attente d'étude</span>
+          </div>
+          <p class="text-[11px] text-amber-700/90 font-medium mt-1.5 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Cliquer pour afficher cette file d'attente</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3: Couches de Révision (C1 & C2) -->
+      <div class="light-card rounded-2xl p-5 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i>
+            Tours de Révision Médicale
+          </span>
+          <span id="lastSheetUpdateLabel" class="text-[11px] text-slate-400 font-medium">Feuille: 17/09/2026</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center">
+            <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 1 (C1)</div>
+            <div id="statC1Count" class="text-xl font-black text-slate-900 mt-0.5">0</div>
+            <div class="text-[10px] text-slate-400">cours révisés</div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center">
+            <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 2 (C2)</div>
+            <div id="statC2Count" class="text-xl font-black text-slate-900 mt-0.5">0</div>
+            <div class="text-[10px] text-slate-400">cours consolidés</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- MODULE QUICK-JUMP BAR -->
+    <section class="space-y-2">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+          <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+          Modules S9 & Accès Rapide
+        </h2>
+        <div class="flex items-center gap-2">
+          <button id="btnToggleAllAccordions" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold transition">
+            Tout replier / déplier
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5" id="moduleCardsContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- SEARCH & CONTROLS TOOLBAR -->
+    <section class="light-card rounded-2xl p-4 space-y-3">
+      
+      <!-- Top Row: Search + Quick Status Tabs + View Mode -->
+      <div class="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+        
+        <!-- Search input -->
+        <div class="relative flex-1">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Rechercher un cours, un enseignant (Pr.), ou un mot-clé..."
+            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+          />
+          <button id="btnClearSearch" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- Quick Status Tabs -->
+        <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto text-xs font-semibold whitespace-nowrap">
+          <button class="quick-tab-btn px-3 py-1.5 rounded-lg transition active bg-white text-indigo-700 shadow-sm" data-tab="all">
+            Tous (<span id="countTabAll">119</span>)
+          </button>
+          <button class="quick-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-tab="catchup">
+            À Rattraper (<span id="countTabCatchup">0</span>)
+          </button>
+          <button class="quick-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition" data-tab="done">
+            Étudiés (<span id="countTabDone">0</span>)
+          </button>
+          <button class="quick-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition" data-tab="todo">
+            À faire (<span id="countTabTodo">0</span>)
+          </button>
+        </div>
+
+        <!-- View Switcher (Syllabus vs Table vs Cards) -->
+        <div class="hidden sm:flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <button id="btnViewSyllabus" title="Vue Syllabus Organisé (Recommandé)" class="p-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition flex items-center gap-1 text-xs font-bold px-2.5">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+            <span>Syllabus</span>
+          </button>
+          <button id="btnViewTable" title="Vue Tableau Compact" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 transition">
+            <i data-lucide="list" class="w-4 h-4"></i>
+          </button>
+          <button id="btnViewCards" title="Vue Grille de Cartes" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 transition">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Secondary Filters (Module, Prof, Faculty Status) -->
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+        
+        <!-- Module Dropdown -->
+        <select id="filterModule" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm">
+          <option value="">Tous les Modules</option>
+          <option value="GYNECO-OBSTETRIQUE">Gynéco-Obstétrique</option>
+          <option value="ORL - OPHTALMO">ORL - Ophtalmologie</option>
+          <option value="MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ">Santé Publique & Éco</option>
+          <option value="URGENCES - RÉANIMATION">Urgences - Réanimation</option>
+        </select>
+
+        <!-- Faculty Status Dropdown -->
+        <select id="filterFacStatus" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm">
+          <option value="">Statut Faculté: Tous</option>
+          <option value="Effectué">Effectué (Dispensé)</option>
+          <option value="En cours">En cours</option>
+          <option value="Non effectué">Non effectué</option>
+          <option value="Hors programme">Hors programme</option>
+        </select>
+
+        <!-- Professor Dropdown -->
+        <select id="filterProf" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm max-w-[200px] truncate">
+          <option value="">Tous les Enseignants (29)</option>
+        </select>
+
+        <!-- Reset Button -->
+        <button id="btnResetFilters" class="ml-auto text-slate-500 hover:text-slate-900 flex items-center gap-1 py-1.5 px-2.5 rounded-lg hover:bg-slate-100 transition">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>Réinitialiser</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ACTIVE LESSONS VIEW -->
+    <section class="space-y-4">
+      
+      <!-- Summary status bar -->
+      <div class="flex items-center justify-between px-1">
+        <span id="resultsSummary" class="text-xs font-bold text-slate-500">
+          Affichage de 119 cours organisés
+        </span>
+        <span class="text-[11px] text-slate-400">
+          Cliquez sur le cercle pour marquer un cours comme étudié
+        </span>
+      </div>
+
+      <!-- VIEW 1: ORGANIZED HIERARCHICAL SYLLABUS (DEFAULT) -->
+      <div id="coursesSyllabusView" class="space-y-6">
+        <!-- Injected via JavaScript (4 Module Sections with nested professor groups) -->
+      </div>
+
+      <!-- VIEW 2: COMPACT TABLE VIEW -->
+      <div id="coursesTableView" class="hidden light-card rounded-2xl overflow-hidden overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-100/80 text-[11px] uppercase font-bold text-slate-500 border-b border-slate-200">
+            <tr>
+              <th class="py-3 px-4 w-12 text-center">Fait</th>
+              <th class="py-3 px-4">Cours & Mentions</th>
+              <th class="py-3 px-4">Module</th>
+              <th class="py-3 px-4">Enseignant</th>
+              <th class="py-3 px-4">Statut Faculté</th>
+              <th class="py-3 px-4 text-center">Couches</th>
+              <th class="py-3 px-4 text-center">Notes</th>
+            </tr>
+          </thead>
+          <tbody id="coursesTableBody" class="divide-y divide-slate-100">
+            <!-- Table rows injected here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- VIEW 3: GRID CARDS VIEW -->
+      <div id="coursesCardsView" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <!-- Cards injected here -->
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="emptyState" class="hidden py-16 text-center space-y-3 light-card rounded-2xl border-dashed border-2 border-slate-200">
+        <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+          <i data-lucide="search-x" class="w-6 h-6"></i>
+        </div>
+        <div class="text-slate-800 font-bold text-base">Aucun cours trouvé</div>
+        <p class="text-xs text-slate-500 max-w-sm mx-auto">
+          Aucun cours ne correspond à vos filtres actuels. Modifiez la recherche ou réinitialisez les filtres.
+        </p>
+        <button id="btnEmptyReset" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition shadow-sm">
+          Réinitialiser tous les filtres
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MOBILE BOTTOM DOCK -->
+  <nav class="md:hidden mobile-bottom-dock px-6 py-2">
+    <div class="flex items-center justify-around">
+      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-indigo-600" data-view="all">
+        <i data-lucide="book-open" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Syllabus</span>
+      </button>
+      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900" data-view="catchup">
+        <div class="relative">
+          <i data-lucide="alert-circle" class="w-5 h-5"></i>
+          <span id="mobileCatchupBadge" class="hidden absolute -top-1 -right-2 px-1 py-0.2 bg-amber-500 text-white text-[9px] font-bold rounded-full">0</span>
+        </div>
+        <span class="text-[10px] font-bold">À Rattraper</span>
+      </button>
+      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900" data-view="modules">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Modules</span>
+      </button>
+      <button id="btnMobileSync" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900">
+        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Synchro</span>
+      </button>
+      <button id="btnMobileSettings" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900">
+        <i data-lucide="settings" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Options</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- NOTE MODAL (LIGHT THEMED) -->
+  <div id="noteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+    <div class="light-card rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-xl relative bg-white">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <span id="noteModalModule" class="text-[11px] font-bold uppercase text-indigo-600">Module</span>
+          <h3 id="noteModalTitle" class="text-base font-bold text-slate-900">Titre du cours</h3>
+          <p id="noteModalProf" class="text-xs text-slate-500">Enseignant</p>
+        </div>
+        <button id="btnCloseNoteModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="noteTextarea" class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-600"></i>
+          Mes Notes Personnelles & Rappels d'Examens :
+        </label>
+        <textarea 
+          id="noteTextarea" 
+          rows="5" 
+          placeholder="Ex: Points clés à retenir, pièges QCM fréquents, questions tombées les années précédentes..."
+          class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+        ></textarea>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <span id="noteSaveStatus" class="text-xs text-slate-400 italic">Prêt</span>
+        <div class="flex gap-2">
+          <button id="btnCancelNote" class="px-4 py-2 rounded-xl bg-slate-100 text-xs font-semibold text-slate-600 hover:bg-slate-200 transition">
+            Annuler
+          </button>
+          <button id="btnSaveNote" class="px-4 py-2 rounded-xl bg-indigo-600 text-xs font-semibold text-white hover:bg-indigo-700 transition shadow-sm">
+            Enregistrer la note
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL (LIGHT THEMED) -->
+  <div id="settingsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+    <div class="light-card rounded-2xl w-full max-w-xl p-6 space-y-5 shadow-xl relative bg-white max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="p-2 rounded-xl bg-indigo-50 text-indigo-700">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Paramètres & Synchronisation</h3>
+            <p class="text-xs text-slate-500">Configuration de la synchronisation et de la sauvegarde</p>
+          </div>
+        </div>
+        <button id="btnCloseSettingsModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Sync configuration -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Feuille Google Sheets</h4>
+        
+        <div class="space-y-1.5">
+          <label class="text-xs text-slate-700 font-medium">Lien d'export CSV :</label>
+          <input 
+            type="text" 
+            id="settingSheetUrl" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-mono focus:ring-2 focus:ring-indigo-500 focus:bg-white"
+          />
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="text-slate-500">Feuille officielle ou feuille partagée publique.</span>
+            <button type="button" id="btnResetDefaultSheet" class="text-indigo-600 hover:text-indigo-800 font-bold underline">
+              Rétablir le lien officiel S9
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+          <div>
+            <div class="text-xs font-bold text-slate-800">Synchronisation quotidienne automatique à 20:00</div>
+            <div class="text-[11px] text-slate-500">Récupère l'état d'avancement des professeurs chaque soir à 20h00</div>
+          </div>
+          <input type="checkbox" id="settingAutoSync" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+        </div>
+      </div>
+
+      <!-- Backup & Restore -->
+      <div class="space-y-3 pt-3 border-t border-slate-100">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Sauvegarde & Restauration</h4>
+        <p class="text-xs text-slate-600">
+          Vos cours étudiés et vos notes personnelles sont conservés dans votre navigateur. Vous pouvez les exporter sous format JSON à tout moment.
+        </p>
+        
+        <div class="flex flex-wrap gap-2.5">
+          <button id="btnExportBackup" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition border border-slate-200">
+            <i data-lucide="download" class="w-4 h-4 text-indigo-600"></i>
+            Exporter ma progression (JSON)
+          </button>
+          
+          <label for="importFileInput" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition border border-slate-200 cursor-pointer">
+            <i data-lucide="upload" class="w-4 h-4 text-emerald-600"></i>
+            Restaurer un fichier JSON
+          </label>
+          <input type="file" id="importFileInput" accept=".json" class="hidden">
+        </div>
+      </div>
+
+      <!-- Reset -->
+      <div class="space-y-2 pt-3 border-t border-slate-100">
+        <button id="btnResetAllData" class="text-xs text-rose-600 hover:text-rose-700 font-bold flex items-center gap-1.5 transition">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          Remettre à zéro mes coches et notes (Effacer tout)
+        </button>
+      </div>
+
+      <div class="flex justify-end pt-3 border-t border-slate-100">
+        <button id="btnSaveSettingsModal" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-sm">
+          Enregistrer les modifications
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FACULTY STATUS QUICK POPOVER -->
+  <div id="facultyStatusPopover" class="hidden fixed z-50 bg-white rounded-xl shadow-2xl border border-slate-200 p-1.5 min-w-[200px] text-xs font-semibold transition-all">
+    <div class="px-2.5 py-1 text-[10px] uppercase font-bold text-slate-400 tracking-wider">Changer Statut Faculté</div>
+    <div class="space-y-0.5 mt-1">
+      <button type="button" class="fac-status-opt w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-emerald-50 text-emerald-800 transition" data-status="Effectué">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="flex-1 text-left">Effectué (Dispensé)</span>
+      </button>
+      <button type="button" class="fac-status-opt w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-amber-50 text-amber-800 transition" data-status="En cours">
+        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+        <span class="flex-1 text-left">En cours</span>
+      </button>
+      <button type="button" class="fac-status-opt w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-700 transition" data-status="Non effectué">
+        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+        <span class="flex-1 text-left">Non effectué</span>
+      </button>
+      <button type="button" class="fac-status-opt w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-rose-50 text-rose-800 transition" data-status="Hors programme">
+        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+        <span class="flex-1 text-left">Hors programme</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-20 md:bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-xl text-xs md:text-sm text-slate-800">
+    <i data-lucide="check-circle" id="toastIcon" class="w-5 h-5 text-emerald-600"></i>
+    <span id="toastMessage">Notification</span>
+  </div>
+
+  <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
+  <script src="js/bundle.js"></script>
+</body>
+</html>
