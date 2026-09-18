@@ -145,7 +145,11 @@ export const Storage = {
   saveFacultyOverride(courseId, status) {
     try {
       const overrides = this.getFacultyOverrides();
-      overrides[courseId] = status;
+      if (status === null || status === undefined) {
+        delete overrides[courseId];
+      } else {
+        overrides[courseId] = status;
+      }
       localStorage.setItem(STORAGE_KEYS.FACULTY_OVERRIDES, JSON.stringify(overrides));
     } catch (e) {
       console.error('Failed to save faculty override:', e);

@@ -3,12 +3,24 @@ let activePopoverCourseId = null;
 
 function applyFacultyOverrides() {
   const overrides = Storage.getFacultyOverrides();
+  let changed = false;
   state.courses.forEach(c => {
     if (overrides[c.id]) {
-      c.facultyStatus = overrides[c.id];
-      c.isCustomStatus = true;
+      // If the override is identical to the actual sheet facultyStatus, remove the redundant override
+      if (overrides[c.id] === c.facultyStatus) {
+        delete overrides[c.id];
+        changed = true;
+      } else {
+        c.facultyStatus = overrides[c.id];
+        c.isCustomStatus = true;
+      }
     }
   });
+  if (changed) {
+    try {
+      localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
+    } catch (e) {}
+  }
 }
 
 function openFacultyStatusPopover(courseId, triggerBtn) {
@@ -214,6 +226,7 @@ const elements = {
   settingSheetUrl: document.getElementById('settingSheetUrl'),
   settingAutoSync: document.getElementById('settingAutoSync'),
   btnSaveSettingsModal: document.getElementById('btnSaveSettingsModal'),
+  btnResetFacultyOverrides: document.getElementById('btnResetFacultyOverrides'),
   btnExportBackup: document.getElementById('btnExportBackup'),
   importFileInput: document.getElementById('importFileInput'),
   btnResetAllData: document.getElementById('btnResetAllData'),
@@ -1038,14 +1051,37 @@ async function triggerSync(isScheduled = false) {
     const result = await Sync.fetchRemoteData();
     if (result.success) {
       const oldCourses = state.courses;
-      const newCourses = result.data.courses;
+      const remoteCourses = result.data.courses;
 
-      const diffs = Sync.findDifferences(oldCourses, newCourses);
+      // Smart reconciliation with faculty overrides:
+      // If the faculty updated a course in the sheet to "Effectué" or "En cours",
+      // clear any obsolete manual override on that course so it is never suppressed!
+      const overrides = Storage.getFacultyOverrides();
+      let overridesChanged = false;
+      remoteCourses.forEach(rc => {
+        if (overrides[rc.id]) {
+          // If remote sheet caught up or matches, clear override
+          if (rc.facultyStatus === 'Effectué' || overrides[rc.id] === rc.facultyStatus) {
+            delete overrides[rc.id];
+            overridesChanged = true;
+          } else {
+            rc.facultyStatus = overrides[rc.id];
+            rc.isCustomStatus = true;
+          }
+        }
+      });
+      if (overridesChanged) {
+        try {
+          localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
+        } catch (e) {}
+      }
 
-      state.courses = newCourses;
+      const diffs = Sync.findDifferences(oldCourses, remoteCourses);
+
+      state.courses = remoteCourses;
       state.sheetDate = result.data.sheetUpdateDate;
 
-      Storage.setCachedCourses(newCourses);
+      Storage.setCachedCourses(remoteCourses);
       Storage.setSyncMeta({
         lastSyncedAt: new Date().toISOString(),
         sheetDate: state.sheetDate,
@@ -1266,6 +1302,19 @@ function setupEventListeners() {
     };
     reader.readAsText(file);
   };
+
+  // Reset Faculty Overrides
+  if (elements.btnResetFacultyOverrides) {
+    elements.btnResetFacultyOverrides.onclick = () => {
+      Storage.clearFacultyOverrides();
+      state.courses.forEach(c => {
+        delete c.isCustomStatus;
+      });
+      triggerSync(false);
+      elements.settingsModal.classList.add('hidden');
+      showToast('Statuts réalignés avec la feuille Google Sheets !', 'success');
+    };
+  }
 
   // Reset
   elements.btnResetAllData.onclick = () => {
