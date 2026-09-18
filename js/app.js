@@ -761,7 +761,7 @@ function renderTableView(courses) {
     const progress = state.personalProgress[course.id] || { done: false, c1: false, c2: false, note: '' };
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
-    const facClass = getFacultyStatusClass(course.facultyStatus);
+    const facStatusClass = getFacultyStatusClass(course.facultyStatus);
 
     const tr = document.createElement('tr');
     tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : ''} ${isCatchup ? 'bg-amber-50/20' : ''}`;
