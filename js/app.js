@@ -1,73 +1,4 @@
 
-let activePopoverCourseId = null;
-
-function applyFacultyOverrides() {
-  const overrides = Storage.getFacultyOverrides();
-  let changed = false;
-  state.courses.forEach(c => {
-    if (overrides[c.id]) {
-      // If the override is identical to the actual sheet facultyStatus, remove the redundant override
-      if (overrides[c.id] === c.facultyStatus) {
-        delete overrides[c.id];
-        changed = true;
-      } else {
-        c.facultyStatus = overrides[c.id];
-        c.isCustomStatus = true;
-      }
-    }
-  });
-  if (changed) {
-    try {
-      localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
-    } catch (e) {}
-  }
-}
-
-function openFacultyStatusPopover(courseId, triggerBtn) {
-  activePopoverCourseId = courseId;
-  const popover = document.getElementById('facultyStatusPopover');
-  if (!popover) return;
-
-  const rect = triggerBtn.getBoundingClientRect();
-  const popoverWidth = 200;
-  
-  // Position popover
-  let left = rect.left;
-  if (left + popoverWidth > window.innerWidth - 10) {
-    left = window.innerWidth - popoverWidth - 10;
-  }
-  if (left < 10) left = 10;
-
-  let top = rect.bottom + 6;
-  if (top + 180 > window.innerHeight) {
-    top = rect.top - 180;
-  }
-
-  popover.style.top = `${Math.max(10, top)}px`;
-  popover.style.left = `${Math.max(10, left)}px`;
-  popover.classList.remove('hidden');
-}
-
-function closeFacultyStatusPopover() {
-  const popover = document.getElementById('facultyStatusPopover');
-  if (popover) popover.classList.add('hidden');
-  activePopoverCourseId = null;
-}
-
-function setCourseFacultyStatus(courseId, newStatus) {
-  const course = state.courses.find(c => c.id === courseId);
-  if (!course) return;
-
-  course.facultyStatus = newStatus;
-  course.isCustomStatus = true;
-
-  Storage.saveFacultyOverride(courseId, newStatus);
-  Storage.setCachedCourses(state.courses);
-
-  showToast(`Statut faculté mis à jour : ${newStatus}`, 'success');
-  renderDashboard();
-}
-
 /**
  * Main Application Controller for Recensement S9 Dashboard
  * 100% Clean Light Medical Theme, Hierarchical Syllabus View by default.
@@ -77,10 +8,12 @@ import { INITIAL_DATA } from './initialData.js';
 import { Storage } from './storage.js';
 import { Sync } from './sync.js';
 
+let activePopoverCourseId = null;
+
 // State Management
 const state = {
   courses: [],
-  sheetDate: INITIAL_DATA.sheetUpdateDate,
+  sheetDate: INITIAL_DATA.sheetUpdateDate || '21/09/2026',
   personalProgress: {},
   settings: {},
   filters: {
@@ -97,8 +30,122 @@ const state = {
     'ORL - OPHTALMO': false,
     'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ': false,
     'URGENCES - RÉANIMATION': false
-  }
+  },
+  // Tracks new course IDs displayed during the current session of viewing "À rattraper"
+  pendingSeenCatchupIds: new Set()
 };
+
+/**
+ * Check if a course is newly added and not yet acknowledged by visiting "À rattraper"
+ */
+function isNewUnseenCourse(course) {
+  if (!course || course.facultyStatus !== 'Effectué') return false;
+  const seenIds = Storage.getSeenCatchupIds();
+  if (seenIds && Array.isArray(seenIds)) {
+    return !seenIds.includes(course.id);
+  }
+
+  // Baseline 15 courses are considered already seen for fresh users
+  const baselineIds = new Set([
+    'c_002', 'c_017', 'c_036', 'c_037', 'c_045', 'c_046',
+    'c_052', 'c_055', 'c_088', 'c_089', 'c_090', 'c_091',
+    'c_092', 'c_094', 'c_095'
+  ]);
+  return !baselineIds.has(course.id);
+}
+
+/**
+ * Commit pending seen IDs so the dot disappears on the next visit
+ */
+function commitPendingCatchupSeen() {
+  if (state.pendingSeenCatchupIds && state.pendingSeenCatchupIds.size > 0) {
+    Storage.markCatchupIdsSeen(Array.from(state.pendingSeenCatchupIds));
+    state.pendingSeenCatchupIds.clear();
+  }
+}
+
+/**
+ * Reconcile faculty status dates from storage and baseline initial data
+ */
+function reconcileFacultyDates() {
+  const facultyDates = Storage.getFacultyDates();
+  const initMap = new Map();
+  INITIAL_DATA.courses.forEach(c => initMap.set(c.id, c));
+
+  let datesChanged = false;
+  state.courses.forEach(c => {
+    if (c.facultyStatus === 'Effectué') {
+      if (!c.facultyStatusDate) {
+        const initCourse = initMap.get(c.id);
+        c.facultyStatusDate = facultyDates[c.id] || initCourse?.facultyStatusDate || (c.id === 'c_038' || c.id === 'c_065' ? '21/09/2026' : '17/09/2026');
+      }
+      if (facultyDates[c.id] !== c.facultyStatusDate) {
+        facultyDates[c.id] = c.facultyStatusDate;
+        datesChanged = true;
+      }
+    } else {
+      c.facultyStatusDate = null;
+      if (facultyDates[c.id]) {
+        delete facultyDates[c.id];
+        datesChanged = true;
+      }
+    }
+  });
+
+  if (datesChanged) {
+    Storage.saveFacultyDates(facultyDates);
+    Storage.setCachedCourses(state.courses);
+  }
+}
+
+function applyFacultyOverrides() {
+  const overrides = Storage.getFacultyOverrides();
+  const facultyDates = Storage.getFacultyDates();
+  let changed = false;
+  state.courses.forEach(c => {
+    if (overrides[c.id]) {
+      if (overrides[c.id] === c.facultyStatus) {
+        delete overrides[c.id];
+        changed = true;
+      } else {
+        c.facultyStatus = overrides[c.id];
+        c.isCustomStatus = true;
+        if (c.facultyStatus === 'Effectué' && !c.facultyStatusDate) {
+          c.facultyStatusDate = facultyDates[c.id] || new Date().toLocaleDateString('fr-FR');
+          facultyDates[c.id] = c.facultyStatusDate;
+        }
+      }
+    }
+  });
+  if (changed) {
+    try {
+      localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
+    } catch (e) {}
+  }
+}
+
+function setCourseFacultyStatus(courseId, newStatus) {
+  const course = state.courses.find(c => c.id === courseId);
+  if (!course) return;
+
+  course.facultyStatus = newStatus;
+  course.isCustomStatus = true;
+
+  if (newStatus === 'Effectué') {
+    const today = new Date().toLocaleDateString('fr-FR');
+    course.facultyStatusDate = today;
+    Storage.saveFacultyDate(courseId, today);
+  } else {
+    course.facultyStatusDate = null;
+    Storage.saveFacultyDate(courseId, null);
+  }
+
+  Storage.saveFacultyOverride(courseId, newStatus);
+  Storage.setCachedCourses(state.courses);
+
+  showToast(`Statut faculté mis à jour : ${newStatus}`, 'success');
+  renderDashboard();
+}
 
 // Module Metadata & Styling
 const MODULES_META = {
@@ -257,6 +304,9 @@ async function init() {
     state.courses = INITIAL_DATA.courses;
     Storage.setCachedCourses(state.courses);
   }
+
+  // Reconcile faculty dates
+  reconcileFacultyDates();
 
   // Apply user faculty status overrides
   applyFacultyOverrides();
@@ -436,7 +486,7 @@ function renderModuleQuickCards() {
  * Filter courses based on active controls
  */
 function getFilteredCourses() {
-  return state.courses.filter(course => {
+  const list = state.courses.filter(course => {
     const progress = state.personalProgress[course.id] || {};
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
@@ -466,6 +516,30 @@ function getFilteredCourses() {
 
     return true;
   });
+
+  // When filtering "À rattraper": sort chronologically by date added (newest first)
+  if (state.filters.tab === 'catchup') {
+    return list.sort((a, b) => {
+      // Unseen new courses first
+      const aUnseen = isNewUnseenCourse(a) ? 1 : 0;
+      const bUnseen = isNewUnseenCourse(b) ? 1 : 0;
+      if (bUnseen !== aUnseen) return bUnseen - aUnseen;
+
+      // Parse date DD/MM/YYYY
+      const parseD = (dStr) => {
+        if (!dStr) return 0;
+        const parts = dStr.split('/');
+        return parts.length === 3 ? new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0])).getTime() : 0;
+      };
+      const timeA = parseD(a.facultyStatusDate);
+      const timeB = parseD(b.facultyStatusDate);
+      if (timeB !== timeA) return timeB - timeA;
+
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
+  return list;
 }
 
 /**
@@ -480,6 +554,24 @@ function renderCoursesView() {
     elements.coursesTableView.classList.add('hidden');
     elements.coursesCardsView.classList.add('hidden');
     elements.emptyState.classList.remove('hidden');
+
+    const emptyTitle = elements.emptyState.querySelector('.text-slate-800');
+    const emptyDesc = elements.emptyState.querySelector('p');
+    if (emptyTitle && emptyDesc) {
+      if (state.filters.tab === 'catchup') {
+        emptyTitle.textContent = 'Aucun cours à rattraper 🎉';
+        emptyDesc.textContent = 'Félicitations ! Vous êtes à jour avec tous les enseignements dispensés par la faculté.';
+      } else if (state.filters.tab === 'done') {
+        emptyTitle.textContent = 'Aucun cours marqué comme étudié';
+        emptyDesc.textContent = 'Cochez le cercle à gauche d\'un cours dans la liste pour l\'ajouter à vos cours étudiés.';
+      } else if (state.filters.tab === 'todo') {
+        emptyTitle.textContent = 'Félicitations ! Tout est étudié 🏆';
+        emptyDesc.textContent = 'Vous avez étudié tous les cours du programme S9 !';
+      } else {
+        emptyTitle.textContent = 'Aucun cours trouvé';
+        emptyDesc.textContent = 'Aucun cours ne correspond à vos filtres actuels. Modifiez vos critères de recherche ou réinitialisez.';
+      }
+    }
     return;
   }
 
@@ -619,6 +711,9 @@ function renderSyllabusView(filteredCourses) {
         rowsList.className = 'space-y-2';
 
         group.courses.forEach(course => {
+          if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
           const row = createCourseRowElement(course);
           rowsList.appendChild(row);
         });
@@ -669,7 +764,7 @@ function createCourseRowElement(course) {
         <div class="flex items-center gap-2 flex-wrap mb-1">
           <!-- Main Clean Title -->
           <span class="font-bold text-sm text-slate-900 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500' : ''}" data-id="${course.id}">
-            ${course.title}
+            ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
 
           <!-- Title Notes Badges (Nouveau cours, cours changé, etc.) -->
@@ -775,6 +870,11 @@ function renderTableView(courses) {
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+    const isUnseen = isNewUnseenCourse(course);
+
+    if (state.filters.tab === 'catchup' && isUnseen) {
+      state.pendingSeenCatchupIds.add(course.id);
+    }
 
     const tr = document.createElement('tr');
     tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : ''} ${isCatchup ? 'bg-amber-50/20' : ''}`;
@@ -787,7 +887,9 @@ function renderTableView(courses) {
       </td>
       <td class="py-3 px-4">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="font-bold text-slate-900 ${isDone ? 'line-through text-slate-500' : ''}">${course.title}</span>
+          <span class="font-bold text-slate-900 ${isDone ? 'line-through text-slate-500' : ''}">
+            ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
+          </span>
           ${(course.badges || []).map(b => `
             <span class="title-badge ${b.bg} ${b.textCol} ${b.border}">
               ${b.text}
@@ -848,6 +950,11 @@ function renderCardsView(courses) {
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
     const meta = MODULES_META[course.module] || { short: 'Module', bgLight: 'bg-indigo-50', color: 'text-indigo-600' };
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+    const isUnseen = isNewUnseenCourse(course);
+
+    if (state.filters.tab === 'catchup' && isUnseen) {
+      state.pendingSeenCatchupIds.add(course.id);
+    }
 
     const card = document.createElement('div');
     card.className = `light-card rounded-2xl p-4 flex flex-col justify-between border transition ${
@@ -881,7 +988,7 @@ function renderCardsView(courses) {
         </div>
 
         <h4 class="font-bold text-sm text-slate-900 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500' : ''}">
-          ${course.title}
+          ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
 
         <!-- Badges -->
@@ -1078,6 +1185,40 @@ async function triggerSync(isScheduled = false) {
 
       const diffs = Sync.findDifferences(oldCourses, remoteCourses);
 
+      // Reconcile faculty dates for remote courses
+      const facultyDates = Storage.getFacultyDates();
+      const todayStr = state.sheetDate || new Date().toLocaleDateString('fr-FR');
+      let datesChanged = false;
+      const seenIds = Storage.getSeenCatchupIds() || [];
+      let seenSet = new Set(seenIds);
+      let seenChanged = false;
+
+      remoteCourses.forEach(rc => {
+        if (rc.facultyStatus === 'Effectué') {
+          if (!facultyDates[rc.id]) {
+            facultyDates[rc.id] = todayStr;
+            rc.facultyStatusDate = todayStr;
+            datesChanged = true;
+            // A newly completed course from the sheet is unseen
+            if (seenSet.has(rc.id)) {
+              seenSet.delete(rc.id);
+              seenChanged = true;
+            }
+          } else {
+            rc.facultyStatusDate = facultyDates[rc.id];
+          }
+        } else {
+          rc.facultyStatusDate = null;
+        }
+      });
+
+      if (datesChanged) {
+        Storage.saveFacultyDates(facultyDates);
+      }
+      if (seenChanged) {
+        Storage.saveSeenCatchupIds(Array.from(seenSet));
+      }
+
       state.courses = remoteCourses;
       state.sheetDate = result.data.sheetUpdateDate;
 
@@ -1142,6 +1283,14 @@ function setupEventListeners() {
   // Quick Tabs
   document.querySelectorAll('.quick-tab-btn').forEach(btn => {
     btn.onclick = () => {
+      const currentTab = state.filters.tab;
+      const tab = btn.getAttribute('data-tab');
+
+      // If user was looking at catchup and is navigating away, mark them as seen
+      if (currentTab === 'catchup' && tab !== 'catchup') {
+        commitPendingCatchupSeen();
+      }
+
       document.querySelectorAll('.quick-tab-btn').forEach(b => {
         b.classList.remove('bg-white', 'text-indigo-700', 'shadow-sm');
         b.classList.add('text-slate-600');
@@ -1149,7 +1298,6 @@ function setupEventListeners() {
       btn.classList.add('bg-white', 'text-indigo-700', 'shadow-sm');
       btn.classList.remove('text-slate-600');
 
-      const tab = btn.getAttribute('data-tab');
       state.filters.tab = tab;
 
       // Smart view switching:
@@ -1332,6 +1480,10 @@ function setupEventListeners() {
   elements.btnCloseBanner.onclick = () => {
     elements.bannerAlert.classList.add('hidden');
   };
+
+  window.addEventListener('beforeunload', () => {
+    commitPendingCatchupSeen();
+  });
 }
 
 function selectModuleFilter(modKey) {
@@ -1341,6 +1493,9 @@ function selectModuleFilter(modKey) {
 }
 
 function resetAllFilters() {
+  if (state.filters.tab === 'catchup') {
+    commitPendingCatchupSeen();
+  }
   state.filters.tab = 'all';
   setViewMode('syllabus');
   state.filters.module = '';

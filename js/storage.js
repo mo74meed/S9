@@ -8,7 +8,9 @@ const STORAGE_KEYS = {
   SETTINGS: 'recensement_settings_v1',
   SYNC_META: 'recensement_sync_meta_v1',
   CACHED_COURSES: 'recensement_cached_courses_v1',
-    FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1'
+  FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1',
+  FACULTY_DATES: 'recensement_faculty_dates_v1',
+  SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1'
 };
 
 const DEFAULT_SETTINGS = {
@@ -161,6 +163,65 @@ export const Storage = {
       localStorage.removeItem(STORAGE_KEYS.FACULTY_OVERRIDES);
     } catch (e) {
       console.error('Failed to clear faculty overrides:', e);
+    }
+  },
+
+  getFacultyDates() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.FACULTY_DATES);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  },
+
+  saveFacultyDates(dates) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.FACULTY_DATES, JSON.stringify(dates));
+    } catch (e) {
+      console.error('Failed to save faculty dates:', e);
+    }
+  },
+
+  saveFacultyDate(courseId, dateStr) {
+    const dates = this.getFacultyDates();
+    if (!dateStr) {
+      delete dates[courseId];
+    } else {
+      dates[courseId] = dateStr;
+    }
+    this.saveFacultyDates(dates);
+  },
+
+  getSeenCatchupIds() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.SEEN_CATCHUP_IDS);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  saveSeenCatchupIds(ids) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.SEEN_CATCHUP_IDS, JSON.stringify(ids));
+    } catch (e) {
+      console.error('Failed to save seen catchup ids:', e);
+    }
+  },
+
+  markCatchupIdsSeen(courseIds) {
+    const seen = this.getSeenCatchupIds() || [];
+    const seenSet = new Set(seen);
+    let changed = false;
+    courseIds.forEach(id => {
+      if (!seenSet.has(id)) {
+        seenSet.add(id);
+        changed = true;
+      }
+    });
+    if (changed) {
+      this.saveSeenCatchupIds(Array.from(seenSet));
     }
   },
 

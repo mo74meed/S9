@@ -1,6 +1,7 @@
 /**
- * Recensement S9 - Standalone All-In-One Script
- * 100% Light Medical Theme, Hierarchical Syllabus View by default.
+ * Recensement S9 - Bundled JavaScript
+ * Single file bundle containing initialData, Storage, Sync, and App logic.
+ * Generated on 2026-09-21
  */
 (function() {
 /**
@@ -8,1483 +9,1602 @@
  * Auto-generated with intelligent title note extraction.
  */
 const INITIAL_DATA = {
-  sheetUpdateDate: "17/09/2026",
-  generatedAt: new Date().toISOString(),
-  courses: [
-  {
-    "id": "c_001",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Uterus cicatriciel",
-    "title": "Uterus cicatriciel",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_002",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Le retard de croissance intra-utérine RCIU",
-    "title": "Le retard de croissance intra-utérine RCIU",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_003",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "les infections génitales",
-    "title": "les infections génitales",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_004",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Cancer de la vulve",
-    "title": "Cancer de la vulve",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_005",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Infections urinaires et grossesse",
-    "title": "Infections urinaires et grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_006",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Toxoplasmose et grossesse",
-    "title": "Toxoplasmose et grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_007",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Rubéole et grossesse",
-    "title": "Rubéole et grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_008",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Streptocoque B et grossesse",
-    "title": "Streptocoque B et grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_009",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Errarhay",
-    "rawTitle": "Les suites de couches normales et pathologiques",
-    "title": "Les suites de couches normales et pathologiques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_010",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "Cancer du sein",
-    "title": "Cancer du sein",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_011",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "Cancer de l'ovaire",
-    "title": "Cancer de l'ovaire",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_012",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "Grossesse extra-utérine",
-    "title": "Grossesse extra-utérine",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_013",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "Les Maladies trophoblastiques Gestationnelles",
-    "title": "Les Maladies trophoblastiques Gestationnelles",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_014",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "Les avortements",
-    "title": "Les avortements",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_015",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "La rupture prématurée des membranes",
-    "title": "La rupture prématurée des membranes",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_016",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Bouchikhi",
-    "rawTitle": "La délivrance normale et pathologique",
-    "title": "La délivrance normale et pathologique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_017",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Fdili",
-    "rawTitle": "Diagnostic et surveillance de la grossesse",
-    "title": "Diagnostic et surveillance de la grossesse",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_018",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Fdili",
-    "rawTitle": "Hémorragies du 3ème trimestre",
-    "title": "Hémorragies du 3ème trimestre",
-    "badges": [],
-    "facultyStatus": "En cours",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_019",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Fdili",
-    "rawTitle": "Présentations défléchies",
-    "title": "Présentations défléchies",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_020",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "Diabète et grossesse",
-    "title": "Diabète et grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_021",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "Pré-éclampsie",
-    "title": "Pré-éclampsie",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_022",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "Allo-immunisations foeto-maternelles: Rhésus",
-    "title": "Allo-immunisations foeto-maternelles: Rhésus",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_023",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "La grossesse gémellaire",
-    "title": "La grossesse gémellaire",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_024",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "La menace d’accouchement prématuré",
-    "title": "La menace d’accouchement prématuré",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_025",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Chaara",
-    "rawTitle": "La souffrance foetale aiguë > devenue asphyxie +++",
-    "title": "La souffrance foetale aiguë",
-    "badges": [
-      {
-        "type": "faculty_note",
-        "text": "Note: devenue asphyxie +++",
-        "icon": "info",
-        "bg": "bg-purple-50",
-        "textCol": "text-purple-700",
-        "border": "border-purple-200"
-      }
-    ],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_026",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "Accouchement normal",
-    "title": "Accouchement normal",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_027",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "presentation de siege",
-    "title": "presentation de siege",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_028",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "Dysplasies cervicales",
-    "title": "Dysplasies cervicales",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_029",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "Les fibromes utérins",
-    "title": "Les fibromes utérins",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_030",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "Cancer du col uterin",
-    "title": "Cancer du col uterin",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_031",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. Melhouf",
-    "rawTitle": "Le cancer de l'endomètre",
-    "title": "Le cancer de l'endomètre",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_032",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. S.Jayi",
-    "rawTitle": "Endometrioses",
-    "title": "Endometrioses",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_033",
-    "module": "GYNECO-OBSTETRIQUE",
-    "submodule": "",
-    "prof": "Pr. S.Jayi",
-    "rawTitle": "Abord du couple infertile",
-    "title": "Abord du couple infertile",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_034",
-    "module": "ORL - OPHTALMO",
-    "submodule": "OPHTALMO",
-    "prof": "Pr. Moutei",
-    "rawTitle": "Anatomie et physiologie de la vision",
-    "title": "Anatomie et physiologie de la vision",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_035",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Moutei",
-    "rawTitle": "Examen clinique en ophtalmologie",
-    "title": "Examen clinique en ophtalmologie",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_036",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Moutei",
-    "rawTitle": "Conduite à tenir devant un oeil rouge",
-    "title": "Conduite à tenir devant un oeil rouge",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_037",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Moutei",
-    "rawTitle": "Conduite à tenir devant une baisse de l’acuité visuelle",
-    "title": "Conduite à tenir devant une baisse de l’acuité visuelle",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_038",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Chraibi",
-    "rawTitle": "Les conjonctivites",
-    "title": "Les conjonctivites",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_039",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Chraibi",
-    "rawTitle": "Les kératites",
-    "title": "Les kératites",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_040",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Abdellaoui",
-    "rawTitle": "Les manifestations oculaires liées au diabète",
-    "title": "Les manifestations oculaires liées au diabète",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_041",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Abdellaoui",
-    "rawTitle": "Le décollement de la rétine rhegmatogène",
-    "title": "Le décollement de la rétine rhegmatogène",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_042",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Abdellaoui",
-    "rawTitle": "La dégénérescence maculaire liées à l'âge",
-    "title": "La dégénérescence maculaire liées à l'âge",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_043",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Abdellaoui",
-    "rawTitle": "L’uvéite",
-    "title": "L’uvéite",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_044",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Abdellaoui",
-    "rawTitle": "Les strabismes",
-    "title": "Les strabismes",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_045",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "Leucocorie",
-    "title": "Leucocorie",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_046",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "Les traumatismes oculo-orbitaires",
-    "title": "Les traumatismes oculo-orbitaires",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_047",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "CAT devant une exophtalmie",
-    "title": "CAT devant une exophtalmie",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_048",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "CAT devant un larmoiement",
-    "title": "CAT devant un larmoiement",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_049",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "Les amétropies",
-    "title": "Les amétropies",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_050",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "Les cataractes",
-    "title": "Les cataractes",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_051",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benatiya",
-    "rawTitle": "Les glaucomes",
-    "title": "Les glaucomes",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_052",
-    "module": "ORL - OPHTALMO",
-    "submodule": "ORL",
-    "prof": "Pr. Benmansour",
-    "rawTitle": "Otites externes et otites moyennes aigues (nouveau cours)",
-    "title": "Otites externes et otites moyennes aigues",
-    "badges": [
-      {
-        "type": "new",
-        "text": "Nouveau cours",
-        "icon": "sparkles",
-        "bg": "bg-blue-50",
-        "textCol": "text-blue-700",
-        "border": "border-blue-200"
-      }
-    ],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_053",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benmansour",
-    "rawTitle": "otites moyennes chroniques",
-    "title": "otites moyennes chroniques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_054",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Benmansour",
-    "rawTitle": "paralysie faciale",
-    "title": "paralysie faciale",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_055",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Ridal",
-    "rawTitle": "Les sinusites (nouveau cours)",
-    "title": "Les sinusites",
-    "badges": [
-      {
-        "type": "new",
-        "text": "Nouveau cours",
-        "icon": "sparkles",
-        "bg": "bg-blue-50",
-        "textCol": "text-blue-700",
-        "border": "border-blue-200"
-      }
-    ],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_056",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Ridal",
-    "rawTitle": "Les angines",
-    "title": "Les angines",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_057",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Ridal",
-    "rawTitle": "Nodules thyroidiens",
-    "title": "Nodules thyroidiens",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_058",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Ouatassi",
-    "rawTitle": "Les surdités",
-    "title": "Les surdités",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_059",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Ouatassi",
-    "rawTitle": "La rhinite allergique",
-    "title": "La rhinite allergique",
-    "badges": [],
-    "facultyStatus": "En cours",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_060",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Laamarti",
-    "rawTitle": "Les vertiges (cours changé)",
-    "title": "Les vertiges",
-    "badges": [
-      {
-        "type": "changed",
-        "text": "Cours changé",
-        "icon": "alert-circle",
-        "bg": "bg-amber-50",
-        "textCol": "text-amber-800",
-        "border": "border-amber-200"
-      }
-    ],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_061",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Afellah",
-    "rawTitle": "SAOS (nouveau cours)",
-    "title": "SAOS",
-    "badges": [
-      {
-        "type": "new",
-        "text": "Nouveau cours",
-        "icon": "sparkles",
-        "bg": "bg-blue-50",
-        "textCol": "text-blue-700",
-        "border": "border-blue-200"
-      }
-    ],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_062",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Zaki",
-    "rawTitle": "Les cancers du cavum et des voies aéro-digestives sup",
-    "title": "Les cancers du cavum et des voies aéro-digestives sup",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_063",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Kamal",
-    "rawTitle": "Les cellulites cervico-faciales",
-    "title": "Les cellulites cervico-faciales",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_064",
-    "module": "ORL - OPHTALMO",
-    "submodule": "",
-    "prof": "Pr. Kamal",
-    "rawTitle": "Les traumatismes maxillo-faciaux",
-    "title": "Les traumatismes maxillo-faciaux",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_065",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "Epidémiologie générale",
-    "title": "Epidémiologie générale",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_066",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "Les indicateurs de santé",
-    "title": "Les indicateurs de santé",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_067",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "Les enquêtes épidémiologiques",
-    "title": "Les enquêtes épidémiologiques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_068",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "les sources d'erreurs et de biais en épidémiologie",
-    "title": "les sources d'erreurs et de biais en épidémiologie",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_069",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "principes de la surveillance épidémioloique",
-    "title": "principes de la surveillance épidémioloique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_070",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "épidémiologie et prophylaxie des ISTs",
-    "title": "épidémiologie et prophylaxie des ISTs",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_071",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Benmaamar",
-    "rawTitle": "épidémiologie et prophylaxies des hépatites virales",
-    "title": "épidémiologie et prophylaxies des hépatites virales",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_072",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "L’assurance Maladie au Maroc",
-    "title": "L’assurance Maladie au Maroc",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_073",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Introduction aux systèmes de santé",
-    "title": "Introduction aux systèmes de santé",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_074",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Le système de santé au maroc",
-    "title": "Le système de santé au maroc",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_075",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Mesure de l’état de santé:La transition epidémiologique",
-    "title": "Mesure de l’état de santé:La transition epidémiologique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_076",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Epidémiologie et prophylaxie des cancers",
-    "title": "Epidémiologie et prophylaxie des cancers",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_077",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Introduction à l'economie de santé",
-    "title": "Introduction à l'economie de santé",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_078",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Epidémiologie et prévention des maladies transmissibles",
-    "title": "Epidémiologie et prévention des maladies transmissibles",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_079",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
-    "title": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_080",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Prophylaxie de la tuberculose au maroc",
-    "title": "Prophylaxie de la tuberculose au maroc",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_081",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "Investigation d'un episode epidermique",
-    "title": "Investigation d'un episode epidermique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_082",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Tachfouti",
-    "rawTitle": "La prévention et le depistage",
-    "title": "La prévention et le depistage",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_083",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. El Harch",
-    "rawTitle": "Epidémiologie et surveillance de la grippe",
-    "title": "Epidémiologie et surveillance de la grippe",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_084",
-    "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-    "submodule": "",
-    "prof": "Pr. Oumokhtar",
-    "rawTitle": "Santé et environnement",
-    "title": "Santé et environnement",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_085",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Bouazzaoui",
-    "rawTitle": "Infections associées aux soins",
-    "title": "Infections associées aux soins",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_086",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Bouazzaoui",
-    "rawTitle": "Introduction à l’anesthésie",
-    "title": "Introduction à l’anesthésie",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_087",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Kechna",
-    "rawTitle": "Pancréatite aiguë grave",
-    "title": "Pancréatite aiguë grave",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_088",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Houari",
-    "rawTitle": "Les états de choc: généralités",
-    "title": "Les états de choc: généralités",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_089",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Houari",
-    "rawTitle": "L’état de choc anaphylactique",
-    "title": "L’état de choc anaphylactique",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_090",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Houari",
-    "rawTitle": "L'état de choc septique",
-    "title": "L'état de choc septique",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_091",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Houari",
-    "rawTitle": "L'état de choc hémorragique",
-    "title": "L'état de choc hémorragique",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_092",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Houari",
-    "rawTitle": "L’état de choc cardiogénique",
-    "title": "L’état de choc cardiogénique",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_093",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Boukatta",
-    "rawTitle": "Arrêt cardiaque chez l’adulte",
-    "title": "Arrêt cardiaque chez l’adulte",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_094",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Boukatta",
-    "rawTitle": "Insuffisance respiratoire aiguë chez l’adulte",
-    "title": "Insuffisance respiratoire aiguë chez l’adulte",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_095",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Boukatta",
-    "rawTitle": "Ventilation artificielle",
-    "title": "Ventilation artificielle",
-    "badges": [],
-    "facultyStatus": "Effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_096",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les déséquilibres acido-basiques",
-    "title": "Les déséquilibres acido-basiques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_097",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les déséquilibres glycémiques",
-    "title": "Les déséquilibres glycémiques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_098",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les dyskaliémies",
-    "title": "Les dyskaliémies",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_099",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les dyscalcémies",
-    "title": "Les dyscalcémies",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_100",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Hémorragique en obstétrique",
-    "title": "Hémorragique en obstétrique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_101",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les pathologies hypertensives au cours de la grossesse",
-    "title": "Les pathologies hypertensives au cours de la grossesse",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_102",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Les dysnatrémies",
-    "title": "Les dysnatrémies",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_103",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "Obstruction grave des voies aériennes chez l’enfant",
-    "title": "Obstruction grave des voies aériennes chez l’enfant",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_104",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "CAT devant un coma non traumatique",
-    "title": "CAT devant un coma non traumatique",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_105",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Harandou",
-    "rawTitle": "La douleur",
-    "title": "La douleur",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_106",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Berdai",
-    "rawTitle": "L’intubation orotrachéale",
-    "title": "L’intubation orotrachéale",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_107",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Berdai",
-    "rawTitle": "Les abords vasculaires en urgence et en réanimation",
-    "title": "Les abords vasculaires en urgence et en réanimation",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_108",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Berdai",
-    "rawTitle": "Les envenimations scorpioniques",
-    "title": "Les envenimations scorpioniques",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_109",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Berdai",
-    "rawTitle": "Les envenimations ophidiennes",
-    "title": "Les envenimations ophidiennes",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_110",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Intoxication aiguë",
-    "title": "Intoxication aiguë",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_111",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Intoxication au monoxyde de carbone",
-    "title": "Intoxication au monoxyde de carbone",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_112",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Intoxication aiguë aux pesticides organophosphorés",
-    "title": "Intoxication aiguë aux pesticides organophosphorés",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_113",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Intoxication au paracétamol",
-    "title": "Intoxication au paracétamol",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_114",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Intoxication par le Paraphénylène-Diamine Takaout",
-    "title": "Intoxication par le Paraphénylène-Diamine Takaout",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_115",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Accidents d'électrisation",
-    "title": "Accidents d'électrisation",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_116",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Derkaoui",
-    "rawTitle": "Noyades",
-    "title": "Noyades",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_117",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Shimi",
-    "rawTitle": "PEC du traumatisme crânien grave à la phase initiale",
-    "title": "PEC du traumatisme crânien grave à la phase initiale",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_118",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Shimi",
-    "rawTitle": "Prise en charge du patient polytraumatisé",
-    "title": "Prise en charge du patient polytraumatisé",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  },
-  {
-    "id": "c_119",
-    "module": "URGENCES - RÉANIMATION",
-    "submodule": "",
-    "prof": "Pr. Shimi",
-    "rawTitle": "Prise en charge du brûlé grave à la phase aiguë",
-    "title": "Prise en charge du brûlé grave à la phase aiguë",
-    "badges": [],
-    "facultyStatus": "Non effectué",
-    "sheetC1": false,
-    "sheetC2": false
-  }
-]
+  "sheetUpdateDate": "21/09/2026",
+  "generatedAt": "2026-09-21T19:47:56.888Z",
+  "courses": [
+    {
+      "id": "c_001",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Uterus cicatriciel",
+      "title": "Uterus cicatriciel",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_002",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Le retard de croissance intra-utérine RCIU",
+      "title": "Le retard de croissance intra-utérine RCIU",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_003",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "les infections génitales",
+      "title": "les infections génitales",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_004",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Cancer de la vulve",
+      "title": "Cancer de la vulve",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_005",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Infections urinaires et grossesse",
+      "title": "Infections urinaires et grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_006",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Toxoplasmose et grossesse",
+      "title": "Toxoplasmose et grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_007",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Rubéole et grossesse",
+      "title": "Rubéole et grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_008",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Streptocoque B et grossesse",
+      "title": "Streptocoque B et grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_009",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Errarhay",
+      "rawTitle": "Les suites de couches normales et pathologiques",
+      "title": "Les suites de couches normales et pathologiques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_010",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "Cancer du sein",
+      "title": "Cancer du sein",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_011",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "Cancer de l'ovaire",
+      "title": "Cancer de l'ovaire",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_012",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "Grossesse extra-utérine",
+      "title": "Grossesse extra-utérine",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_013",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "Les Maladies trophoblastiques Gestationnelles",
+      "title": "Les Maladies trophoblastiques Gestationnelles",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_014",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "Les avortements",
+      "title": "Les avortements",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_015",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "La rupture prématurée des membranes",
+      "title": "La rupture prématurée des membranes",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_016",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Bouchikhi",
+      "rawTitle": "La délivrance normale et pathologique",
+      "title": "La délivrance normale et pathologique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_017",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Fdili",
+      "rawTitle": "Diagnostic et surveillance de la grossesse",
+      "title": "Diagnostic et surveillance de la grossesse",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_018",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Fdili",
+      "rawTitle": "Hémorragies du 3ème trimestre",
+      "title": "Hémorragies du 3ème trimestre",
+      "badges": [],
+      "facultyStatus": "En cours",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_019",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Fdili",
+      "rawTitle": "Présentations défléchies",
+      "title": "Présentations défléchies",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_020",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "Diabète et grossesse",
+      "title": "Diabète et grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_021",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "Pré-éclampsie",
+      "title": "Pré-éclampsie",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_022",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "Allo-immunisations foeto-maternelles: Rhésus",
+      "title": "Allo-immunisations foeto-maternelles: Rhésus",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_023",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "La grossesse gémellaire",
+      "title": "La grossesse gémellaire",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_024",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "La menace d’accouchement prématuré",
+      "title": "La menace d’accouchement prématuré",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_025",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Chaara",
+      "rawTitle": "La souffrance foetale aiguë > devenue asphyxie +++",
+      "title": "La souffrance foetale aiguë",
+      "badges": [
+        {
+          "type": "faculty_note",
+          "text": "Note: devenue asphyxie +++",
+          "icon": "info",
+          "bg": "bg-purple-50",
+          "textCol": "text-purple-700",
+          "border": "border-purple-200"
+        }
+      ],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_026",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "Accouchement normal",
+      "title": "Accouchement normal",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_027",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "presentation de siege",
+      "title": "presentation de siege",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_028",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "Dysplasies cervicales",
+      "title": "Dysplasies cervicales",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_029",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "Les fibromes utérins",
+      "title": "Les fibromes utérins",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_030",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "Cancer du col uterin",
+      "title": "Cancer du col uterin",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_031",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. Melhouf",
+      "rawTitle": "Le cancer de l'endomètre",
+      "title": "Le cancer de l'endomètre",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_032",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. S.Jayi",
+      "rawTitle": "Endometrioses",
+      "title": "Endometrioses",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_033",
+      "module": "GYNECO-OBSTETRIQUE",
+      "submodule": "",
+      "prof": "Pr. S.Jayi",
+      "rawTitle": "Abord du couple infertile",
+      "title": "Abord du couple infertile",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_034",
+      "module": "ORL - OPHTALMO",
+      "submodule": "OPHTALMO",
+      "prof": "Pr. Moutei",
+      "rawTitle": "Anatomie et physiologie de la vision",
+      "title": "Anatomie et physiologie de la vision",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_035",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Moutei",
+      "rawTitle": "Examen clinique en ophtalmologie",
+      "title": "Examen clinique en ophtalmologie",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_036",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Moutei",
+      "rawTitle": "Conduite à tenir devant un oeil rouge",
+      "title": "Conduite à tenir devant un oeil rouge",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_037",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Moutei",
+      "rawTitle": "Conduite à tenir devant une baisse de l’acuité visuelle",
+      "title": "Conduite à tenir devant une baisse de l’acuité visuelle",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_038",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Chraibi",
+      "rawTitle": "Les conjonctivites",
+      "title": "Les conjonctivites",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "21/09/2026"
+    },
+    {
+      "id": "c_039",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Chraibi",
+      "rawTitle": "Les kératites",
+      "title": "Les kératites",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_040",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Abdellaoui",
+      "rawTitle": "Les manifestations oculaires liées au diabète",
+      "title": "Les manifestations oculaires liées au diabète",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_041",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Abdellaoui",
+      "rawTitle": "Le décollement de la rétine rhegmatogène",
+      "title": "Le décollement de la rétine rhegmatogène",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_042",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Abdellaoui",
+      "rawTitle": "La dégénérescence maculaire liées à l'âge",
+      "title": "La dégénérescence maculaire liées à l'âge",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_043",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Abdellaoui",
+      "rawTitle": "L’uvéite",
+      "title": "L’uvéite",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_044",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Abdellaoui",
+      "rawTitle": "Les strabismes",
+      "title": "Les strabismes",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_045",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "Leucocorie",
+      "title": "Leucocorie",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_046",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "Les traumatismes oculo-orbitaires",
+      "title": "Les traumatismes oculo-orbitaires",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_047",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "CAT devant une exophtalmie",
+      "title": "CAT devant une exophtalmie",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_048",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "CAT devant un larmoiement",
+      "title": "CAT devant un larmoiement",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_049",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "Les amétropies",
+      "title": "Les amétropies",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_050",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "Les cataractes",
+      "title": "Les cataractes",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_051",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benatiya",
+      "rawTitle": "Les glaucomes",
+      "title": "Les glaucomes",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_052",
+      "module": "ORL - OPHTALMO",
+      "submodule": "ORL",
+      "prof": "Pr. Benmansour",
+      "rawTitle": "Otites externes et otites moyennes aigues (nouveau cours)",
+      "title": "Otites externes et otites moyennes aigues",
+      "badges": [
+        {
+          "type": "new",
+          "text": "Nouveau cours",
+          "icon": "sparkles",
+          "bg": "bg-blue-50",
+          "textCol": "text-blue-700",
+          "border": "border-blue-200"
+        }
+      ],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_053",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benmansour",
+      "rawTitle": "otites moyennes chroniques",
+      "title": "otites moyennes chroniques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_054",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Benmansour",
+      "rawTitle": "paralysie faciale",
+      "title": "paralysie faciale",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_055",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Ridal",
+      "rawTitle": "Les sinusites (nouveau cours)",
+      "title": "Les sinusites",
+      "badges": [
+        {
+          "type": "new",
+          "text": "Nouveau cours",
+          "icon": "sparkles",
+          "bg": "bg-blue-50",
+          "textCol": "text-blue-700",
+          "border": "border-blue-200"
+        }
+      ],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_056",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Ridal",
+      "rawTitle": "Les angines",
+      "title": "Les angines",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_057",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Ridal",
+      "rawTitle": "Nodules thyroidiens",
+      "title": "Nodules thyroidiens",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_058",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Ouatassi",
+      "rawTitle": "Les surdités",
+      "title": "Les surdités",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_059",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Ouatassi",
+      "rawTitle": "La rhinite allergique",
+      "title": "La rhinite allergique",
+      "badges": [],
+      "facultyStatus": "En cours",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_060",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Laamarti",
+      "rawTitle": "Les vertiges (cours changé)",
+      "title": "Les vertiges",
+      "badges": [
+        {
+          "type": "changed",
+          "text": "Cours changé",
+          "icon": "alert-circle",
+          "bg": "bg-amber-50",
+          "textCol": "text-amber-800",
+          "border": "border-amber-200"
+        }
+      ],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_061",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Afellah",
+      "rawTitle": "SAOS (nouveau cours)",
+      "title": "SAOS",
+      "badges": [
+        {
+          "type": "new",
+          "text": "Nouveau cours",
+          "icon": "sparkles",
+          "bg": "bg-blue-50",
+          "textCol": "text-blue-700",
+          "border": "border-blue-200"
+        }
+      ],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_062",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Zaki",
+      "rawTitle": "Les cancers du cavum et des voies aéro-digestives sup",
+      "title": "Les cancers du cavum et des voies aéro-digestives sup",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_063",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Kamal",
+      "rawTitle": "Les cellulites cervico-faciales",
+      "title": "Les cellulites cervico-faciales",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_064",
+      "module": "ORL - OPHTALMO",
+      "submodule": "",
+      "prof": "Pr. Kamal",
+      "rawTitle": "Les traumatismes maxillo-faciaux",
+      "title": "Les traumatismes maxillo-faciaux",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_065",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "Epidémiologie générale",
+      "title": "Epidémiologie générale",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "21/09/2026"
+    },
+    {
+      "id": "c_066",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "Les indicateurs de santé",
+      "title": "Les indicateurs de santé",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_067",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "Les enquêtes épidémiologiques",
+      "title": "Les enquêtes épidémiologiques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_068",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "les sources d'erreurs et de biais en épidémiologie",
+      "title": "les sources d'erreurs et de biais en épidémiologie",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_069",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "principes de la surveillance épidémioloique",
+      "title": "principes de la surveillance épidémioloique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_070",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "épidémiologie et prophylaxie des ISTs",
+      "title": "épidémiologie et prophylaxie des ISTs",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_071",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Benmaamar",
+      "rawTitle": "épidémiologie et prophylaxies des hépatites virales",
+      "title": "épidémiologie et prophylaxies des hépatites virales",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_072",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "L’assurance Maladie au Maroc",
+      "title": "L’assurance Maladie au Maroc",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_073",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Introduction aux systèmes de santé",
+      "title": "Introduction aux systèmes de santé",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_074",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Le système de santé au maroc",
+      "title": "Le système de santé au maroc",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_075",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Mesure de l’état de santé:La transition epidémiologique",
+      "title": "Mesure de l’état de santé:La transition epidémiologique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_076",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Epidémiologie et prophylaxie des cancers",
+      "title": "Epidémiologie et prophylaxie des cancers",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_077",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Introduction à l'economie de santé",
+      "title": "Introduction à l'economie de santé",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_078",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Epidémiologie et prévention des maladies transmissibles",
+      "title": "Epidémiologie et prévention des maladies transmissibles",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_079",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
+      "title": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_080",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Prophylaxie de la tuberculose au maroc",
+      "title": "Prophylaxie de la tuberculose au maroc",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_081",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "Investigation d'un episode epidermique",
+      "title": "Investigation d'un episode epidermique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_082",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Tachfouti",
+      "rawTitle": "La prévention et le depistage",
+      "title": "La prévention et le depistage",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_083",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. El Harch",
+      "rawTitle": "Epidémiologie et surveillance de la grippe",
+      "title": "Epidémiologie et surveillance de la grippe",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_084",
+      "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
+      "submodule": "",
+      "prof": "Pr. Oumokhtar",
+      "rawTitle": "Santé et environnement",
+      "title": "Santé et environnement",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_085",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Bouazzaoui",
+      "rawTitle": "Infections associées aux soins",
+      "title": "Infections associées aux soins",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_086",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Bouazzaoui",
+      "rawTitle": "Introduction à l’anesthésie",
+      "title": "Introduction à l’anesthésie",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_087",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Kechna",
+      "rawTitle": "Pancréatite aiguë grave",
+      "title": "Pancréatite aiguë grave",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_088",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Houari",
+      "rawTitle": "Les états de choc: généralités",
+      "title": "Les états de choc: généralités",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_089",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Houari",
+      "rawTitle": "L’état de choc anaphylactique",
+      "title": "L’état de choc anaphylactique",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_090",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Houari",
+      "rawTitle": "L'état de choc septique",
+      "title": "L'état de choc septique",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_091",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Houari",
+      "rawTitle": "L'état de choc hémorragique",
+      "title": "L'état de choc hémorragique",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_092",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Houari",
+      "rawTitle": "L’état de choc cardiogénique",
+      "title": "L’état de choc cardiogénique",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_093",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Boukatta",
+      "rawTitle": "Arrêt cardiaque chez l’adulte",
+      "title": "Arrêt cardiaque chez l’adulte",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_094",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Boukatta",
+      "rawTitle": "Insuffisance respiratoire aiguë chez l’adulte",
+      "title": "Insuffisance respiratoire aiguë chez l’adulte",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_095",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Boukatta",
+      "rawTitle": "Ventilation artificielle",
+      "title": "Ventilation artificielle",
+      "badges": [],
+      "facultyStatus": "Effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": "17/09/2026"
+    },
+    {
+      "id": "c_096",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les déséquilibres acido-basiques",
+      "title": "Les déséquilibres acido-basiques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_097",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les déséquilibres glycémiques",
+      "title": "Les déséquilibres glycémiques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_098",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les dyskaliémies",
+      "title": "Les dyskaliémies",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_099",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les dyscalcémies",
+      "title": "Les dyscalcémies",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_100",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Hémorragique en obstétrique",
+      "title": "Hémorragique en obstétrique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_101",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les pathologies hypertensives au cours de la grossesse",
+      "title": "Les pathologies hypertensives au cours de la grossesse",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_102",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Les dysnatrémies",
+      "title": "Les dysnatrémies",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_103",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "Obstruction grave des voies aériennes chez l’enfant",
+      "title": "Obstruction grave des voies aériennes chez l’enfant",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_104",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "CAT devant un coma non traumatique",
+      "title": "CAT devant un coma non traumatique",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_105",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Harandou",
+      "rawTitle": "La douleur",
+      "title": "La douleur",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_106",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Berdai",
+      "rawTitle": "L’intubation orotrachéale",
+      "title": "L’intubation orotrachéale",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_107",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Berdai",
+      "rawTitle": "Les abords vasculaires en urgence et en réanimation",
+      "title": "Les abords vasculaires en urgence et en réanimation",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_108",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Berdai",
+      "rawTitle": "Les envenimations scorpioniques",
+      "title": "Les envenimations scorpioniques",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_109",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Berdai",
+      "rawTitle": "Les envenimations ophidiennes",
+      "title": "Les envenimations ophidiennes",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_110",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Intoxication aiguë",
+      "title": "Intoxication aiguë",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_111",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Intoxication au monoxyde de carbone",
+      "title": "Intoxication au monoxyde de carbone",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_112",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Intoxication aiguë aux pesticides organophosphorés",
+      "title": "Intoxication aiguë aux pesticides organophosphorés",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_113",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Intoxication au paracétamol",
+      "title": "Intoxication au paracétamol",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_114",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Intoxication par le Paraphénylène-Diamine Takaout",
+      "title": "Intoxication par le Paraphénylène-Diamine Takaout",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_115",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Accidents d'électrisation",
+      "title": "Accidents d'électrisation",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_116",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Derkaoui",
+      "rawTitle": "Noyades",
+      "title": "Noyades",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_117",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Shimi",
+      "rawTitle": "PEC du traumatisme crânien grave à la phase initiale",
+      "title": "PEC du traumatisme crânien grave à la phase initiale",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_118",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Shimi",
+      "rawTitle": "Prise en charge du patient polytraumatisé",
+      "title": "Prise en charge du patient polytraumatisé",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    },
+    {
+      "id": "c_119",
+      "module": "URGENCES - RÉANIMATION",
+      "submodule": "",
+      "prof": "Pr. Shimi",
+      "rawTitle": "Prise en charge du brûlé grave à la phase aiguë",
+      "title": "Prise en charge du brûlé grave à la phase aiguë",
+      "badges": [],
+      "facultyStatus": "Non effectué",
+      "sheetC1": false,
+      "sheetC2": false,
+      "facultyStatusDate": null
+    }
+  ]
 };
 
 
@@ -1498,7 +1618,9 @@ const STORAGE_KEYS = {
   SETTINGS: 'recensement_settings_v1',
   SYNC_META: 'recensement_sync_meta_v1',
   CACHED_COURSES: 'recensement_cached_courses_v1',
-    FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1'
+  FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1',
+  FACULTY_DATES: 'recensement_faculty_dates_v1',
+  SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1'
 };
 
 const DEFAULT_SETTINGS = {
@@ -1651,6 +1773,65 @@ const Storage = {
       localStorage.removeItem(STORAGE_KEYS.FACULTY_OVERRIDES);
     } catch (e) {
       console.error('Failed to clear faculty overrides:', e);
+    }
+  },
+
+  getFacultyDates() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.FACULTY_DATES);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  },
+
+  saveFacultyDates(dates) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.FACULTY_DATES, JSON.stringify(dates));
+    } catch (e) {
+      console.error('Failed to save faculty dates:', e);
+    }
+  },
+
+  saveFacultyDate(courseId, dateStr) {
+    const dates = this.getFacultyDates();
+    if (!dateStr) {
+      delete dates[courseId];
+    } else {
+      dates[courseId] = dateStr;
+    }
+    this.saveFacultyDates(dates);
+  },
+
+  getSeenCatchupIds() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.SEEN_CATCHUP_IDS);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  saveSeenCatchupIds(ids) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.SEEN_CATCHUP_IDS, JSON.stringify(ids));
+    } catch (e) {
+      console.error('Failed to save seen catchup ids:', e);
+    }
+  },
+
+  markCatchupIdsSeen(courseIds) {
+    const seen = this.getSeenCatchupIds() || [];
+    const seenSet = new Set(seen);
+    let changed = false;
+    courseIds.forEach(id => {
+      if (!seenSet.has(id)) {
+        seenSet.add(id);
+        changed = true;
+      }
+    });
+    if (changed) {
+      this.saveSeenCatchupIds(Array.from(seenSet));
     }
   },
 
@@ -2197,85 +2378,18 @@ const Sync = {
 
 
 
-let activePopoverCourseId = null;
-
-function applyFacultyOverrides() {
-  const overrides = Storage.getFacultyOverrides();
-  let changed = false;
-  state.courses.forEach(c => {
-    if (overrides[c.id]) {
-      // If the override is identical to the actual sheet facultyStatus, remove the redundant override
-      if (overrides[c.id] === c.facultyStatus) {
-        delete overrides[c.id];
-        changed = true;
-      } else {
-        c.facultyStatus = overrides[c.id];
-        c.isCustomStatus = true;
-      }
-    }
-  });
-  if (changed) {
-    try {
-      localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
-    } catch (e) {}
-  }
-}
-
-function openFacultyStatusPopover(courseId, triggerBtn) {
-  activePopoverCourseId = courseId;
-  const popover = document.getElementById('facultyStatusPopover');
-  if (!popover) return;
-
-  const rect = triggerBtn.getBoundingClientRect();
-  const popoverWidth = 200;
-  
-  // Position popover
-  let left = rect.left;
-  if (left + popoverWidth > window.innerWidth - 10) {
-    left = window.innerWidth - popoverWidth - 10;
-  }
-  if (left < 10) left = 10;
-
-  let top = rect.bottom + 6;
-  if (top + 180 > window.innerHeight) {
-    top = rect.top - 180;
-  }
-
-  popover.style.top = `${Math.max(10, top)}px`;
-  popover.style.left = `${Math.max(10, left)}px`;
-  popover.classList.remove('hidden');
-}
-
-function closeFacultyStatusPopover() {
-  const popover = document.getElementById('facultyStatusPopover');
-  if (popover) popover.classList.add('hidden');
-  activePopoverCourseId = null;
-}
-
-function setCourseFacultyStatus(courseId, newStatus) {
-  const course = state.courses.find(c => c.id === courseId);
-  if (!course) return;
-
-  course.facultyStatus = newStatus;
-  course.isCustomStatus = true;
-
-  Storage.saveFacultyOverride(courseId, newStatus);
-  Storage.setCachedCourses(state.courses);
-
-  showToast(`Statut faculté mis à jour : ${newStatus}`, 'success');
-  renderDashboard();
-}
-
 /**
  * Main Application Controller for Recensement S9 Dashboard
  * 100% Clean Light Medical Theme, Hierarchical Syllabus View by default.
  */
 
 
+let activePopoverCourseId = null;
+
 // State Management
 const state = {
   courses: [],
-  sheetDate: INITIAL_DATA.sheetUpdateDate,
+  sheetDate: INITIAL_DATA.sheetUpdateDate || '21/09/2026',
   personalProgress: {},
   settings: {},
   filters: {
@@ -2292,8 +2406,122 @@ const state = {
     'ORL - OPHTALMO': false,
     'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ': false,
     'URGENCES - RÉANIMATION': false
-  }
+  },
+  // Tracks new course IDs displayed during the current session of viewing "À rattraper"
+  pendingSeenCatchupIds: new Set()
 };
+
+/**
+ * Check if a course is newly added and not yet acknowledged by visiting "À rattraper"
+ */
+function isNewUnseenCourse(course) {
+  if (!course || course.facultyStatus !== 'Effectué') return false;
+  const seenIds = Storage.getSeenCatchupIds();
+  if (seenIds && Array.isArray(seenIds)) {
+    return !seenIds.includes(course.id);
+  }
+
+  // Baseline 15 courses are considered already seen for fresh users
+  const baselineIds = new Set([
+    'c_002', 'c_017', 'c_036', 'c_037', 'c_045', 'c_046',
+    'c_052', 'c_055', 'c_088', 'c_089', 'c_090', 'c_091',
+    'c_092', 'c_094', 'c_095'
+  ]);
+  return !baselineIds.has(course.id);
+}
+
+/**
+ * Commit pending seen IDs so the dot disappears on the next visit
+ */
+function commitPendingCatchupSeen() {
+  if (state.pendingSeenCatchupIds && state.pendingSeenCatchupIds.size > 0) {
+    Storage.markCatchupIdsSeen(Array.from(state.pendingSeenCatchupIds));
+    state.pendingSeenCatchupIds.clear();
+  }
+}
+
+/**
+ * Reconcile faculty status dates from storage and baseline initial data
+ */
+function reconcileFacultyDates() {
+  const facultyDates = Storage.getFacultyDates();
+  const initMap = new Map();
+  INITIAL_DATA.courses.forEach(c => initMap.set(c.id, c));
+
+  let datesChanged = false;
+  state.courses.forEach(c => {
+    if (c.facultyStatus === 'Effectué') {
+      if (!c.facultyStatusDate) {
+        const initCourse = initMap.get(c.id);
+        c.facultyStatusDate = facultyDates[c.id] || initCourse?.facultyStatusDate || (c.id === 'c_038' || c.id === 'c_065' ? '21/09/2026' : '17/09/2026');
+      }
+      if (facultyDates[c.id] !== c.facultyStatusDate) {
+        facultyDates[c.id] = c.facultyStatusDate;
+        datesChanged = true;
+      }
+    } else {
+      c.facultyStatusDate = null;
+      if (facultyDates[c.id]) {
+        delete facultyDates[c.id];
+        datesChanged = true;
+      }
+    }
+  });
+
+  if (datesChanged) {
+    Storage.saveFacultyDates(facultyDates);
+    Storage.setCachedCourses(state.courses);
+  }
+}
+
+function applyFacultyOverrides() {
+  const overrides = Storage.getFacultyOverrides();
+  const facultyDates = Storage.getFacultyDates();
+  let changed = false;
+  state.courses.forEach(c => {
+    if (overrides[c.id]) {
+      if (overrides[c.id] === c.facultyStatus) {
+        delete overrides[c.id];
+        changed = true;
+      } else {
+        c.facultyStatus = overrides[c.id];
+        c.isCustomStatus = true;
+        if (c.facultyStatus === 'Effectué' && !c.facultyStatusDate) {
+          c.facultyStatusDate = facultyDates[c.id] || new Date().toLocaleDateString('fr-FR');
+          facultyDates[c.id] = c.facultyStatusDate;
+        }
+      }
+    }
+  });
+  if (changed) {
+    try {
+      localStorage.setItem('recensement_faculty_overrides_v1', JSON.stringify(overrides));
+    } catch (e) {}
+  }
+}
+
+function setCourseFacultyStatus(courseId, newStatus) {
+  const course = state.courses.find(c => c.id === courseId);
+  if (!course) return;
+
+  course.facultyStatus = newStatus;
+  course.isCustomStatus = true;
+
+  if (newStatus === 'Effectué') {
+    const today = new Date().toLocaleDateString('fr-FR');
+    course.facultyStatusDate = today;
+    Storage.saveFacultyDate(courseId, today);
+  } else {
+    course.facultyStatusDate = null;
+    Storage.saveFacultyDate(courseId, null);
+  }
+
+  Storage.saveFacultyOverride(courseId, newStatus);
+  Storage.setCachedCourses(state.courses);
+
+  showToast(`Statut faculté mis à jour : ${newStatus}`, 'success');
+  renderDashboard();
+}
 
 // Module Metadata & Styling
 const MODULES_META = {
@@ -2452,6 +2680,9 @@ async function init() {
     state.courses = INITIAL_DATA.courses;
     Storage.setCachedCourses(state.courses);
   }
+
+  // Reconcile faculty dates
+  reconcileFacultyDates();
 
   // Apply user faculty status overrides
   applyFacultyOverrides();
@@ -2631,7 +2862,7 @@ function renderModuleQuickCards() {
  * Filter courses based on active controls
  */
 function getFilteredCourses() {
-  return state.courses.filter(course => {
+  const list = state.courses.filter(course => {
     const progress = state.personalProgress[course.id] || {};
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
@@ -2661,6 +2892,30 @@ function getFilteredCourses() {
 
     return true;
   });
+
+  // When filtering "À rattraper": sort chronologically by date added (newest first)
+  if (state.filters.tab === 'catchup') {
+    return list.sort((a, b) => {
+      // Unseen new courses first
+      const aUnseen = isNewUnseenCourse(a) ? 1 : 0;
+      const bUnseen = isNewUnseenCourse(b) ? 1 : 0;
+      if (bUnseen !== aUnseen) return bUnseen - aUnseen;
+
+      // Parse date DD/MM/YYYY
+      const parseD = (dStr) => {
+        if (!dStr) return 0;
+        const parts = dStr.split('/');
+        return parts.length === 3 ? new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0])).getTime() : 0;
+      };
+      const timeA = parseD(a.facultyStatusDate);
+      const timeB = parseD(b.facultyStatusDate);
+      if (timeB !== timeA) return timeB - timeA;
+
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
+  return list;
 }
 
 /**
@@ -2675,6 +2930,24 @@ function renderCoursesView() {
     elements.coursesTableView.classList.add('hidden');
     elements.coursesCardsView.classList.add('hidden');
     elements.emptyState.classList.remove('hidden');
+
+    const emptyTitle = elements.emptyState.querySelector('.text-slate-800');
+    const emptyDesc = elements.emptyState.querySelector('p');
+    if (emptyTitle && emptyDesc) {
+      if (state.filters.tab === 'catchup') {
+        emptyTitle.textContent = 'Aucun cours à rattraper 🎉';
+        emptyDesc.textContent = 'Félicitations ! Vous êtes à jour avec tous les enseignements dispensés par la faculté.';
+      } else if (state.filters.tab === 'done') {
+        emptyTitle.textContent = 'Aucun cours marqué comme étudié';
+        emptyDesc.textContent = 'Cochez le cercle à gauche d\'un cours dans la liste pour l\'ajouter à vos cours étudiés.';
+      } else if (state.filters.tab === 'todo') {
+        emptyTitle.textContent = 'Félicitations ! Tout est étudié 🏆';
+        emptyDesc.textContent = 'Vous avez étudié tous les cours du programme S9 !';
+      } else {
+        emptyTitle.textContent = 'Aucun cours trouvé';
+        emptyDesc.textContent = 'Aucun cours ne correspond à vos filtres actuels. Modifiez vos critères de recherche ou réinitialisez.';
+      }
+    }
     return;
   }
 
@@ -2814,6 +3087,9 @@ function renderSyllabusView(filteredCourses) {
         rowsList.className = 'space-y-2';
 
         group.courses.forEach(course => {
+          if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
           const row = createCourseRowElement(course);
           rowsList.appendChild(row);
         });
@@ -2864,7 +3140,7 @@ function createCourseRowElement(course) {
         <div class="flex items-center gap-2 flex-wrap mb-1">
           <!-- Main Clean Title -->
           <span class="font-bold text-sm text-slate-900 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500' : ''}" data-id="${course.id}">
-            ${course.title}
+            ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
 
           <!-- Title Notes Badges (Nouveau cours, cours changé, etc.) -->
@@ -2970,6 +3246,11 @@ function renderTableView(courses) {
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+    const isUnseen = isNewUnseenCourse(course);
+
+    if (state.filters.tab === 'catchup' && isUnseen) {
+      state.pendingSeenCatchupIds.add(course.id);
+    }
 
     const tr = document.createElement('tr');
     tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : ''} ${isCatchup ? 'bg-amber-50/20' : ''}`;
@@ -2982,7 +3263,9 @@ function renderTableView(courses) {
       </td>
       <td class="py-3 px-4">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="font-bold text-slate-900 ${isDone ? 'line-through text-slate-500' : ''}">${course.title}</span>
+          <span class="font-bold text-slate-900 ${isDone ? 'line-through text-slate-500' : ''}">
+            ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
+          </span>
           ${(course.badges || []).map(b => `
             <span class="title-badge ${b.bg} ${b.textCol} ${b.border}">
               ${b.text}
@@ -3043,6 +3326,11 @@ function renderCardsView(courses) {
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
     const meta = MODULES_META[course.module] || { short: 'Module', bgLight: 'bg-indigo-50', color: 'text-indigo-600' };
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+    const isUnseen = isNewUnseenCourse(course);
+
+    if (state.filters.tab === 'catchup' && isUnseen) {
+      state.pendingSeenCatchupIds.add(course.id);
+    }
 
     const card = document.createElement('div');
     card.className = `light-card rounded-2xl p-4 flex flex-col justify-between border transition ${
@@ -3076,7 +3364,7 @@ function renderCardsView(courses) {
         </div>
 
         <h4 class="font-bold text-sm text-slate-900 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500' : ''}">
-          ${course.title}
+          ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
 
         <!-- Badges -->
@@ -3273,6 +3561,40 @@ async function triggerSync(isScheduled = false) {
 
       const diffs = Sync.findDifferences(oldCourses, remoteCourses);
 
+      // Reconcile faculty dates for remote courses
+      const facultyDates = Storage.getFacultyDates();
+      const todayStr = state.sheetDate || new Date().toLocaleDateString('fr-FR');
+      let datesChanged = false;
+      const seenIds = Storage.getSeenCatchupIds() || [];
+      let seenSet = new Set(seenIds);
+      let seenChanged = false;
+
+      remoteCourses.forEach(rc => {
+        if (rc.facultyStatus === 'Effectué') {
+          if (!facultyDates[rc.id]) {
+            facultyDates[rc.id] = todayStr;
+            rc.facultyStatusDate = todayStr;
+            datesChanged = true;
+            // A newly completed course from the sheet is unseen
+            if (seenSet.has(rc.id)) {
+              seenSet.delete(rc.id);
+              seenChanged = true;
+            }
+          } else {
+            rc.facultyStatusDate = facultyDates[rc.id];
+          }
+        } else {
+          rc.facultyStatusDate = null;
+        }
+      });
+
+      if (datesChanged) {
+        Storage.saveFacultyDates(facultyDates);
+      }
+      if (seenChanged) {
+        Storage.saveSeenCatchupIds(Array.from(seenSet));
+      }
+
       state.courses = remoteCourses;
       state.sheetDate = result.data.sheetUpdateDate;
 
@@ -3337,6 +3659,14 @@ function setupEventListeners() {
   // Quick Tabs
   document.querySelectorAll('.quick-tab-btn').forEach(btn => {
     btn.onclick = () => {
+      const currentTab = state.filters.tab;
+      const tab = btn.getAttribute('data-tab');
+
+      // If user was looking at catchup and is navigating away, mark them as seen
+      if (currentTab === 'catchup' && tab !== 'catchup') {
+        commitPendingCatchupSeen();
+      }
+
       document.querySelectorAll('.quick-tab-btn').forEach(b => {
         b.classList.remove('bg-white', 'text-indigo-700', 'shadow-sm');
         b.classList.add('text-slate-600');
@@ -3344,7 +3674,6 @@ function setupEventListeners() {
       btn.classList.add('bg-white', 'text-indigo-700', 'shadow-sm');
       btn.classList.remove('text-slate-600');
 
-      const tab = btn.getAttribute('data-tab');
       state.filters.tab = tab;
 
       // Smart view switching:
@@ -3527,6 +3856,10 @@ function setupEventListeners() {
   elements.btnCloseBanner.onclick = () => {
     elements.bannerAlert.classList.add('hidden');
   };
+
+  window.addEventListener('beforeunload', () => {
+    commitPendingCatchupSeen();
+  });
 }
 
 function selectModuleFilter(modKey) {
@@ -3536,6 +3869,9 @@ function selectModuleFilter(modKey) {
 }
 
 function resetAllFilters() {
+  if (state.filters.tab === 'catchup') {
+    commitPendingCatchupSeen();
+  }
   state.filters.tab = 'all';
   setViewMode('syllabus');
   state.filters.module = '';
