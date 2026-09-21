@@ -3253,7 +3253,7 @@ function renderTableView(courses) {
     }
 
     const tr = document.createElement('tr');
-    tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : ''} ${isCatchup ? 'bg-amber-50/20' : ''}`;
+    tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : 'bg-white'}`;
 
     tr.innerHTML = `
       <td class="py-3 px-4 text-center">
@@ -3337,8 +3337,8 @@ function renderCardsView(courses) {
       isDone 
         ? 'bg-indigo-50/30 border-indigo-200' 
         : isCatchup 
-          ? 'border-amber-300 bg-amber-50/20 shadow-sm' 
-          : 'border-slate-200'
+          ? 'border-amber-300 bg-white shadow-sm' 
+          : 'border-slate-200 bg-white'
     }`;
 
     card.innerHTML = `
