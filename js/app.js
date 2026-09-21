@@ -36,16 +36,23 @@ const state = {
 };
 
 /**
- * Check if a course is newly added and not yet acknowledged by visiting "À rattraper"
+ * Check if a course is newly added and should show the green dot:
+ * Strictly ONLY when viewing the "À rattraper" tab and the course is not yet studied.
  */
 function isNewUnseenCourse(course) {
   if (!course || course.facultyStatus !== 'Effectué') return false;
+  if (state.filters.tab !== 'catchup') return false;
+  
+  // If the user already marked it as done, do not show catchup new indicator
+  const progress = state.personalProgress[course.id] || {};
+  if (progress.done) return false;
+
   const seenIds = Storage.getSeenCatchupIds();
   if (seenIds && Array.isArray(seenIds)) {
     return !seenIds.includes(course.id);
   }
 
-  // Baseline 15 courses are considered already seen for fresh users
+  // Baseline 15 courses are considered already seen
   const baselineIds = new Set([
     'c_002', 'c_017', 'c_036', 'c_037', 'c_045', 'c_046',
     'c_052', 'c_055', 'c_088', 'c_089', 'c_090', 'c_091',
