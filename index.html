@@ -125,23 +125,23 @@
 
         <div class="space-y-2">
           <div class="flex justify-between text-xs text-slate-600 font-medium">
-            <span>Moi: <strong id="statMyCount" class="text-slate-900">0</strong> / 119 étudiés</span>
-            <span>Faculté: <strong id="statFacCount" class="text-slate-900">0</strong> / 119 dispensés</span>
+            <span>Moi: <strong id="statMyCount" class="text-slate-900">0</strong>/119 (<span id="statMyPercentSub" class="text-indigo-600 font-bold">0%</span>)</span>
+            <span>Faculté: <strong id="statFacCount" class="text-slate-900">0</strong>/119 (<span id="statFacPercent" class="text-emerald-600 font-bold">0%</span>)</span>
           </div>
 
           <!-- Dual Progress Bars -->
           <div class="space-y-1">
-            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-              <div id="statMyBar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+              <div id="statMyBar" class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
             <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
               <div id="statFacBar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
           </div>
           
-          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
             <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-600"></span> Mon avancement</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Dispensé faculté</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Dispensé faculté (<span id="statFacLegendPercent" class="font-semibold text-emerald-600">0%</span>)</span>
           </div>
         </div>
       </div>
@@ -553,6 +553,6 @@
   </div>
 
   <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
-  <script src="js/bundle.js?v=2.7"></script>
+  <script src="js/bundle.js?v=2.8"></script>
 </body>
 </html>

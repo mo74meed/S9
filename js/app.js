@@ -220,9 +220,12 @@ const elements = {
 
   // Stats
   statMyPercent: document.getElementById('statMyPercent'),
+  statMyPercentSub: document.getElementById('statMyPercentSub'),
   statMyCount: document.getElementById('statMyCount'),
   statMyBar: document.getElementById('statMyBar'),
   statFacCount: document.getElementById('statFacCount'),
+  statFacPercent: document.getElementById('statFacPercent'),
+  statFacLegendPercent: document.getElementById('statFacLegendPercent'),
   statFacBar: document.getElementById('statFacBar'),
   statCatchupCount: document.getElementById('statCatchupCount'),
   cardPriorityCatchup: document.getElementById('cardPriorityCatchup'),
@@ -396,10 +399,13 @@ function updateStats() {
 
   // DOM elements
   elements.statMyPercent.textContent = `${myPercent}%`;
+  if (elements.statMyPercentSub) elements.statMyPercentSub.textContent = `${myPercent}%`;
   elements.statMyCount.textContent = myDone;
   elements.statMyBar.style.width = `${myPercent}%`;
 
   elements.statFacCount.textContent = facDone;
+  if (elements.statFacPercent) elements.statFacPercent.textContent = `${facPercent}%`;
+  if (elements.statFacLegendPercent) elements.statFacLegendPercent.textContent = `${facPercent}%`;
   elements.statFacBar.style.width = `${facPercent}%`;
 
   elements.statCatchupCount.textContent = catchupCount;
@@ -435,6 +441,7 @@ function renderModuleQuickCards() {
     const modMyDone = modCourses.filter(c => state.personalProgress[c.id]?.done).length;
     const modFacDone = modCourses.filter(c => c.facultyStatus === 'Effectué').length;
     const percent = modTotal > 0 ? Math.round((modMyDone / modTotal) * 100) : 0;
+    const facPercent = modTotal > 0 ? Math.round((modFacDone / modTotal) * 100) : 0;
 
     const isSelected = state.filters.module === modKey;
 
@@ -477,7 +484,7 @@ function renderModuleQuickCards() {
       <div class="space-y-1 mt-2">
         <div class="flex justify-between text-[10px] text-slate-500 font-medium">
           <span>Moi: <strong>${modMyDone}</strong>/${modTotal}</span>
-          <span>Fac: <strong>${modFacDone}</strong>/${modTotal}</span>
+          <span>Fac: <strong>${modFacDone}</strong>/${modTotal} (<span class="text-emerald-600 font-bold">${facPercent}%</span>)</span>
         </div>
         <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
           <div class="${meta.accentBar} h-1.5 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
@@ -655,7 +662,7 @@ function renderSyllabusView(filteredCourses) {
             </span>
           </div>
           <p class="text-xs text-slate-500 mt-0.5">
-            ${modMyDone} sur ${allModCourses.length} cours étudiés (${modPercent}%) • Faculté : ${modFacDone} dispensés
+            ${modMyDone} sur ${allModCourses.length} cours étudiés (${modPercent}%) • Faculté : ${modFacDone} dispensés (${allModCourses.length > 0 ? Math.round((modFacDone / allModCourses.length) * 100) : 0}%)
           </p>
         </div>
       </div>
