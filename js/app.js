@@ -295,7 +295,47 @@ const elements = {
   // Toast
   toast: document.getElementById('toast'),
   toastMessage: document.getElementById('toastMessage'),
-  toastIcon: document.getElementById('toastIcon')
+  toastIcon: document.getElementById('toastIcon'),
+
+  // Exam Countdown & Calendar Elements
+  btnOpenExamsModal: document.getElementById('btnOpenExamsModal'),
+  headerExamCountdownPill: document.getElementById('headerExamCountdownPill'),
+  btnMobileExams: document.getElementById('btnMobileExams'),
+  examQuickTicker: document.getElementById('examQuickTicker'),
+  tickerNextExamName: document.getElementById('tickerNextExamName'),
+  tickerCountdownBadge: document.getElementById('tickerCountdownBadge'),
+  examsModal: document.getElementById('examsModal'),
+  btnCloseExamsModal: document.getElementById('btnCloseExamsModal'),
+  btnFooterCloseExams: document.getElementById('btnFooterCloseExams'),
+  btnExamYear2027: document.getElementById('btnExamYear2027'),
+  btnExamYear2026: document.getElementById('btnExamYear2026'),
+  modalExamYearBadge: document.getElementById('modalExamYearBadge'),
+  tabBtnCountdown: document.getElementById('tabBtnCountdown'),
+  tabBtnCalendar: document.getElementById('tabBtnCalendar'),
+  tabBtnPdfTable: document.getElementById('tabBtnPdfTable'),
+  examSectionCountdown: document.getElementById('examSectionCountdown'),
+  examSectionCalendar: document.getElementById('examSectionCalendar'),
+  examSectionPdf: document.getElementById('examSectionPdf'),
+  heroExamStatusLabel: document.getElementById('heroExamStatusLabel'),
+  heroExamBadgeDate: document.getElementById('heroExamBadgeDate'),
+  heroExamTitle: document.getElementById('heroExamTitle'),
+  heroExamSubtitle: document.getElementById('heroExamSubtitle'),
+  cdDays: document.getElementById('cdDays'),
+  cdHours: document.getElementById('cdHours'),
+  cdMinutes: document.getElementById('cdMinutes'),
+  cdSeconds: document.getElementById('cdSeconds'),
+  heroSemesterProgressPercent: document.getElementById('heroSemesterProgressPercent'),
+  heroSemesterProgressBar: document.getElementById('heroSemesterProgressBar'),
+  examCardsGrid: document.getElementById('examCardsGrid'),
+  calendarMonthTitle: document.getElementById('calendarMonthTitle'),
+  calendarDaysGrid: document.getElementById('calendarDaysGrid'),
+  calendarDayDetail: document.getElementById('calendarDayDetail'),
+  detailDayBadge: document.getElementById('detailDayBadge'),
+  detailDayNumber: document.getElementById('detailDayNumber'),
+  detailDayTitle: document.getElementById('detailDayTitle'),
+  detailDayDesc: document.getElementById('detailDayDesc'),
+  detailDayActionContainer: document.getElementById('detailDayActionContainer'),
+  officialScheduleTbody: document.getElementById('officialScheduleTbody')
 };
 
 /**
@@ -337,6 +377,9 @@ async function init() {
   // Setup UI Listeners
   setupEventListeners();
 
+  // Setup Exam Countdown & Calendar Feature
+  initExamsFeature();
+
   // Setup View mode buttons
   setViewMode(state.activeView);
 
@@ -364,6 +407,7 @@ function renderDashboard() {
   updateStats();
   renderModuleQuickCards();
   renderCoursesView();
+  updateExamsCountdown();
   refreshIcons();
 }
 
@@ -1624,9 +1668,836 @@ function refreshIcons() {
   }
 }
 
+// ==========================================
+// EXAM COUNTDOWN & REAL CALENDAR (Janvier 2027 / 2026)
+// ==========================================
+
+const S9_EXAMS_CONFIG = {
+  2027: {
+    year: 2027,
+    month: 0, // Janvier
+    label: 'Session Normale Janvier 2027',
+    periodStart: 8,
+    periodEnd: 22,
+    exams: [
+      {
+        id: 'exam_gyneco',
+        moduleKey: 'GYNECO-OBSTETRIQUE',
+        title: 'Gynécologie - Obstétrique',
+        shortTitle: 'Gynéco-Obs',
+        dayNumber: 8,
+        dayName: 'Vendredi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '1ère épreuve de la Session Normale',
+        revisionNote: 'Ouverture de la session',
+        color: 'pink',
+        accentBorder: 'border-pink-300',
+        accentBg: 'bg-pink-50/70',
+        badgeBg: 'bg-pink-100 text-pink-800 border-pink-200',
+        icon: 'baby'
+      },
+      {
+        id: 'exam_orl_ophtalmo',
+        moduleKey: 'ORL - OPHTALMO',
+        title: 'Ophtalmologie - ORL',
+        shortTitle: 'ORL - Ophtalmo',
+        dayNumber: 13,
+        dayName: 'Mercredi',
+        startTime: '14:30',
+        endTime: '16:00',
+        duration: '1h30',
+        periodNote: '2ème épreuve • Horaire 14h30 - 16h00',
+        revisionNote: '+ 4 jours de révision après Gynéco-Obs',
+        color: 'amber',
+        accentBorder: 'border-amber-300',
+        accentBg: 'bg-amber-50/70',
+        badgeBg: 'bg-amber-100 text-amber-800 border-amber-200',
+        icon: 'eye'
+      },
+      {
+        id: 'exam_urgences_rea',
+        moduleKey: 'URGENCES - RÉANIMATION',
+        title: 'Urgences et Réanimation',
+        shortTitle: 'Urgences - Réa',
+        dayNumber: 19,
+        dayName: 'Mardi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '3ème épreuve de la Session',
+        revisionNote: '+ 5 jours de révision après ORL-Ophtalmo',
+        color: 'blue',
+        accentBorder: 'border-blue-300',
+        accentBg: 'bg-blue-50/70',
+        badgeBg: 'bg-blue-100 text-blue-800 border-blue-200',
+        icon: 'siren'
+      },
+      {
+        id: 'exam_sante_publique',
+        moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
+        title: 'Médecine Sociale et Santé Publique - Économie de Santé',
+        shortTitle: 'Santé Publique & Éco',
+        dayNumber: 22,
+        dayName: 'Vendredi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '4ème épreuve • Clôture de la Session Normale',
+        revisionNote: '+ 2 jours de révision après Urgences-Réa',
+        color: 'emerald',
+        accentBorder: 'border-emerald-300',
+        accentBg: 'bg-emerald-50/70',
+        badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        icon: 'activity'
+      }
+    ],
+    holidays: {
+      11: { title: "Manifeste de l'Indépendance", short: "Férié (Indép.)" },
+      14: { title: "Nouvel An Amazigh (Yennayer)", short: "Férié (Amazigh)" }
+    }
+  },
+  2026: {
+    year: 2026,
+    month: 0,
+    label: 'Session Normale Janvier 2026 (Réf. PDF)',
+    periodStart: 8,
+    periodEnd: 22,
+    exams: [
+      {
+        id: 'exam_gyneco',
+        moduleKey: 'GYNECO-OBSTETRIQUE',
+        title: 'Gynécologie - Obstétrique',
+        shortTitle: 'Gynéco-Obs',
+        dayNumber: 8,
+        dayName: 'Jeudi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '1ère épreuve de la Session Normale',
+        revisionNote: 'Ouverture de la session',
+        color: 'pink',
+        accentBorder: 'border-pink-300',
+        accentBg: 'bg-pink-50/70',
+        badgeBg: 'bg-pink-100 text-pink-800 border-pink-200',
+        icon: 'baby'
+      },
+      {
+        id: 'exam_orl_ophtalmo',
+        moduleKey: 'ORL - OPHTALMO',
+        title: 'Ophtalmologie - ORL',
+        shortTitle: 'ORL - Ophtalmo',
+        dayNumber: 13,
+        dayName: 'Mardi',
+        startTime: '14:30',
+        endTime: '16:00',
+        duration: '1h30',
+        periodNote: '2ème épreuve • Horaire 14h30 - 16h00',
+        revisionNote: '+ 4 jours de révision après Gynéco-Obs',
+        color: 'amber',
+        accentBorder: 'border-amber-300',
+        accentBg: 'bg-amber-50/70',
+        badgeBg: 'bg-amber-100 text-amber-800 border-amber-200',
+        icon: 'eye'
+      },
+      {
+        id: 'exam_urgences_rea',
+        moduleKey: 'URGENCES - RÉANIMATION',
+        title: 'Urgences et Réanimation',
+        shortTitle: 'Urgences - Réa',
+        dayNumber: 19,
+        dayName: 'Lundi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '3ème épreuve de la Session',
+        revisionNote: '+ 5 jours de révision après ORL-Ophtalmo',
+        color: 'blue',
+        accentBorder: 'border-blue-300',
+        accentBg: 'bg-blue-50/70',
+        badgeBg: 'bg-blue-100 text-blue-800 border-blue-200',
+        icon: 'siren'
+      },
+      {
+        id: 'exam_sante_publique',
+        moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
+        title: 'Médecine Sociale et Santé Publique - Économie de Santé',
+        shortTitle: 'Santé Publique & Éco',
+        dayNumber: 22,
+        dayName: 'Jeudi',
+        startTime: '12:00',
+        endTime: '13:30',
+        duration: '1h30',
+        periodNote: '4ème épreuve • Clôture de la Session Normale',
+        revisionNote: '+ 2 jours de révision après Urgences-Réa',
+        color: 'emerald',
+        accentBorder: 'border-emerald-300',
+        accentBg: 'bg-emerald-50/70',
+        badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        icon: 'activity'
+      }
+    ],
+    holidays: {
+      11: { title: "Manifeste de l'Indépendance", short: "Férié (Indép.)" },
+      14: { title: "Nouvel An Amazigh (Yennayer)", short: "Férié (Amazigh)" }
+    }
+  }
+};
+
+let selectedExamYear = 2027;
+let activeExamTab = 'countdown';
+let selectedCalendarDay = 8;
+let examCountdownTimer = null;
+
+function initExamsFeature() {
+  if (elements.btnOpenExamsModal) {
+    elements.btnOpenExamsModal.addEventListener('click', () => openExamsModal('countdown'));
+  }
+  if (elements.btnMobileExams) {
+    elements.btnMobileExams.addEventListener('click', () => openExamsModal('countdown'));
+  }
+  if (elements.examQuickTicker) {
+    elements.examQuickTicker.addEventListener('click', () => openExamsModal('countdown'));
+  }
+  if (elements.btnCloseExamsModal) {
+    elements.btnCloseExamsModal.addEventListener('click', closeExamsModal);
+  }
+  if (elements.btnFooterCloseExams) {
+    elements.btnFooterCloseExams.addEventListener('click', closeExamsModal);
+  }
+
+  // Year Toggles
+  if (elements.btnExamYear2027) {
+    elements.btnExamYear2027.addEventListener('click', () => setExamYear(2027));
+  }
+  if (elements.btnExamYear2026) {
+    elements.btnExamYear2026.addEventListener('click', () => setExamYear(2026));
+  }
+
+  // Tab Buttons
+  if (elements.tabBtnCountdown) {
+    elements.tabBtnCountdown.addEventListener('click', () => switchExamTab('countdown'));
+  }
+  if (elements.tabBtnCalendar) {
+    elements.tabBtnCalendar.addEventListener('click', () => switchExamTab('calendar'));
+  }
+  if (elements.tabBtnPdfTable) {
+    elements.tabBtnPdfTable.addEventListener('click', () => switchExamTab('pdf'));
+  }
+
+  // Backdrop click & Escape key
+  if (elements.examsModal) {
+    elements.examsModal.addEventListener('click', (e) => {
+      if (e.target === elements.examsModal) closeExamsModal();
+    });
+  }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && elements.examsModal && !elements.examsModal.classList.contains('hidden')) {
+      closeExamsModal();
+    }
+  });
+
+  // Render initial schedule table & start timer
+  renderOfficialScheduleTable();
+  updateExamsCountdown();
+  if (examCountdownTimer) clearInterval(examCountdownTimer);
+  examCountdownTimer = setInterval(updateExamsCountdown, 1000);
+}
+
+function openExamsModal(tab = 'countdown') {
+  if (!elements.examsModal) return;
+  elements.examsModal.classList.remove('hidden');
+  switchExamTab(tab);
+  renderExamCards();
+  renderCalendarGrid();
+  selectCalendarDay(selectedCalendarDay);
+  updateExamsCountdown();
+  refreshIcons();
+}
+
+function closeExamsModal() {
+  if (elements.examsModal) {
+    elements.examsModal.classList.add('hidden');
+  }
+}
+
+function switchExamTab(tab) {
+  activeExamTab = tab;
+  const tabButtons = [
+    { btn: elements.tabBtnCountdown, name: 'countdown' },
+    { btn: elements.tabBtnCalendar, name: 'calendar' },
+    { btn: elements.tabBtnPdfTable, name: 'pdf' }
+  ];
+
+  tabButtons.forEach(({ btn, name }) => {
+    if (!btn) return;
+    if (name === tab) {
+      btn.className = 'exam-tab-btn px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5 active font-bold';
+    } else {
+      btn.className = 'exam-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5 font-medium';
+    }
+  });
+
+  if (elements.examSectionCountdown) {
+    elements.examSectionCountdown.classList.toggle('hidden', tab !== 'countdown');
+  }
+  if (elements.examSectionCalendar) {
+    elements.examSectionCalendar.classList.toggle('hidden', tab !== 'calendar');
+    if (tab === 'calendar') {
+      renderCalendarGrid();
+      selectCalendarDay(selectedCalendarDay);
+    }
+  }
+  if (elements.examSectionPdf) {
+    elements.examSectionPdf.classList.toggle('hidden', tab !== 'pdf');
+  }
+  refreshIcons();
+}
+
+function setExamYear(year) {
+  selectedExamYear = year;
+  if (elements.btnExamYear2027) {
+    elements.btnExamYear2027.className = year === 2027
+      ? 'px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition'
+      : 'px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition';
+  }
+  if (elements.btnExamYear2026) {
+    elements.btnExamYear2026.className = year === 2026
+      ? 'px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition'
+      : 'px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition';
+  }
+  if (elements.modalExamYearBadge) {
+    elements.modalExamYearBadge.textContent = 'Janvier ' + year;
+  }
+  if (elements.calendarMonthTitle) {
+    elements.calendarMonthTitle.textContent = 'Janvier ' + year;
+  }
+
+  renderExamCards();
+  renderCalendarGrid();
+  selectCalendarDay(selectedCalendarDay);
+  renderOfficialScheduleTable();
+  updateExamsCountdown();
+  refreshIcons();
+}
+
+function updateExamsCountdown() {
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+  const now = new Date();
+
+  // Find next upcoming exam
+  let nextExam = null;
+  let nextExamStart = null;
+  let nextExamEnd = null;
+  let isCurrentlyOngoing = false;
+
+  for (const ex of config.exams) {
+    const [sH, sM] = ex.startTime.split(':').map(Number);
+    const [eH, eM] = ex.endTime.split(':').map(Number);
+    const exStart = new Date(config.year, config.month, ex.dayNumber, sH, sM, 0);
+    const exEnd = new Date(config.year, config.month, ex.dayNumber, eH, eM, 0);
+
+    if (now < exEnd) {
+      nextExam = ex;
+      nextExamStart = exStart;
+      nextExamEnd = exEnd;
+      if (now >= exStart) {
+        isCurrentlyOngoing = true;
+      }
+      break;
+    }
+  }
+
+  // If all exams of this year are in the past
+  if (!nextExam) {
+    if (elements.headerExamCountdownPill) elements.headerExamCountdownPill.textContent = 'Terminé';
+    if (elements.tickerCountdownBadge) elements.tickerCountdownBadge.textContent = 'Session passée';
+    if (elements.tickerNextExamName) elements.tickerNextExamName.textContent = 'Toutes les épreuves sont terminées';
+    if (elements.heroExamStatusLabel) elements.heroExamStatusLabel.textContent = 'Session terminée';
+    if (elements.cdDays) elements.cdDays.textContent = '0';
+    if (elements.cdHours) elements.cdHours.textContent = '00';
+    if (elements.cdMinutes) elements.cdMinutes.textContent = '00';
+    if (elements.cdSeconds) elements.cdSeconds.textContent = '00';
+    return;
+  }
+
+  if (isCurrentlyOngoing) {
+    if (elements.headerExamCountdownPill) elements.headerExamCountdownPill.textContent = 'EN COURS';
+    if (elements.tickerCountdownBadge) elements.tickerCountdownBadge.textContent = 'En cours';
+    if (elements.tickerNextExamName) elements.tickerNextExamName.textContent = nextExam.shortTitle;
+    if (elements.heroExamStatusLabel) elements.heroExamStatusLabel.textContent = 'Épreuve en cours !';
+    if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title;
+    if (elements.cdDays) elements.cdDays.textContent = '0';
+    if (elements.cdHours) elements.cdHours.textContent = '00';
+    if (elements.cdMinutes) elements.cdMinutes.textContent = '00';
+    if (elements.cdSeconds) elements.cdSeconds.textContent = '00';
+    return;
+  }
+
+  const diffMs = nextExamStart - now;
+  if (diffMs <= 0) return;
+
+  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+  // Update navbar pill & cockpit ticker
+  if (elements.headerExamCountdownPill) {
+    elements.headerExamCountdownPill.textContent = 'J-' + days;
+  }
+  if (elements.tickerCountdownBadge) {
+    elements.tickerCountdownBadge.textContent = 'Dans ' + days + 'j ' + hours + 'h';
+  }
+  if (elements.tickerNextExamName) {
+    elements.tickerNextExamName.textContent = nextExam.shortTitle;
+  }
+
+  // Update Hero box inside modal
+  if (elements.heroExamStatusLabel) elements.heroExamStatusLabel.textContent = 'Prochaine Épreuve S9';
+  if (elements.heroExamBadgeDate) {
+    elements.heroExamBadgeDate.innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i><span>${nextExam.dayName} ${String(nextExam.dayNumber).padStart(2, '0')} Janvier ${config.year} • ${nextExam.startTime.replace(':', 'h')} - ${nextExam.endTime.replace(':', 'h')}</span>`;
+  }
+  if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title;
+  if (elements.heroExamSubtitle) {
+    const meta = MODULES_META[nextExam.moduleKey];
+    elements.heroExamSubtitle.textContent = nextExam.periodNote + ' • ' + (meta?.coeffShort || '');
+  }
+
+  if (elements.cdDays) elements.cdDays.textContent = String(days);
+  if (elements.cdHours) elements.cdHours.textContent = String(hours).padStart(2, '0');
+  if (elements.cdMinutes) elements.cdMinutes.textContent = String(minutes).padStart(2, '0');
+  if (elements.cdSeconds) elements.cdSeconds.textContent = String(seconds).padStart(2, '0');
+
+  // Semester progress calculation (15 Septembre -> Exam Date)
+  const semesterStart = new Date(config.year - 1, 8, 15, 8, 0, 0);
+  const totalDuration = nextExamStart - semesterStart;
+  const elapsed = Math.max(0, now - semesterStart);
+  const pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDuration) * 100)));
+  if (elements.heroSemesterProgressPercent) elements.heroSemesterProgressPercent.textContent = pct + '%';
+  if (elements.heroSemesterProgressBar) elements.heroSemesterProgressBar.style.width = pct + '%';
+
+  // Update countdown pills in exam cards if rendered
+  config.exams.forEach(ex => {
+    const pill = document.getElementById('examCardCountdown_' + ex.id);
+    if (!pill) return;
+    const [sH, sM] = ex.startTime.split(':').map(Number);
+    const exTime = new Date(config.year, config.month, ex.dayNumber, sH, sM, 0);
+    const diff = exTime - now;
+    if (diff > 0) {
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      pill.textContent = 'Dans ' + d + 'j ' + h + 'h';
+    } else {
+      pill.textContent = 'Terminé';
+      pill.className = 'text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500';
+    }
+  });
+}
+
+function renderExamCards() {
+  if (!elements.examCardsGrid) return;
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+  const now = new Date();
+
+  elements.examCardsGrid.innerHTML = config.exams.map((exam, index) => {
+    const meta = MODULES_META[exam.moduleKey] || {};
+    const moduleCourses = state.courses.filter(c => c.module === exam.moduleKey);
+    const totalCourses = moduleCourses.length;
+    const doneCourses = moduleCourses.filter(c => isCourseDone(c.id)).length;
+    const percent = totalCourses > 0 ? Math.round((doneCourses / totalCourses) * 100) : 0;
+
+    const [sH, sM] = exam.startTime.split(':').map(Number);
+    const exDate = new Date(config.year, config.month, exam.dayNumber, sH, sM, 0);
+    const diff = exDate - now;
+    let badgeText = 'Terminé';
+    let badgeClass = 'bg-slate-100 text-slate-500';
+
+    if (diff > 0) {
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      badgeText = 'Dans ' + d + 'j ' + h + 'h';
+      badgeClass = exam.badgeBg;
+    }
+
+    return `
+      <div class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border ${exam.accentBorder} bg-white shadow-xs hover:shadow-md transition">
+        <div class="space-y-3">
+          <!-- Card Header: Number & Tag -->
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+              Épreuve 0${index + 1}
+            </span>
+            <span id="examCardCountdown_${exam.id}" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full border ${badgeClass}">
+              ${badgeText}
+            </span>
+          </div>
+
+          <!-- Module Title & Time -->
+          <div>
+            <h5 class="text-base font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+              <i data-lucide="${exam.icon}" class="w-4 h-4 ${meta.color || 'text-indigo-600'}"></i>
+              <span>${exam.title}</span>
+            </h5>
+            <div class="flex items-center gap-2 text-xs text-slate-600 mt-1 font-medium">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span>${exam.dayName} ${String(exam.dayNumber).padStart(2, '0')} Janv • ${exam.startTime.replace(':', 'h')} à ${exam.endTime.replace(':', 'h')} (${exam.duration})</span>
+            </div>
+            <div class="text-[11px] text-slate-500 mt-0.5">
+              <span>${exam.revisionNote}</span>
+            </div>
+          </div>
+
+          <!-- Student Preparation Progress -->
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-600 font-medium">Préparation personnelle :</span>
+              <span class="font-extrabold text-slate-900">${doneCourses}/${totalCourses} cours (<span class="text-indigo-600">${percent}%</span>)</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+              <div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400 font-medium">${meta.coeffShort || ''}</span>
+          <button type="button" class="btn-filter-exam-module inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-700 text-xs font-bold transition shadow-2xs" data-module="${exam.moduleKey}">
+            <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+            <span>Filtrer ce module</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Attach module filter listeners
+  elements.examCardsGrid.querySelectorAll('.btn-filter-exam-module').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mod = btn.getAttribute('data-module');
+      if (mod) filterByExamModule(mod);
+    });
+  });
+
+  refreshIcons();
+}
+
+function renderCalendarGrid() {
+  if (!elements.calendarDaysGrid) return;
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+  const year = config.year;
+  const month = config.month; // 0 for Janvier
+
+  // Monday-based offset (0 = Monday, 6 = Sunday)
+  const firstDay = new Date(year, month, 1);
+  const firstDayOffset = (firstDay.getDay() + 6) % 7;
+
+  // Days in month
+  const daysInJan = 31;
+  const daysInDec = 31; // Prev month
+
+  const examMap = {};
+  config.exams.forEach(ex => { examMap[ex.dayNumber] = ex; });
+
+  const holidayMap = config.holidays || {};
+
+  let cellsHtml = '';
+
+  // 1. Previous month padding cells
+  for (let i = 0; i < firstDayOffset; i++) {
+    const prevDay = daysInDec - firstDayOffset + 1 + i;
+    cellsHtml += `
+      <div class="calendar-day-cell is-outside">
+        <span class="text-xs font-bold">${prevDay}</span>
+      </div>
+    `;
+  }
+
+  // 2. January days (1 to 31)
+  for (let day = 1; day <= daysInJan; day++) {
+    const isExam = !!examMap[day];
+    const isHoliday = !!holidayMap[day];
+    const isPeriod = day >= config.periodStart && day <= config.periodEnd;
+    const isSelected = day === selectedCalendarDay;
+
+    let cellClasses = 'calendar-day-cell';
+    let cellContent = '';
+
+    if (isSelected) cellClasses += ' is-selected ring-2 ring-indigo-600';
+
+    if (isExam) {
+      const ex = examMap[day];
+      cellClasses += ` is-exam ${ex.accentBorder} ${ex.accentBg}`;
+      cellContent = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black text-slate-900">${String(day).padStart(2, '0')}</span>
+          <span class="w-2 h-2 rounded-full bg-indigo-600 pulse-indicator"></span>
+        </div>
+        <div class="mt-1 space-y-0.5">
+          <div class="text-[10px] font-black leading-tight text-slate-900 line-clamp-1">${ex.shortTitle}</div>
+          <div class="text-[9px] font-bold text-slate-600">${ex.startTime.replace(':', 'h')}-${ex.endTime.replace(':', 'h')}</div>
+        </div>
+      `;
+    } else if (isHoliday) {
+      const hol = holidayMap[day];
+      cellClasses += ' is-holiday';
+      cellContent = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-rose-700">${String(day).padStart(2, '0')}</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+        </div>
+        <div class="mt-1">
+          <span class="text-[9px] font-bold text-rose-700 line-clamp-1">${hol.short}</span>
+        </div>
+      `;
+    } else if (isPeriod) {
+      cellClasses += ' is-period is-revision';
+      cellContent = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-700">${String(day).padStart(2, '0')}</span>
+        </div>
+        <div class="mt-1">
+          <span class="text-[9px] font-medium text-amber-700">Révision</span>
+        </div>
+      `;
+    } else {
+      cellContent = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-600">${String(day).padStart(2, '0')}</span>
+        </div>
+        <div class="text-[9px] text-slate-300"></div>
+      `;
+    }
+
+    cellsHtml += `
+      <div class="${cellClasses}" data-day="${day}" style="cursor: pointer;">
+        ${cellContent}
+      </div>
+    `;
+  }
+
+  // 3. Next month padding cells to complete row
+  const totalRendered = firstDayOffset + daysInJan;
+  const remainingCells = (7 - (totalRendered % 7)) % 7;
+  for (let j = 1; j <= remainingCells; j++) {
+    cellsHtml += `
+      <div class="calendar-day-cell is-outside">
+        <span class="text-xs font-bold">${j}</span>
+      </div>
+    `;
+  }
+
+  elements.calendarDaysGrid.innerHTML = cellsHtml;
+
+  // Add click handlers on day cells
+  elements.calendarDaysGrid.querySelectorAll('[data-day]').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const day = parseInt(cell.getAttribute('data-day'), 10);
+      if (day) selectCalendarDay(day);
+    });
+  });
+
+  refreshIcons();
+}
+
+function selectCalendarDay(dayNumber) {
+  selectedCalendarDay = dayNumber;
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+  const year = config.year;
+
+  // Highlight in grid
+  if (elements.calendarDaysGrid) {
+    elements.calendarDaysGrid.querySelectorAll('[data-day]').forEach(cell => {
+      const d = parseInt(cell.getAttribute('data-day'), 10);
+      cell.classList.toggle('is-selected', d === dayNumber);
+      cell.classList.toggle('ring-2', d === dayNumber);
+      cell.classList.toggle('ring-indigo-600', d === dayNumber);
+    });
+  }
+
+  if (!elements.calendarDayDetail) return;
+
+  const ex = config.exams.find(e => e.dayNumber === dayNumber);
+  const hol = config.holidays ? config.holidays[dayNumber] : null;
+  const isPeriod = dayNumber >= config.periodStart && dayNumber <= config.periodEnd;
+
+  // Compute day of week name
+  const dayDate = new Date(year, config.month, dayNumber);
+  const dayNameLong = dayDate.toLocaleDateString('fr-FR', { weekday: 'long' });
+  const dayNameCap = dayNameLong.charAt(0).toUpperCase() + dayNameLong.slice(1);
+
+  if (elements.detailDayNumber) {
+    elements.detailDayNumber.textContent = String(dayNumber).padStart(2, '0');
+  }
+
+  if (elements.detailDayBadge) {
+    elements.detailDayBadge.className = ex
+      ? 'w-11 h-11 rounded-xl bg-indigo-600 text-white flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0 shadow-xs'
+      : hol
+      ? 'w-11 h-11 rounded-xl bg-rose-100 text-rose-700 flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0'
+      : isPeriod
+      ? 'w-11 h-11 rounded-xl bg-amber-100 text-amber-800 flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0'
+      : 'w-11 h-11 rounded-xl bg-slate-100 text-slate-700 flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0';
+  }
+
+  if (ex) {
+    const meta = MODULES_META[ex.moduleKey] || {};
+    const moduleCourses = state.courses.filter(c => c.module === ex.moduleKey);
+    const totalCourses = moduleCourses.length;
+    const doneCourses = moduleCourses.filter(c => isCourseDone(c.id)).length;
+
+    elements.detailDayTitle.textContent = `${dayNameCap} ${String(dayNumber).padStart(2, '0')} Janvier ${year} • ${ex.startTime.replace(':', 'h')} à ${ex.endTime.replace(':', 'h')}`;
+    elements.detailDayDesc.innerHTML = `<strong class="text-indigo-700 font-extrabold">${ex.title}</strong> • Durée : ${ex.duration} • <span class="text-slate-700 font-medium">Préparation : ${doneCourses}/${totalCourses} cours validés</span> • ${ex.revisionNote}`;
+    elements.detailDayActionContainer.innerHTML = `
+      <button type="button" class="btn-filter-detail-action px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5" data-module="${ex.moduleKey}">
+        <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+        <span>Filtrer les cours de ${meta.short || ex.shortTitle}</span>
+      </button>
+    `;
+  } else if (hol) {
+    elements.detailDayTitle.textContent = `${dayNameCap} ${String(dayNumber).padStart(2, '0')} Janvier ${year} • Jour Férié Officiel`;
+    elements.detailDayDesc.textContent = `${hol.title} — Aucun examen de la faculté n'est programmé ce jour.`;
+    elements.detailDayActionContainer.innerHTML = `
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold">
+        <i data-lucide="award" class="w-3.5 h-3.5 text-rose-500"></i>
+        <span>Fête / Repos officiel</span>
+      </span>
+    `;
+  } else if (isPeriod) {
+    // Next upcoming exam after this day
+    const nextUpcoming = config.exams.find(e => e.dayNumber > dayNumber);
+    const targetModule = nextUpcoming ? nextUpcoming.moduleKey : 'GYNECO-OBSTETRIQUE';
+    const targetTitle = nextUpcoming ? nextUpcoming.shortTitle : 'la prochaine épreuve';
+
+    elements.detailDayTitle.textContent = `${dayNameCap} ${String(dayNumber).padStart(2, '0')} Janvier ${year} • Période d'Examens`;
+    elements.detailDayDesc.textContent = `Journée de consolidation et révision. Objectif recommandé : focaliser sur ${targetTitle}.`;
+    elements.detailDayActionContainer.innerHTML = `
+      <button type="button" class="btn-filter-detail-action px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5" data-module="${targetModule}">
+        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+        <span>Réviser ${targetTitle}</span>
+      </button>
+    `;
+  } else {
+    elements.detailDayTitle.textContent = `${dayNameCap} ${String(dayNumber).padStart(2, '0')} Janvier ${year}`;
+    elements.detailDayDesc.textContent = dayNumber < config.periodStart
+      ? "Période de préparation intensive avant le début de la session d'examens S9."
+      : "Période post-examens de la session normale.";
+    elements.detailDayActionContainer.innerHTML = `
+      <span class="text-xs text-slate-400 font-medium">Préparation S9</span>
+    `;
+  }
+
+  // Hook up detail action button
+  const actionBtn = elements.detailDayActionContainer.querySelector('.btn-filter-detail-action');
+  if (actionBtn) {
+    actionBtn.addEventListener('click', () => {
+      const mod = actionBtn.getAttribute('data-module');
+      if (mod) filterByExamModule(mod);
+    });
+  }
+
+  refreshIcons();
+}
+
+function renderOfficialScheduleTable() {
+  if (!elements.officialScheduleTbody) return;
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+
+  const rows = [
+    {
+      date: `${config.exams[0].dayName} 08 Janvier`,
+      time: '12h00 à 13h30',
+      module: config.exams[0].title,
+      moduleKey: config.exams[0].moduleKey,
+      duration: '1h30',
+      note: '1ère épreuve de la Session Normale',
+      isExam: true
+    },
+    {
+      date: `${config.exams[1].dayName} 13 Janvier`,
+      time: '14h30 à 16h00',
+      module: config.exams[1].title,
+      moduleKey: config.exams[1].moduleKey,
+      duration: '1h30',
+      note: '4 jours d\'intervalle de révision (09 au 12 Janvier)',
+      isExam: true
+    },
+    {
+      date: 'Mercredi 14 Janvier',
+      time: 'Toute la journée',
+      module: 'Jour férié (Nouvel An Amazigh)',
+      moduleKey: '',
+      duration: '—',
+      note: 'Férié officiel mentionné au calendrier de la faculté',
+      isExam: false
+    },
+    {
+      date: `${config.exams[2].dayName} 19 Janvier`,
+      time: '12h00 à 13h30',
+      module: config.exams[2].title,
+      moduleKey: config.exams[2].moduleKey,
+      duration: '1h30',
+      note: '5 jours d\'intervalle de révision (14 au 18 Janvier)',
+      isExam: true
+    },
+    {
+      date: `${config.exams[3].dayName} 22 Janvier`,
+      time: '12h00 à 13h30',
+      module: config.exams[3].title,
+      moduleKey: config.exams[3].moduleKey,
+      duration: '1h30',
+      note: '2 jours d\'intervalle de révision • Dernière épreuve S9',
+      isExam: true
+    }
+  ];
+
+  elements.officialScheduleTbody.innerHTML = rows.map(r => `
+    <tr class="hover:bg-slate-50 transition ${r.isExam ? '' : 'bg-rose-50/30'}">
+      <td class="px-4 py-3 font-bold text-slate-900 whitespace-nowrap">${r.date}</td>
+      <td class="px-4 py-3 font-mono font-medium text-slate-700 whitespace-nowrap">${r.time}</td>
+      <td class="px-4 py-3 font-extrabold ${r.isExam ? 'text-indigo-700' : 'text-rose-700'}">${r.module}</td>
+      <td class="px-4 py-3 text-slate-600">${r.duration}</td>
+      <td class="px-4 py-3 text-slate-500">${r.note}</td>
+      <td class="px-4 py-3 text-right">
+        ${r.isExam ? `
+          <button type="button" class="btn-filter-table-row px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition" data-module="${r.moduleKey}">
+            Filtrer
+          </button>
+        ` : `
+          <span class="text-xs text-rose-500 font-semibold">Repos</span>
+        `}
+      </td>
+    </tr>
+  `).join('');
+
+  elements.officialScheduleTbody.querySelectorAll('.btn-filter-table-row').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mod = btn.getAttribute('data-module');
+      if (mod) filterByExamModule(mod);
+    });
+  });
+}
+
+function filterByExamModule(moduleKey) {
+  closeExamsModal();
+  if (elements.filterModule) {
+    elements.filterModule.value = moduleKey;
+    state.filters.module = moduleKey;
+    renderDashboard();
+    if (elements.coursesSyllabusView) {
+      elements.coursesSyllabusView.scrollIntoView({ behavior: 'smooth' });
+    }
+    const meta = MODULES_META[moduleKey];
+    showToast(`Filtre activé sur : ${meta?.short || moduleKey}`, 'info');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', init);
 
 // Expose for browser console and programmatic access
 if (typeof window !== 'undefined') {
-  window.RecensementApp = { state, Storage, Sync, setViewMode };
+  window.RecensementApp = { state, Storage, Sync, setViewMode, openExamsModal, setExamYear };
 }
+

@@ -82,6 +82,15 @@
           <span id="nextSyncLabel">Synchro à 20:00</span>
         </div>
 
+        <!-- Exam Countdown & Calendar Trigger -->
+        <button id="btnOpenExamsModal" title="Calendrier et Compte à Rebours des Examens S9" class="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-200 font-semibold text-xs md:text-sm transition shadow-xs">
+          <i data-lucide="calendar" class="w-4 h-4 text-amber-600"></i>
+          <span class="font-bold flex items-center gap-1">
+            <span class="hidden sm:inline">Examens S9:</span>
+            <span id="headerExamCountdownPill" class="text-amber-900 font-black">J-...</span>
+          </span>
+        </button>
+
         <!-- Manual Sync Button -->
         <button id="btnSyncManual" title="Synchroniser avec la feuille Google Sheets" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs md:text-sm font-semibold shadow-sm transition">
           <i data-lucide="refresh-cw" id="syncIcon" class="w-4 h-4"></i>
@@ -108,6 +117,29 @@
       <button id="btnCloseBanner" class="p-1 text-slate-400 hover:text-slate-700 rounded">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
+    </div>
+
+    <!-- EXAM COUNTDOWN TICKER BANNER -->
+    <div id="examQuickTicker" class="light-card rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-amber-500/10 via-indigo-500/5 to-white border-amber-200/80 shadow-xs cursor-pointer hover:border-amber-300 transition">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-300 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="timer" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold text-slate-800">Session Normale S9 :</span>
+            <span id="tickerNextExamName" class="text-xs font-extrabold text-indigo-700">Gynécologie - Obstétrique</span>
+            <span id="tickerCountdownBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white">J-...</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-0.5">Période officielle du 08 au 22 Janvier • Cliquez pour voir le calendrier interactif et le compte à rebours détaillé</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 self-end sm:self-center">
+        <button type="button" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <span>Voir l'échéancier</span>
+        </button>
+      </div>
     </div>
 
     <!-- COCKPIT STATS -->
@@ -382,6 +414,10 @@
         <i data-lucide="compass" class="w-5 h-5"></i>
         <span class="text-[10px] font-bold">Modules</span>
       </button>
+      <button id="btnMobileExams" class="flex flex-col items-center gap-1 text-amber-600 hover:text-amber-700">
+        <i data-lucide="calendar" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Examens</span>
+      </button>
       <button id="btnMobileSync" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900">
         <i data-lucide="refresh-cw" class="w-5 h-5"></i>
         <span class="text-[10px] font-bold">Synchro</span>
@@ -523,6 +559,256 @@
     </div>
   </div>
 
+  <!-- EXAMS COUNTDOWN & CALENDAR MODAL (5th Year Medicine Janvier 2027) -->
+  <div id="examsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/50 backdrop-blur-sm animate-fade-in">
+    <div class="light-card rounded-2xl w-full max-w-4xl bg-white shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-slate-50 via-white to-amber-50/20">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-200 text-amber-700 flex items-center justify-center shadow-xs flex-shrink-0">
+            <i data-lucide="calendar" class="w-5 h-5 text-amber-600"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-extrabold text-slate-900 tracking-tight">
+                Examens Session Normale S9
+              </h3>
+              <span id="modalExamYearBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                Janvier 2027
+              </span>
+            </div>
+            <p class="text-xs text-slate-500">Organisation officielle 5ème Année Médecine • Du 08 au 22 Janvier</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs & Actions -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Year Toggle -->
+          <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-bold">
+            <button id="btnExamYear2027" type="button" class="px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition">2027 (Session)</button>
+            <button id="btnExamYear2026" type="button" class="px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition">2026 (PDF)</button>
+          </div>
+
+          <!-- View Tabs -->
+          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
+            <button id="tabBtnCountdown" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5 active" data-tab="countdown">
+              <i data-lucide="timer" class="w-3.5 h-3.5"></i>
+              <span>Compte à Rebours</span>
+            </button>
+            <button id="tabBtnCalendar" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-tab="calendar">
+              <i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>
+              <span>Calendrier</span>
+            </button>
+            <button id="tabBtnPdfTable" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-tab="pdf">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Planning PDF</span>
+            </button>
+          </div>
+
+          <button id="btnCloseExamsModal" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Fermer (Échap)">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+        
+        <!-- ================= SECTION 1: COUNTDOWN ================= -->
+        <div id="examSectionCountdown" class="space-y-5">
+          <!-- Hero Card: Next Exam Live Countdown -->
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white p-5 md:p-6 shadow-xl border border-indigo-900/40">
+            <div class="absolute -right-16 -top-16 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-indigo-200">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator"></span>
+                  <span id="heroExamStatusLabel">Prochaine Épreuve S9</span>
+                </div>
+                <div id="heroExamBadgeDate" class="text-xs text-indigo-200 font-medium flex items-center gap-1.5">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                  <span>08 Janvier 2027 • 12h00 à 13h30</span>
+                </div>
+              </div>
+
+              <div>
+                <h4 id="heroExamTitle" class="text-xl md:text-2xl font-black text-white tracking-tight">
+                  Gynécologie - Obstétrique
+                </h4>
+                <p id="heroExamSubtitle" class="text-xs md:text-sm text-indigo-200/90 mt-1">
+                  1ère épreuve de la Session Normale • Horaire : 12h00 - 13h30 (1h30)
+                </p>
+              </div>
+
+              <!-- 4 Digit Countdown Display -->
+              <div class="grid grid-cols-4 gap-2 sm:gap-3 max-w-lg pt-1">
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 sm:p-3 text-center border border-white/10">
+                  <div id="cdDays" class="text-2xl sm:text-4xl font-black text-white tracking-tight">--</div>
+                  <div class="text-[10px] sm:text-xs uppercase font-bold text-indigo-300 mt-0.5">Jours</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 sm:p-3 text-center border border-white/10">
+                  <div id="cdHours" class="text-2xl sm:text-4xl font-black text-white tracking-tight">--</div>
+                  <div class="text-[10px] sm:text-xs uppercase font-bold text-indigo-300 mt-0.5">Heures</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 sm:p-3 text-center border border-white/10">
+                  <div id="cdMinutes" class="text-2xl sm:text-4xl font-black text-white tracking-tight">--</div>
+                  <div class="text-[10px] sm:text-xs uppercase font-bold text-indigo-300 mt-0.5">Minutes</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 sm:p-3 text-center border border-white/10">
+                  <div id="cdSeconds" class="text-2xl sm:text-4xl font-black text-white tracking-tight">--</div>
+                  <div class="text-[10px] sm:text-xs uppercase font-bold text-indigo-300 mt-0.5">Secondes</div>
+                </div>
+              </div>
+
+              <!-- Preparation advancement bar -->
+              <div class="pt-2">
+                <div class="flex items-center justify-between text-[11px] text-indigo-300 font-medium mb-1">
+                  <span>Temps écoulé dans le semestre</span>
+                  <span id="heroSemesterProgressPercent">0%</span>
+                </div>
+                <div class="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                  <div id="heroSemesterProgressBar" class="bg-gradient-to-r from-indigo-400 to-emerald-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 S9 Exam Cards Grid -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                Les 4 Épreuves de 5ème Année (S9)
+              </h4>
+              <span class="text-xs text-slate-400">Cliquez pour filtrer vos révisions</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5" id="examCardsGrid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 2: REAL CALENDAR ================= -->
+        <div id="examSectionCalendar" class="hidden space-y-4">
+          <!-- Calendar Toolbar & Month Navigation -->
+          <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-indigo-600 text-white">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 id="calendarMonthTitle" class="text-base font-extrabold text-slate-900">Janvier 2027</h4>
+                <p class="text-xs text-slate-500">Période des examens du 08 au 22 Janvier • Cliquez sur un jour pour le détail</p>
+              </div>
+            </div>
+
+            <!-- Legend Pills -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                Épreuve S9
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                Révision
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                Jour Férié
+              </span>
+            </div>
+          </div>
+
+          <!-- Calendar Grid Table -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-3 md:p-4">
+            <!-- Day of Week Headers -->
+            <div class="grid grid-cols-7 gap-1 md:gap-2 mb-2 text-center">
+              <div class="text-[11px] font-bold text-slate-400 py-1">LUN</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1">MAR</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1">MER</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1">JEU</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1">VEN</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1 text-slate-400">SAM</div>
+              <div class="text-[11px] font-bold text-slate-400 py-1 text-slate-400">DIM</div>
+            </div>
+
+            <!-- Month Days Container -->
+            <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1.5 md:gap-2">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Day Inspector Detail Card -->
+          <div id="calendarDayDetail" class="rounded-xl p-4 bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div id="detailDayBadge" class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-700 flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0">
+                <span class="text-[10px] font-medium uppercase">Janv</span>
+                <span class="text-base font-extrabold" id="detailDayNumber">08</span>
+              </div>
+              <div>
+                <h5 id="detailDayTitle" class="text-sm font-bold text-slate-900">Vendredi 08 Janvier 2027 • 12h00 à 13h30</h5>
+                <p id="detailDayDesc" class="text-xs text-slate-600 mt-0.5">Épreuve 1 : Gynécologie - Obstétrique • Durée : 1h30</p>
+              </div>
+            </div>
+            <div id="detailDayActionContainer">
+              <!-- Action button injected via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 3: OFFICIAL SCHEDULE ================= -->
+        <div id="examSectionPdf" class="hidden space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+            <div>
+              <h4 class="text-sm font-bold text-slate-900">Extrait Officiel — 5ème Année Médecine</h4>
+              <p class="text-xs text-slate-500">Service des affaires estudiantines • Faculté de Médecine et de Pharmacie de Fès</p>
+            </div>
+            <a href="calendrier des examens SN Médecine Janvier 2026.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Consulter le PDF officiel</span>
+            </a>
+          </div>
+
+          <!-- Schedule Table -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3">Date & Jour</th>
+                  <th class="px-4 py-3">Horaire</th>
+                  <th class="px-4 py-3">Module S9</th>
+                  <th class="px-4 py-3">Durée</th>
+                  <th class="px-4 py-3">Intervalle / Révision</th>
+                  <th class="px-4 py-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 bg-white" id="officialScheduleTbody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+        <div class="flex items-center gap-1.5">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span>Les horaires et modules sont extraits du document officiel d'organisation de la faculté.</span>
+        </div>
+        <button id="btnFooterCloseExams" type="button" class="px-4 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold transition">
+          Fermer
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- FACULTY STATUS QUICK POPOVER -->
   <div id="facultyStatusPopover" class="hidden fixed z-50 bg-white rounded-xl shadow-2xl border border-slate-200 p-1.5 min-w-[200px] text-xs font-semibold transition-all">
     <div class="px-2.5 py-1 text-[10px] uppercase font-bold text-slate-400 tracking-wider">Changer Statut Faculté</div>
@@ -553,6 +839,6 @@
   </div>
 
   <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
-  <script src="js/bundle.js?v=2.8"></script>
+  <script src="js/bundle.js?v=2.9"></script>
 </body>
 </html>

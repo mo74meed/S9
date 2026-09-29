@@ -215,3 +215,69 @@ body {
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
   }
 }
+
+/* Calendar Grid & Exam Window */
+.calendar-day-cell {
+  position: relative;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+@media (min-width: 640px) {
+  .calendar-day-cell {
+    min-height: 70px;
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+.calendar-day-cell:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.calendar-day-cell.is-outside {
+  background-color: #f8fafc;
+  border-color: #f1f5f9;
+  color: #cbd5e1;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.calendar-day-cell.is-period {
+  background-color: rgba(238, 242, 255, 0.45);
+  border-color: #e0e7ff;
+}
+
+.calendar-day-cell.is-revision {
+  background-color: #fffdf5;
+  border-color: #fef08a;
+}
+
+.calendar-day-cell.is-holiday {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.calendar-day-cell.is-exam {
+  cursor: pointer;
+  border-width: 2px;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-day-cell.is-exam:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.12);
+}
+
+.calendar-day-cell.is-selected {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
