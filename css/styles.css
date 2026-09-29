@@ -227,6 +227,29 @@ body {
   .mobile-nav-btn:active {
     transform: scale(0.92);
   }
+
+  .mobile-nav-btn.active {
+    color: #4f46e5;
+    background-color: rgba(79, 70, 229, 0.08);
+  }
+
+  .mobile-nav-btn.active[data-nav="exams"] {
+    color: #d97706;
+    background-color: rgba(217, 119, 6, 0.1);
+  }
+}
+
+/* Agenda Timeline Stream */
+.timeline-stem {
+  position: absolute;
+  top: 1.5rem;
+  bottom: -1.5rem;
+  left: 1.125rem;
+  width: 2px;
+  background: #e2e8f0;
+}
+.timeline-item:last-child .timeline-stem {
+  display: none;
 }
 
 /* Touch and Mobile Ergonomics */

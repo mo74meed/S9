@@ -2401,6 +2401,7 @@ const state = {
   },
   activeNoteCourseId: null,
   activeView: 'syllabus', // 'syllabus' (default) | 'table' | 'cards'
+  activeMainPage: 'courses', // 'courses' | 'exams'
   moduleCollapsed: {
     'GYNECO-OBSTETRIQUE': false,
     'ORL - OPHTALMO': false,
@@ -2664,9 +2665,21 @@ const elements = {
   importFileInput: document.getElementById('importFileInput'),
   btnResetAllData: document.getElementById('btnResetAllData'),
 
-  // Mobile
+  // Views & Page Switching
+  coursesMainView: document.getElementById('coursesMainView'),
+  examsPageView: document.getElementById('examsPageView'),
+  btnBackToCourses: document.getElementById('btnBackToCourses'),
+  btnBrandHome: document.getElementById('btnBrandHome'),
+
+  // Mobile Bottom Dock
+  btnMobileSyllabus: document.getElementById('btnMobileSyllabus'),
+  btnMobileCatchup: document.getElementById('btnMobileCatchup'),
+  btnMobileModules: document.getElementById('btnMobileModules'),
+  btnMobileExams: document.getElementById('btnMobileExams'),
   btnMobileSync: document.getElementById('btnMobileSync'),
+  mobileSyncIcon: document.getElementById('mobileSyncIcon'),
   btnMobileSettings: document.getElementById('btnMobileSettings'),
+  mobileCatchupBadge: document.getElementById('mobileCatchupBadge'),
 
   // Toast
   toast: document.getElementById('toast'),
@@ -2676,16 +2689,12 @@ const elements = {
   // Exam Countdown & Calendar Elements
   btnOpenExamsModal: document.getElementById('btnOpenExamsModal'),
   headerExamCountdownPill: document.getElementById('headerExamCountdownPill'),
-  btnMobileExams: document.getElementById('btnMobileExams'),
   examQuickTicker: document.getElementById('examQuickTicker'),
   tickerNextExamName: document.getElementById('tickerNextExamName'),
   tickerCountdownBadge: document.getElementById('tickerCountdownBadge'),
-  examsModal: document.getElementById('examsModal'),
-  btnCloseExamsModal: document.getElementById('btnCloseExamsModal'),
-  btnFooterCloseExams: document.getElementById('btnFooterCloseExams'),
   btnExamYear2027: document.getElementById('btnExamYear2027'),
   btnExamYear2026: document.getElementById('btnExamYear2026'),
-  modalExamYearBadge: document.getElementById('modalExamYearBadge'),
+  pageExamYearBadge: document.getElementById('pageExamYearBadge'),
   tabBtnCountdown: document.getElementById('tabBtnCountdown'),
   tabBtnCalendar: document.getElementById('tabBtnCalendar'),
   tabBtnPdfTable: document.getElementById('tabBtnPdfTable'),
@@ -2711,6 +2720,7 @@ const elements = {
   detailDayTitle: document.getElementById('detailDayTitle'),
   detailDayDesc: document.getElementById('detailDayDesc'),
   detailDayActionContainer: document.getElementById('detailDayActionContainer'),
+  examTimelineAgendaStream: document.getElementById('examTimelineAgendaStream'),
   officialScheduleTbody: document.getElementById('officialScheduleTbody')
 };
 
@@ -3739,37 +3749,79 @@ function setupEventListeners() {
       // When at any other filter (À Rattraper, Étudiés, À faire), default to the Rows/Table view (the second one).
       if (tab === 'all') {
         setViewMode('syllabus');
+        setActiveMobileNav('syllabus');
       } else {
         setViewMode('table');
+        if (tab === 'catchup') {
+          setActiveMobileNav('catchup');
+        }
       }
     };
   });
 
-  // Mobile Bottom Navigation
-  document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-    btn.onclick = () => {
-      const view = btn.getAttribute('data-view');
-      if (!view) return; // Ignore buttons with dedicated click handlers like btnMobileExams, btnMobileSync, btnMobileSettings
+  // Mobile Bottom Navigation: Explicit direct handlers for every button
+  if (elements.btnMobileSyllabus) {
+    elements.btnMobileSyllabus.onclick = () => {
+      switchMainPage('courses');
+      const allBtn = document.querySelector('.quick-tab-btn[data-tab="all"]');
+      if (allBtn) allBtn.click();
+      setActiveMobileNav('syllabus');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  }
 
-      document.querySelectorAll('.mobile-nav-btn').forEach(b => {
-        b.classList.remove('text-indigo-600', 'active');
-        b.classList.add('text-slate-500');
+  if (elements.btnMobileCatchup) {
+    elements.btnMobileCatchup.onclick = () => {
+      switchMainPage('courses');
+      const catchupBtn = document.querySelector('.quick-tab-btn[data-tab="catchup"]');
+      if (catchupBtn) catchupBtn.click();
+      setActiveMobileNav('catchup');
+      const section = document.getElementById('coursesSection');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+
+  if (elements.btnMobileModules) {
+    elements.btnMobileModules.onclick = () => {
+      switchMainPage('courses');
+      setActiveMobileNav('modules');
+      const modContainer = document.getElementById('moduleCardsContainer');
+      if (modContainer) modContainer.scrollIntoView({ behavior: 'smooth' });
+    };
+  }
+
+  if (elements.btnMobileExams) {
+    elements.btnMobileExams.onclick = () => {
+      switchMainPage('exams');
+      setActiveMobileNav('exams');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  }
+
+  if (elements.btnMobileSync) {
+    elements.btnMobileSync.onclick = () => {
+      if (elements.mobileSyncIcon) {
+        elements.mobileSyncIcon.classList.add('animate-spin');
+      }
+      triggerSync(false).finally(() => {
+        if (elements.mobileSyncIcon) {
+          elements.mobileSyncIcon.classList.remove('animate-spin');
+        }
       });
-      btn.classList.add('text-indigo-600', 'active');
-      btn.classList.remove('text-slate-500');
-
-      if (view === 'catchup') {
-        const tabBtn = document.querySelector('.quick-tab-btn[data-tab="catchup"]');
-        if (tabBtn) tabBtn.click();
-      } else if (view === 'modules') {
-        const modContainer = document.getElementById('moduleCardsContainer');
-        if (modContainer) modContainer.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        const allBtn = document.querySelector('.quick-tab-btn[data-tab="all"]');
-        if (allBtn) allBtn.click();
-      }
     };
-  });
+  }
+
+  if (elements.btnMobileSettings) {
+    elements.btnMobileSettings.onclick = openSettingsModal;
+  }
+
+  // Header Brand & Return shortcuts
+  if (elements.btnBackToCourses) {
+    elements.btnBackToCourses.onclick = () => switchMainPage('courses');
+  }
+  if (elements.btnBrandHome) {
+    elements.btnBrandHome.onclick = () => switchMainPage('courses');
+  }
 
   // Priority Catchup card shortcut
   elements.cardPriorityCatchup.onclick = () => {
@@ -4233,19 +4285,13 @@ let examCountdownTimer = null;
 
 function initExamsFeature() {
   if (elements.btnOpenExamsModal) {
-    elements.btnOpenExamsModal.addEventListener('click', () => openExamsModal('countdown'));
-  }
-  if (elements.btnMobileExams) {
-    elements.btnMobileExams.addEventListener('click', () => openExamsModal('countdown'));
+    elements.btnOpenExamsModal.addEventListener('click', () => switchMainPage('exams'));
   }
   if (elements.examQuickTicker) {
-    elements.examQuickTicker.addEventListener('click', () => openExamsModal('countdown'));
+    elements.examQuickTicker.addEventListener('click', () => switchMainPage('exams'));
   }
-  if (elements.btnCloseExamsModal) {
-    elements.btnCloseExamsModal.addEventListener('click', closeExamsModal);
-  }
-  if (elements.btnFooterCloseExams) {
-    elements.btnFooterCloseExams.addEventListener('click', closeExamsModal);
+  if (elements.btnBackToCourses) {
+    elements.btnBackToCourses.addEventListener('click', () => switchMainPage('courses'));
   }
 
   // Year Toggles
@@ -4267,40 +4313,86 @@ function initExamsFeature() {
     elements.tabBtnPdfTable.addEventListener('click', () => switchExamTab('pdf'));
   }
 
-  // Backdrop click & Escape key
-  if (elements.examsModal) {
-    elements.examsModal.addEventListener('click', (e) => {
-      if (e.target === elements.examsModal) closeExamsModal();
-    });
-  }
+  // Escape key returns to courses if on exams page
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && elements.examsModal && !elements.examsModal.classList.contains('hidden')) {
-      closeExamsModal();
+    if (e.key === 'Escape' && state.activeMainPage === 'exams') {
+      switchMainPage('courses');
     }
   });
 
   // Render initial schedule table & start timer
   renderOfficialScheduleTable();
+  renderExamTimelineStream();
   updateExamsCountdown();
   if (examCountdownTimer) clearInterval(examCountdownTimer);
   examCountdownTimer = setInterval(updateExamsCountdown, 1000);
 }
 
-function openExamsModal(tab = 'countdown') {
-  if (!elements.examsModal) return;
-  elements.examsModal.classList.remove('hidden');
-  switchExamTab(tab);
-  renderExamCards();
-  renderCalendarGrid();
-  selectCalendarDay(selectedCalendarDay);
-  updateExamsCountdown();
+function switchMainPage(pageName) {
+  state.activeMainPage = pageName;
+  const isExams = pageName === 'exams';
+
+  if (elements.coursesMainView) {
+    elements.coursesMainView.classList.toggle('hidden', isExams);
+  }
+  if (elements.examsPageView) {
+    elements.examsPageView.classList.toggle('hidden', !isExams);
+  }
+
+  if (isExams) {
+    setActiveMobileNav('exams');
+    renderExamCards();
+    renderCalendarGrid();
+    selectCalendarDay(selectedCalendarDay);
+    renderExamTimelineStream();
+    renderOfficialScheduleTable();
+    updateExamsCountdown();
+  } else {
+    if (state.filters.tab === 'catchup') {
+      setActiveMobileNav('catchup');
+    } else {
+      setActiveMobileNav('syllabus');
+    }
+    renderCoursesView();
+  }
   refreshIcons();
 }
 
+function setActiveMobileNav(navName) {
+  const buttons = [
+    { el: elements.btnMobileSyllabus, name: 'syllabus' },
+    { el: elements.btnMobileCatchup, name: 'catchup' },
+    { el: elements.btnMobileModules, name: 'modules' },
+    { el: elements.btnMobileExams, name: 'exams' },
+    { el: elements.btnMobileSync, name: 'sync' },
+    { el: elements.btnMobileSettings, name: 'settings' }
+  ];
+
+  buttons.forEach(({ el, name }) => {
+    if (!el) return;
+    if (name === navName) {
+      el.classList.add('active');
+      if (name === 'exams') {
+        el.classList.add('text-amber-600');
+        el.classList.remove('text-slate-500', 'text-indigo-600');
+      } else {
+        el.classList.add('text-indigo-600');
+        el.classList.remove('text-slate-500', 'text-amber-600');
+      }
+    } else {
+      el.classList.remove('active', 'text-indigo-600', 'text-amber-600');
+      el.classList.add('text-slate-500');
+    }
+  });
+}
+
+function openExamsModal(tab = 'countdown') {
+  switchMainPage('exams');
+  switchExamTab(tab);
+}
+
 function closeExamsModal() {
-  if (elements.examsModal) {
-    elements.examsModal.classList.add('hidden');
-  }
+  switchMainPage('courses');
 }
 
 function switchExamTab(tab) {
@@ -4328,6 +4420,7 @@ function switchExamTab(tab) {
     if (tab === 'calendar') {
       renderCalendarGrid();
       selectCalendarDay(selectedCalendarDay);
+      renderExamTimelineStream();
     }
   }
   if (elements.examSectionPdf) {
@@ -4340,16 +4433,16 @@ function setExamYear(year) {
   selectedExamYear = year;
   if (elements.btnExamYear2027) {
     elements.btnExamYear2027.className = year === 2027
-      ? 'px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition'
-      : 'px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition';
+      ? 'px-2.5 py-1 rounded-lg bg-white text-indigo-700 shadow-xs transition'
+      : 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition';
   }
   if (elements.btnExamYear2026) {
     elements.btnExamYear2026.className = year === 2026
-      ? 'px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition'
-      : 'px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition';
+      ? 'px-2.5 py-1 rounded-lg bg-white text-indigo-700 shadow-xs transition'
+      : 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition';
   }
-  if (elements.modalExamYearBadge) {
-    elements.modalExamYearBadge.textContent = 'Janvier ' + year;
+  if (elements.pageExamYearBadge) {
+    elements.pageExamYearBadge.textContent = 'Janvier ' + year;
   }
   if (elements.calendarMonthTitle) {
     elements.calendarMonthTitle.textContent = 'Janvier ' + year;
@@ -4358,6 +4451,7 @@ function setExamYear(year) {
   renderExamCards();
   renderCalendarGrid();
   selectCalendarDay(selectedCalendarDay);
+  renderExamTimelineStream();
   renderOfficialScheduleTable();
   updateExamsCountdown();
   refreshIcons();
@@ -4862,7 +4956,7 @@ function renderOfficialScheduleTable() {
 }
 
 function filterByExamModule(moduleKey) {
-  closeExamsModal();
+  switchMainPage('courses');
   if (elements.filterModule) {
     elements.filterModule.value = moduleKey;
     state.filters.module = moduleKey;
@@ -4873,6 +4967,214 @@ function filterByExamModule(moduleKey) {
     const meta = MODULES_META[moduleKey];
     showToast(`Filtre activé sur : ${meta?.short || moduleKey}`, 'info');
   }
+}
+
+function renderExamTimelineStream() {
+  if (!elements.examTimelineAgendaStream) return;
+  const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
+  const now = new Date();
+
+  const timelineItems = [
+    {
+      dayNumber: 8,
+      dateFormatted: `${config.exams[0].dayName} 08 Janvier`,
+      type: 'exam',
+      examId: 's9-gyneco',
+      title: 'Épreuve 1 : Gynécologie - Obstétrique',
+      time: '12h00 à 13h30 (Durée : 1h30)',
+      moduleKey: 'GYNECO-OBSTETRIQUE',
+      badge: 'Épreuve 01 • Coeff 2.5',
+      badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+      icon: 'baby',
+      iconBg: 'bg-indigo-600 text-white',
+      desc: '1ère épreuve de la Session Normale. Épreuve majeure du semestre.',
+      actionText: 'Filtrer Gynécologie'
+    },
+    {
+      dayNumber: 9,
+      dateFormatted: 'Du 09 au 12 Janvier (4 jours)',
+      type: 'revision',
+      title: 'Intervalle de Révision : ORL - Ophtalmologie',
+      time: '4 jours de préparation',
+      moduleKey: 'ORL - OPHTALMO',
+      badge: 'Révision Intensive',
+      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+      icon: 'book-open',
+      iconBg: 'bg-amber-500 text-white',
+      desc: "4 jours complets pour consolider l'ORL et l'Ophtalmologie avant la 2ème épreuve.",
+      actionText: 'Réviser ORL - Ophtalmo'
+    },
+    {
+      dayNumber: 13,
+      dateFormatted: `${config.exams[1].dayName} 13 Janvier`,
+      type: 'exam',
+      examId: 's9-orl-ophtalmo',
+      title: 'Épreuve 2 : Oto-Rhino-Laryngologie & Ophtalmologie',
+      time: '14h30 à 16h00 (Durée : 1h30)',
+      moduleKey: 'ORL - OPHTALMO',
+      badge: 'Épreuve 02 • Coeff 2.0',
+      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+      icon: 'eye',
+      iconBg: 'bg-amber-600 text-white',
+      desc: '2ème épreuve de la Session Normale (Horaire spécial en après-midi).',
+      actionText: 'Filtrer ORL - Ophtalmo'
+    },
+    {
+      dayNumber: 14,
+      dateFormatted: 'Mercredi 14 Janvier',
+      type: 'holiday',
+      title: 'Jour Férié Officiel : Nouvel An Amazigh (Yennayer)',
+      time: 'Toute la journée',
+      moduleKey: null,
+      badge: 'Fête & Repos Officiel',
+      badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+      icon: 'award',
+      iconBg: 'bg-rose-500 text-white',
+      desc: 'Jour férié officiel mentionné sur la note de service du doyen. Aucun examen programmé.',
+      actionText: null
+    },
+    {
+      dayNumber: 15,
+      dateFormatted: 'Du 15 au 18 Janvier (4 jours)',
+      type: 'revision',
+      title: 'Intervalle de Révision : Urgences - Réanimation',
+      time: '4 jours de préparation',
+      moduleKey: 'URGENCES - RÉANIMATION',
+      badge: 'Révision Intensive',
+      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+      icon: 'book-open',
+      iconBg: 'bg-blue-500 text-white',
+      desc: "4 jours pour réviser la réanimation, la toxicologie et la prise en charge d'urgences.",
+      actionText: 'Réviser Urgences - Réa'
+    },
+    {
+      dayNumber: 19,
+      dateFormatted: `${config.exams[2].dayName} 19 Janvier`,
+      type: 'exam',
+      examId: 's9-urgences-rea',
+      title: 'Épreuve 3 : Urgences - Réanimation & Toxicologie',
+      time: '12h00 à 13h30 (Durée : 1h30)',
+      moduleKey: 'URGENCES - RÉANIMATION',
+      badge: 'Épreuve 03 • Coeff 1.0',
+      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+      icon: 'siren',
+      iconBg: 'bg-blue-600 text-white',
+      desc: '3ème épreuve de la Session Normale.',
+      actionText: 'Filtrer Urgences - Réa'
+    },
+    {
+      dayNumber: 20,
+      dateFormatted: 'Du 20 au 21 Janvier (2 jours)',
+      type: 'revision',
+      title: 'Intervalle de Révision : Santé Publique & Médecine Légale',
+      time: '2 jours de préparation',
+      moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
+      badge: 'Dernière Ligne Droite',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      icon: 'book-open',
+      iconBg: 'bg-emerald-500 text-white',
+      desc: "2 jours pour mémoriser les notions clés de santé publique, épidémiologie et médecine légale.",
+      actionText: 'Réviser Santé Publique'
+    },
+    {
+      dayNumber: 22,
+      dateFormatted: `${config.exams[3].dayName} 22 Janvier`,
+      type: 'exam',
+      examId: 's9-sante-publique',
+      title: 'Épreuve 4 : Santé Publique & Médecine Légale',
+      time: '12h00 à 13h30 (Durée : 1h30)',
+      moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
+      badge: 'Ultime Épreuve • Coeff 1.0',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      icon: 'activity',
+      iconBg: 'bg-emerald-600 text-white',
+      desc: '4ème et dernière épreuve de la Session Normale S9 !',
+      actionText: 'Filtrer Santé Publique'
+    }
+  ];
+
+  elements.examTimelineAgendaStream.innerHTML = timelineItems.map((item) => {
+    let countdownBadgeHtml = '';
+    let progressHtml = '';
+
+    if (item.type === 'exam') {
+      const ex = config.exams.find(e => e.id === item.examId);
+      if (ex) {
+        const [sH, sM] = ex.startTime.split(':').map(Number);
+        const exDate = new Date(config.year, config.month, ex.dayNumber, sH, sM, 0);
+        const diff = exDate - now;
+        if (diff > 0) {
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          countdownBadgeHtml = `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-slate-900 text-white shadow-2xs">Dans ${d}j ${h}h</span>`;
+        } else {
+          countdownBadgeHtml = `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">Terminé</span>`;
+        }
+      }
+    }
+
+    if (item.moduleKey) {
+      const moduleCourses = state.courses.filter(c => c.module === item.moduleKey);
+      const totalCourses = moduleCourses.length;
+      const doneCourses = moduleCourses.filter(c => isCourseDone(c.id)).length;
+      const pct = totalCourses > 0 ? Math.round((doneCourses / totalCourses) * 100) : 0;
+      progressHtml = `
+        <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+          <span class="text-slate-600 font-medium">Préparation personnelle : <strong>${doneCourses}/${totalCourses}</strong> cours (${pct}%)</span>
+          <div class="w-20 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="timeline-item relative flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 transition">
+        <div class="timeline-stem"></div>
+        <div class="relative z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${item.iconBg} flex items-center justify-center shadow-xs flex-shrink-0">
+          <i data-lucide="${item.icon}" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex flex-wrap items-center justify-between gap-1.5 mb-1">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-xs sm:text-sm font-extrabold text-slate-900">${item.dateFormatted}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${item.badgeColor}">${item.badge}</span>
+            </div>
+            ${countdownBadgeHtml}
+          </div>
+
+          <h5 class="text-xs sm:text-sm font-bold text-slate-800 leading-snug">${item.title}</h5>
+          
+          <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span>${item.time}</span>
+          </div>
+
+          <p class="text-xs text-slate-600 mt-1 leading-relaxed">${item.desc}</p>
+
+          ${progressHtml}
+
+          ${item.actionText && item.moduleKey ? `
+            <div class="mt-2.5 pt-1.5 flex justify-end">
+              <button type="button" class="btn-timeline-filter px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-indigo-50 active:scale-95 text-slate-700 hover:text-indigo-700 text-xs font-bold transition flex items-center gap-1.5" data-module="${item.moduleKey}">
+                <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+                <span>${item.actionText}</span>
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  elements.examTimelineAgendaStream.querySelectorAll('.btn-timeline-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mod = btn.getAttribute('data-module');
+      if (mod) filterByExamModule(mod);
+    });
+  });
+
+  refreshIcons();
 }
 
 document.addEventListener('DOMContentLoaded', init);
