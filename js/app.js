@@ -20,6 +20,7 @@ const state = {
     tab: 'all',          // 'all' | 'catchup' | 'done' | 'todo'
     module: '',
     facStatus: '',
+    difficulty: '',
     prof: '',
     search: ''
   },
@@ -154,6 +155,42 @@ function setCourseFacultyStatus(courseId, newStatus) {
   renderDashboard();
 }
 
+// Difficulty Levels Metadata (from Official Faculty S9 Excel Tracking)
+const DIFFICULTY_META = {
+  1: { level: 1, label: 'Facile', fullLabel: 'Niveau 1 (Facile)', stars: '★★☆☆☆', badgeBg: 'bg-emerald-50', textCol: 'text-emerald-700', border: 'border-emerald-200' },
+  2: { level: 2, label: 'Moyen (Abrégé)', fullLabel: 'Niveau 2 (Moyen - Abrégé)', stars: '★★★☆☆', badgeBg: 'bg-amber-50', textCol: 'text-amber-700', border: 'border-amber-200' },
+  3: { level: 3, label: 'Moyen', fullLabel: 'Niveau 3 (Moyen)', stars: '★★★☆☆', badgeBg: 'bg-amber-50', textCol: 'text-amber-800', border: 'border-amber-300' },
+  4: { level: 4, label: 'Difficile', fullLabel: 'Niveau 4 (Difficile)', stars: '★★★★☆', badgeBg: 'bg-purple-50', textCol: 'text-purple-700', border: 'border-purple-200' },
+  5: { level: 5, label: 'Très Difficile', fullLabel: 'Niveau 5 (Très Difficile)', stars: '★★★★★', badgeBg: 'bg-rose-50', textCol: 'text-rose-700', border: 'border-rose-200' }
+};
+
+/**
+ * Determine difficulty level for a course based on its module and submodule
+ */
+function getCourseDifficulty(course) {
+  if (!course) return DIFFICULTY_META[3];
+  const mod = course.module || '';
+  if (mod.includes('URGENCES')) {
+    return DIFFICULTY_META[5]; // Niveau 5 - Très Difficile
+  }
+  if (mod.includes('GYNECO')) {
+    return DIFFICULTY_META[4]; // Niveau 4 - Difficile
+  }
+  if (mod.includes('SANTÉ') || mod.includes('SANTE')) {
+    return DIFFICULTY_META[1]; // Niveau 1 - Facile
+  }
+  if (mod.includes('ORL') || mod.includes('OPHTALMO')) {
+    const sub = (course.submodule || '').toUpperCase();
+    const idNum = parseInt((course.id || '').replace('c_', ''), 10);
+    // In S9 syllabus: c_034 to c_051 is Ophtalmologie, c_052 to c_064 is ORL
+    if (sub.includes('OPHTALMO') || (idNum >= 34 && idNum <= 51)) {
+      return DIFFICULTY_META[3]; // Niveau 3 - Moyen (Ophtalmo)
+    }
+    return DIFFICULTY_META[2]; // Niveau 2 - Moyen Abrégé (ORL)
+  }
+  return DIFFICULTY_META[3];
+}
+
 // Module Metadata & Styling
 const MODULES_META = {
   'GYNECO-OBSTETRIQUE': {
@@ -162,6 +199,7 @@ const MODULES_META = {
     short: 'Gynéco-Obs',
     coeff: '1.0 (Gynéco 0.4 / Obs 0.6)',
     coeffShort: 'Coeff 1.0',
+    difficulty: DIFFICULTY_META[4],
     color: 'text-pink-600',
     bgLight: 'bg-pink-50',
     border: 'border-pink-200',
@@ -174,6 +212,8 @@ const MODULES_META = {
     short: 'ORL - Ophtalmo',
     coeff: '2.0 (ORL 1.0 / Ophtalmo 1.0)',
     coeffShort: 'Coeff 2.0',
+    difficulty: DIFFICULTY_META[3], // Mixed Niv 2 (ORL) & Niv 3 (Ophtalmo)
+    difficultyNote: 'ORL: Niv 2 • Ophtalmo: Niv 3',
     color: 'text-amber-600',
     bgLight: 'bg-amber-50',
     border: 'border-amber-200',
@@ -186,6 +226,7 @@ const MODULES_META = {
     short: 'Santé Publique & Éco',
     coeff: '1.0 (Santé Publique 0.8 / Éco 0.2)',
     coeffShort: 'Coeff 1.0',
+    difficulty: DIFFICULTY_META[1],
     color: 'text-emerald-600',
     bgLight: 'bg-emerald-50',
     border: 'border-emerald-200',
@@ -198,6 +239,7 @@ const MODULES_META = {
     short: 'Urgences - Réa',
     coeff: '1.0 (Urgences 0.6 / Réa 0.4)',
     coeffShort: 'Coeff 1.0',
+    difficulty: DIFFICULTY_META[5],
     color: 'text-blue-600',
     bgLight: 'bg-blue-50',
     border: 'border-blue-200',
@@ -257,6 +299,7 @@ const elements = {
   btnClearSearch: document.getElementById('btnClearSearch'),
   filterModule: document.getElementById('filterModule'),
   filterFacStatus: document.getElementById('filterFacStatus'),
+  filterDifficulty: document.getElementById('filterDifficulty'),
   filterProf: document.getElementById('filterProf'),
   btnResetFilters: document.getElementById('btnResetFilters'),
 
@@ -478,7 +521,12 @@ function renderModuleQuickCards() {
           </div>
           <span class="font-bold text-xs text-slate-800">${meta.short}</span>
         </div>
-        <span class="text-xs font-bold ${percent === 100 ? 'text-emerald-600' : 'text-indigo-600'}">${percent}%</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-[10px] font-semibold px-1.5 py-0.2 rounded ${meta.difficulty.badgeBg} ${meta.difficulty.textCol} border ${meta.difficulty.border}" title="Niveau de difficulté du module (Excel)">
+            Niv. ${meta.difficulty.level}
+          </span>
+          <span class="text-xs font-bold ${percent === 100 ? 'text-emerald-600' : 'text-indigo-600'}">${percent}%</span>
+        </div>
       </div>
 
       <div class="space-y-1 mt-2">
@@ -511,6 +559,10 @@ function getFilteredCourses() {
 
     if (state.filters.module && course.module !== state.filters.module) return false;
     if (state.filters.facStatus && course.facultyStatus !== state.filters.facStatus) return false;
+    if (state.filters.difficulty) {
+      const courseDiff = getCourseDifficulty(course);
+      if (String(courseDiff.level) !== String(state.filters.difficulty)) return false;
+    }
     if (state.filters.prof && course.prof !== state.filters.prof) return false;
 
     if (state.filters.search) {
@@ -660,6 +712,9 @@ function renderSyllabusView(filteredCourses) {
             <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${meta.bgLight} ${meta.color} border ${meta.border}">
               ${meta.coeffShort}
             </span>
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${meta.difficulty.badgeBg} ${meta.difficulty.textCol} border ${meta.difficulty.border}" title="Difficulté officielle : ${meta.difficulty.stars}">
+              ${meta.difficulty.stars} ${meta.difficulty.label}
+            </span>
           </div>
           <p class="text-xs text-slate-500 mt-0.5">
             ${modMyDone} sur ${allModCourses.length} cours étudiés (${modPercent}%) • Faculté : ${modFacDone} dispensés (${allModCourses.length > 0 ? Math.round((modFacDone / allModCourses.length) * 100) : 0}%)
@@ -753,6 +808,7 @@ function createCourseRowElement(course) {
   const isDone = !!progress.done;
   const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
   const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+  const courseDiff = getCourseDifficulty(course);
 
   const row = document.createElement('div');
   row.className = `course-row rounded-xl p-3 sm:p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
@@ -798,13 +854,16 @@ function createCourseRowElement(course) {
           ` : ''}
         </div>
 
-        <!-- Sub-details (Submodule & Prof) -->
+        <!-- Sub-details (Submodule, Difficulty & Prof) -->
         <div class="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
           ${course.submodule ? `
             <span class="font-semibold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[10px] uppercase">
               ${course.submodule}
             </span>
           ` : ''}
+          <span class="px-1.5 py-0.2 rounded text-[10px] font-semibold ${courseDiff.badgeBg} ${courseDiff.textCol} border ${courseDiff.border}" title="Difficulté : ${courseDiff.fullLabel}">
+            ${courseDiff.stars} ${courseDiff.label}
+          </span>
           <span>${course.prof || 'Enseignant non spécifié'}</span>
           ${progress.note ? `
             <span class="text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded text-[10px] flex items-center gap-1 font-semibold border border-amber-200">
@@ -885,6 +944,7 @@ function renderTableView(courses) {
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
     const isUnseen = isNewUnseenCourse(course);
+    const courseDiff = getCourseDifficulty(course);
 
     if (state.filters.tab === 'catchup' && isUnseen) {
       state.pendingSeenCatchupIds.add(course.id);
@@ -912,7 +972,12 @@ function renderTableView(courses) {
         </div>
       </td>
       <td class="py-3 px-4 text-xs font-semibold text-slate-600">
-        ${course.submodule || (MODULES_META[course.module]?.short || 'Module')}
+        <div>${course.submodule || (MODULES_META[course.module]?.short || 'Module')}</div>
+        <div class="mt-0.5">
+          <span class="inline-block px-1.5 py-0.2 rounded text-[9px] font-semibold ${courseDiff.badgeBg} ${courseDiff.textCol} border ${courseDiff.border}" title="Difficulté : ${courseDiff.fullLabel}">
+            ${courseDiff.stars} ${courseDiff.label}
+          </span>
+        </div>
       </td>
       <td class="py-3 px-4 text-xs text-slate-600">
         ${course.prof || '-'}
@@ -965,6 +1030,7 @@ function renderCardsView(courses) {
     const meta = MODULES_META[course.module] || { short: 'Module', bgLight: 'bg-indigo-50', color: 'text-indigo-600' };
     const facStatusClass = getFacultyStatusClass(course.facultyStatus);
     const isUnseen = isNewUnseenCourse(course);
+    const courseDiff = getCourseDifficulty(course);
 
     if (state.filters.tab === 'catchup' && isUnseen) {
       state.pendingSeenCatchupIds.add(course.id);
@@ -982,9 +1048,14 @@ function renderCardsView(courses) {
     card.innerHTML = `
       <div>
         <div class="flex items-center justify-between gap-2 mb-2">
-          <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${meta.bgLight} ${meta.color}">
-            ${course.submodule || meta.short}
-          </span>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${meta.bgLight} ${meta.color}">
+              ${course.submodule || meta.short}
+            </span>
+            <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded ${courseDiff.badgeBg} ${courseDiff.textCol} border ${courseDiff.border}" title="Difficulté : ${courseDiff.fullLabel}">
+              ${courseDiff.stars}
+            </span>
+          </div>
           <!-- Interactive Faculty Status Selector Pill -->
       <div class="status-pill ${facStatusClass} relative cursor-pointer inline-flex items-center gap-1.5 hover:opacity-90 transition shadow-sm" title="Modifier le statut faculté">
         <i data-lucide="${getFacultyStatusIcon(course.facultyStatus)}" class="w-3 h-3 pointer-events-none flex-shrink-0"></i>
@@ -1399,6 +1470,14 @@ function setupEventListeners() {
     refreshIcons();
   };
 
+  if (elements.filterDifficulty) {
+    elements.filterDifficulty.onchange = (e) => {
+      state.filters.difficulty = e.target.value;
+      renderCoursesView();
+      refreshIcons();
+    };
+  }
+
   elements.filterProf.onchange = (e) => {
     state.filters.prof = e.target.value;
     renderCoursesView();
@@ -1514,6 +1593,7 @@ function resetAllFilters() {
   setViewMode('syllabus');
   state.filters.module = '';
   state.filters.facStatus = '';
+  state.filters.difficulty = '';
   state.filters.prof = '';
   state.filters.search = '';
 
@@ -1521,6 +1601,7 @@ function resetAllFilters() {
   elements.btnClearSearch.classList.add('hidden');
   elements.filterModule.value = '';
   elements.filterFacStatus.value = '';
+  if (elements.filterDifficulty) elements.filterDifficulty.value = '';
   elements.filterProf.value = '';
 
   document.querySelectorAll('.quick-tab-btn').forEach(b => {
