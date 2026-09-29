@@ -208,27 +208,76 @@ body {
     left: 0;
     right: 0;
     z-index: 50;
-    background-color: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-top: 1px solid #e2e8f0;
-    padding-bottom: env(safe-area-inset-bottom, 0.5rem);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.5rem);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .mobile-nav-btn {
+    position: relative;
+    transition: all 0.15s ease;
+    padding: 0.35rem 0.45rem;
+    border-radius: 0.75rem;
+    touch-action: manipulation;
+  }
+
+  .mobile-nav-btn:active {
+    transform: scale(0.92);
+  }
+}
+
+/* Touch and Mobile Ergonomics */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (max-width: 640px) {
+  .check-toggle-btn {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .couche-chip {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .status-pill {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    min-height: 28px;
+  }
+
+  .course-row {
+    padding: 0.75rem 0.85rem;
   }
 }
 
 /* Calendar Grid & Exam Window */
 .calendar-day-cell {
   position: relative;
-  min-height: 52px;
+  min-height: 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 0.75rem;
-  padding: 0.35rem 0.45rem;
+  padding: 0.25rem 0.35rem;
   border: 1px solid #e2e8f0;
   background-color: #ffffff;
   transition: all 0.15s ease;
   user-select: none;
+  touch-action: manipulation;
 }
 
 @media (min-width: 640px) {
@@ -243,11 +292,15 @@ body {
   background-color: #f8fafc;
 }
 
+.calendar-day-cell:active {
+  transform: scale(0.97);
+}
+
 .calendar-day-cell.is-outside {
   background-color: #f8fafc;
   border-color: #f1f5f9;
   color: #cbd5e1;
-  opacity: 0.4;
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -281,3 +334,4 @@ body {
   outline: 2px solid #4f46e5;
   outline-offset: 2px;
 }
+

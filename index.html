@@ -47,58 +47,58 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Light Theme Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=2.6">
+  <link rel="stylesheet" href="css/styles.css?v=2.7">
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10">
 
   <!-- TOP HEADER -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 lg:px-8 py-3.5 shadow-sm transition-all">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 shadow-xs transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Brand & Title -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-600/20 text-white flex-shrink-0">
-          <i data-lucide="stethoscope" class="w-5 h-5"></i>
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-600/20 text-white flex-shrink-0">
+          <i data-lucide="stethoscope" class="w-4 h-4 sm:w-5 sm:h-5"></i>
         </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-extrabold text-base md:text-lg text-slate-900 tracking-tight">
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <h1 class="font-extrabold text-sm sm:text-base md:text-lg text-slate-900 tracking-tight truncate">
               Recensement S9
             </h1>
-            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-              2026/2027
+            <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 flex-shrink-0">
+              26/27
             </span>
           </div>
-          <p class="text-xs text-slate-500 hidden sm:block">Faculté de Médecine & Pharmacie • Suivi Personnalisé des Enseignements</p>
+          <p class="text-xs text-slate-500 hidden sm:block truncate">Faculté de Médecine & Pharmacie • Suivi Personnalisé des Enseignements</p>
         </div>
       </div>
 
       <!-- Sync Info & Actions -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
         
-        <!-- Next Sync Badge -->
+        <!-- Next Sync Badge (Desktop only) -->
         <div id="syncBadge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-medium text-slate-700">
           <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-indicator"></span>
           <span id="nextSyncLabel">Synchro à 20:00</span>
         </div>
 
         <!-- Exam Countdown & Calendar Trigger -->
-        <button id="btnOpenExamsModal" title="Calendrier et Compte à Rebours des Examens S9" class="flex items-center gap-1.5 md:gap-2 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-200 font-semibold text-xs md:text-sm transition shadow-xs">
-          <i data-lucide="calendar" class="w-4 h-4 text-amber-600"></i>
+        <button id="btnOpenExamsModal" title="Calendrier et Compte à Rebours des Examens S9" class="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-200 font-semibold text-xs sm:text-sm transition shadow-xs">
+          <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-600 flex-shrink-0"></i>
           <span class="font-bold flex items-center gap-1">
-            <span class="hidden sm:inline">Examens S9:</span>
+            <span class="hidden sm:inline">Examens:</span>
             <span id="headerExamCountdownPill" class="text-amber-900 font-black">J-...</span>
           </span>
         </button>
 
         <!-- Manual Sync Button -->
-        <button id="btnSyncManual" title="Synchroniser avec la feuille Google Sheets" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs md:text-sm font-semibold shadow-sm transition">
-          <i data-lucide="refresh-cw" id="syncIcon" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Synchroniser</span>
+        <button id="btnSyncManual" title="Synchroniser avec la feuille Google Sheets" class="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xs sm:text-sm font-semibold shadow-xs transition">
+          <i data-lucide="refresh-cw" id="syncIcon" class="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0"></i>
+          <span class="hidden md:inline">Synchroniser</span>
         </button>
 
         <!-- Settings / Backup Modal Trigger -->
-        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition">
+        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 border border-slate-200 text-slate-600 hover:text-slate-900 transition">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -120,22 +120,22 @@
     </div>
 
     <!-- EXAM COUNTDOWN TICKER BANNER -->
-    <div id="examQuickTicker" class="light-card rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-amber-500/10 via-indigo-500/5 to-white border-amber-200/80 shadow-xs cursor-pointer hover:border-amber-300 transition">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-300 flex items-center justify-center flex-shrink-0">
+    <div id="examQuickTicker" class="light-card rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 bg-gradient-to-r from-amber-500/10 via-indigo-500/5 to-white border-amber-200/80 shadow-xs cursor-pointer hover:border-amber-300 active:scale-[0.99] transition">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-300 flex items-center justify-center flex-shrink-0">
           <i data-lucide="timer" class="w-4 h-4"></i>
         </div>
-        <div>
-          <div class="flex flex-wrap items-center gap-2">
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <span class="text-xs font-bold text-slate-800">Session Normale S9 :</span>
-            <span id="tickerNextExamName" class="text-xs font-extrabold text-indigo-700">Gynécologie - Obstétrique</span>
-            <span id="tickerCountdownBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white">J-...</span>
+            <span id="tickerNextExamName" class="text-xs font-extrabold text-indigo-700 truncate">Gynécologie - Obstétrique</span>
+            <span id="tickerCountdownBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white flex-shrink-0">J-...</span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-0.5">Période officielle du 08 au 22 Janvier • Cliquez pour voir le calendrier interactif et le compte à rebours détaillé</p>
+          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1 sm:line-clamp-none">Du 08 au 22 Janvier • Appuyez pour afficher le calendrier complet</p>
         </div>
       </div>
-      <div class="flex items-center gap-2 self-end sm:self-center">
-        <button type="button" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
+      <div class="flex items-center gap-2 self-stretch sm:self-center justify-end pt-1 sm:pt-0 border-t sm:border-t-0 border-amber-100/60">
+        <button type="button" class="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1.5">
           <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
           <span>Voir l'échéancier</span>
         </button>
@@ -146,7 +146,7 @@
     <section class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
       
       <!-- Card 1: Dual Progress (Student vs Faculty) -->
-      <div class="light-card rounded-2xl p-5 flex flex-col justify-between">
+      <div class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
         <div class="flex items-center justify-between mb-3">
           <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="activity" class="w-4 h-4"></i>
@@ -179,7 +179,7 @@
       </div>
 
       <!-- Card 2: Priority Catch-up Queue (À rattraper) -->
-      <div id="cardPriorityCatchup" class="light-card rounded-2xl p-5 flex flex-col justify-between border-amber-300 hover:border-amber-400 cursor-pointer bg-gradient-to-br from-white to-amber-50/40 transition group">
+      <div id="cardPriorityCatchup" class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border-amber-300 hover:border-amber-400 cursor-pointer bg-gradient-to-br from-white to-amber-50/40 transition group">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
@@ -204,7 +204,7 @@
       </div>
 
       <!-- Card 3: Couches de Révision (C1 & C2) -->
-      <div class="light-card rounded-2xl p-5 flex flex-col justify-between">
+      <div class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i>
@@ -269,7 +269,7 @@
         </div>
 
         <!-- Quick Status Tabs -->
-        <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto text-xs font-semibold whitespace-nowrap">
+        <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto no-scrollbar text-xs font-semibold whitespace-nowrap gap-1">
           <button class="quick-tab-btn px-3 py-1.5 rounded-lg transition active bg-white text-indigo-700 shadow-sm" data-tab="all">
             Tous (<span id="countTabAll">119</span>)
           </button>
@@ -301,10 +301,10 @@
       </div>
 
       <!-- Secondary Filters (Module, Prof, Faculty Status) -->
-      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
         
         <!-- Module Dropdown -->
-        <select id="filterModule" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm">
+        <select id="filterModule" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
           <option value="">Tous les Modules</option>
           <option value="GYNECO-OBSTETRIQUE">Gynéco-Obstétrique</option>
           <option value="ORL - OPHTALMO">ORL - Ophtalmologie</option>
@@ -313,7 +313,7 @@
         </select>
 
         <!-- Faculty Status Dropdown -->
-        <select id="filterFacStatus" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm">
+        <select id="filterFacStatus" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
           <option value="">Statut Faculté: Tous</option>
           <option value="Effectué">Effectué (Dispensé)</option>
           <option value="En cours">En cours</option>
@@ -322,12 +322,12 @@
         </select>
 
         <!-- Professor Dropdown -->
-        <select id="filterProf" class="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-sm max-w-[200px] truncate">
+        <select id="filterProf" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs truncate">
           <option value="">Tous les Enseignants (29)</option>
         </select>
 
         <!-- Reset Button -->
-        <button id="btnResetFilters" class="ml-auto text-slate-500 hover:text-slate-900 flex items-center gap-1 py-1.5 px-2.5 rounded-lg hover:bg-slate-100 transition">
+        <button id="btnResetFilters" class="w-full sm:w-auto sm:ml-auto text-slate-500 hover:text-slate-900 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg hover:bg-slate-100 active:scale-95 transition">
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
           <span>Réinitialiser</span>
         </button>
@@ -397,34 +397,34 @@
   </main>
 
   <!-- MOBILE BOTTOM DOCK -->
-  <nav class="md:hidden mobile-bottom-dock px-6 py-2">
+  <nav class="md:hidden mobile-bottom-dock px-2 sm:px-4 py-1.5">
     <div class="flex items-center justify-around">
-      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-indigo-600" data-view="all">
-        <i data-lucide="book-open" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Syllabus</span>
+      <button class="mobile-nav-btn flex flex-col items-center gap-0.5 text-indigo-600 active" data-view="all">
+        <i data-lucide="book-open" class="w-4 h-4"></i>
+        <span class="text-[9px] font-bold">Syllabus</span>
       </button>
-      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900" data-view="catchup">
+      <button class="mobile-nav-btn flex flex-col items-center gap-0.5 text-slate-500 hover:text-slate-900" data-view="catchup">
         <div class="relative">
-          <i data-lucide="alert-circle" class="w-5 h-5"></i>
-          <span id="mobileCatchupBadge" class="hidden absolute -top-1 -right-2 px-1 py-0.2 bg-amber-500 text-white text-[9px] font-bold rounded-full">0</span>
+          <i data-lucide="alert-circle" class="w-4 h-4"></i>
+          <span id="mobileCatchupBadge" class="hidden absolute -top-1 -right-2 px-1 py-0.2 bg-amber-500 text-white text-[8px] font-bold rounded-full">0</span>
         </div>
-        <span class="text-[10px] font-bold">À Rattraper</span>
+        <span class="text-[9px] font-bold">À Rattraper</span>
       </button>
-      <button class="mobile-nav-btn flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900" data-view="modules">
-        <i data-lucide="compass" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Modules</span>
+      <button class="mobile-nav-btn flex flex-col items-center gap-0.5 text-slate-500 hover:text-slate-900" data-view="modules">
+        <i data-lucide="compass" class="w-4 h-4"></i>
+        <span class="text-[9px] font-bold">Modules</span>
       </button>
-      <button id="btnMobileExams" class="flex flex-col items-center gap-1 text-amber-600 hover:text-amber-700">
-        <i data-lucide="calendar" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Examens</span>
+      <button id="btnMobileExams" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-amber-600 hover:text-amber-700">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span class="text-[9px] font-bold">Examens</span>
       </button>
-      <button id="btnMobileSync" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900">
-        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Synchro</span>
+      <button id="btnMobileSync" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-slate-500 hover:text-slate-900">
+        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+        <span class="text-[9px] font-bold">Synchro</span>
       </button>
-      <button id="btnMobileSettings" class="flex flex-col items-center gap-1 text-slate-500 hover:text-slate-900">
-        <i data-lucide="settings" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Options</span>
+      <button id="btnMobileSettings" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-slate-500 hover:text-slate-900">
+        <i data-lucide="settings" class="w-4 h-4"></i>
+        <span class="text-[9px] font-bold">Options</span>
       </button>
     </div>
   </nav>
@@ -564,51 +564,55 @@
     <div class="light-card rounded-2xl w-full max-w-4xl bg-white shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
       
       <!-- Modal Header -->
-      <div class="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-slate-50 via-white to-amber-50/20">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-200 text-amber-700 flex items-center justify-center shadow-xs flex-shrink-0">
-            <i data-lucide="calendar" class="w-5 h-5 text-amber-600"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h3 class="text-base font-extrabold text-slate-900 tracking-tight">
-                Examens Session Normale S9
-              </h3>
-              <span id="modalExamYearBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                Janvier 2027
-              </span>
+      <div class="px-3.5 sm:px-5 py-3 sm:py-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-slate-50 via-white to-amber-50/20">
+        <!-- Top row on mobile: Title + Close -->
+        <div class="flex items-center justify-between w-full sm:w-auto">
+          <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-500/15 border border-amber-200 text-amber-700 flex items-center justify-center shadow-xs flex-shrink-0">
+              <i data-lucide="calendar" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-600"></i>
             </div>
-            <p class="text-xs text-slate-500">Organisation officielle 5ème Année Médecine • Du 08 au 22 Janvier</p>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight truncate">
+                  Examens Session Normale S9
+                </h3>
+                <span id="modalExamYearBadge" class="text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 flex-shrink-0">
+                  Janvier 2027
+                </span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-slate-500 truncate">Organisation officielle 5ème Année (08 au 22 Janvier)</p>
+            </div>
           </div>
+
+          <button id="btnCloseExamsModal" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition flex-shrink-0" title="Fermer (Échap)">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
         </div>
 
-        <!-- Navigation Tabs & Actions -->
-        <div class="flex flex-wrap items-center gap-2">
+        <!-- Navigation Tabs & Actions (Second row on mobile) -->
+        <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto overflow-x-auto no-scrollbar pb-0.5 sm:pb-0">
           <!-- Year Toggle -->
-          <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-bold">
-            <button id="btnExamYear2027" type="button" class="px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition">2027 (Session)</button>
-            <button id="btnExamYear2026" type="button" class="px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition">2026 (PDF)</button>
+          <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[10px] sm:text-[11px] font-bold flex-shrink-0">
+            <button id="btnExamYear2027" type="button" class="px-2 sm:px-2.5 py-1 rounded-md bg-white text-indigo-700 shadow-xs transition">2027</button>
+            <button id="btnExamYear2026" type="button" class="px-2 sm:px-2.5 py-1 rounded-md text-slate-500 hover:text-slate-800 transition">2026 (PDF)</button>
           </div>
 
           <!-- View Tabs -->
-          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold">
-            <button id="tabBtnCountdown" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5 active" data-tab="countdown">
+          <div class="flex items-center bg-slate-100 p-0.5 sm:p-1 rounded-xl border border-slate-200 text-[11px] sm:text-xs font-semibold flex-shrink-0">
+            <button id="tabBtnCountdown" type="button" class="exam-tab-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white text-indigo-700 shadow-xs transition flex items-center gap-1 active font-bold" data-tab="countdown">
               <i data-lucide="timer" class="w-3.5 h-3.5"></i>
-              <span>Compte à Rebours</span>
+              <span>Décompte</span>
             </button>
-            <button id="tabBtnCalendar" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-tab="calendar">
+            <button id="tabBtnCalendar" type="button" class="exam-tab-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1 font-medium" data-tab="calendar">
               <i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>
               <span>Calendrier</span>
             </button>
-            <button id="tabBtnPdfTable" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5" data-tab="pdf">
+            <button id="tabBtnPdfTable" type="button" class="exam-tab-btn px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1 font-medium" data-tab="pdf">
               <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-              <span>Planning PDF</span>
+              <span class="hidden sm:inline">Planning PDF</span>
+              <span class="sm:hidden">PDF</span>
             </button>
           </div>
-
-          <button id="btnCloseExamsModal" type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition" title="Fermer (Échap)">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
         </div>
       </div>
 
@@ -839,6 +843,6 @@
   </div>
 
   <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
-  <script src="js/bundle.js?v=2.9"></script>
+  <script src="js/bundle.js?v=3.0"></script>
 </body>
 </html>

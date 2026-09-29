@@ -1373,19 +1373,24 @@ function setupEventListeners() {
   document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
     btn.onclick = () => {
       const view = btn.getAttribute('data-view');
+      if (!view) return; // Ignore buttons with dedicated click handlers like btnMobileExams, btnMobileSync, btnMobileSettings
+
       document.querySelectorAll('.mobile-nav-btn').forEach(b => {
-        b.classList.remove('text-indigo-600');
+        b.classList.remove('text-indigo-600', 'active');
         b.classList.add('text-slate-500');
       });
-      btn.classList.add('text-indigo-600');
+      btn.classList.add('text-indigo-600', 'active');
       btn.classList.remove('text-slate-500');
 
       if (view === 'catchup') {
-        document.querySelector('.quick-tab-btn[data-tab="catchup"]').click();
+        const tabBtn = document.querySelector('.quick-tab-btn[data-tab="catchup"]');
+        if (tabBtn) tabBtn.click();
       } else if (view === 'modules') {
-        document.getElementById('moduleCardsContainer').scrollIntoView({ behavior: 'smooth' });
+        const modContainer = document.getElementById('moduleCardsContainer');
+        if (modContainer) modContainer.scrollIntoView({ behavior: 'smooth' });
       } else {
-        document.querySelector('.quick-tab-btn[data-tab="all"]').click();
+        const allBtn = document.querySelector('.quick-tab-btn[data-tab="all"]');
+        if (allBtn) allBtn.click();
       }
     };
   });
@@ -2233,11 +2238,11 @@ function renderCalendarGrid() {
       cellContent = `
         <div class="flex items-center justify-between">
           <span class="text-xs font-black text-slate-900">${String(day).padStart(2, '0')}</span>
-          <span class="w-2 h-2 rounded-full bg-indigo-600 pulse-indicator"></span>
+          <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-600 pulse-indicator"></span>
         </div>
-        <div class="mt-1 space-y-0.5">
-          <div class="text-[10px] font-black leading-tight text-slate-900 line-clamp-1">${ex.shortTitle}</div>
-          <div class="text-[9px] font-bold text-slate-600">${ex.startTime.replace(':', 'h')}-${ex.endTime.replace(':', 'h')}</div>
+        <div class="mt-0.5 sm:mt-1 space-y-0.5">
+          <div class="text-[9px] sm:text-[10px] font-black leading-tight text-slate-900 truncate">${ex.shortTitle}</div>
+          <div class="hidden sm:block text-[9px] font-bold text-slate-600">${ex.startTime.replace(':', 'h')}-${ex.endTime.replace(':', 'h')}</div>
         </div>
       `;
     } else if (isHoliday) {
@@ -2248,8 +2253,8 @@ function renderCalendarGrid() {
           <span class="text-xs font-bold text-rose-700">${String(day).padStart(2, '0')}</span>
           <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
         </div>
-        <div class="mt-1">
-          <span class="text-[9px] font-bold text-rose-700 line-clamp-1">${hol.short}</span>
+        <div class="mt-0.5 sm:mt-1">
+          <span class="text-[8px] sm:text-[9px] font-bold text-rose-700 truncate block">${hol.short}</span>
         </div>
       `;
     } else if (isPeriod) {
@@ -2258,8 +2263,8 @@ function renderCalendarGrid() {
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-slate-700">${String(day).padStart(2, '0')}</span>
         </div>
-        <div class="mt-1">
-          <span class="text-[9px] font-medium text-amber-700">Révision</span>
+        <div class="mt-0.5 sm:mt-1">
+          <span class="text-[8px] sm:text-[9px] font-medium text-amber-700 truncate block">Rév.</span>
         </div>
       `;
     } else {
