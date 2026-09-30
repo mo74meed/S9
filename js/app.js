@@ -37,6 +37,13 @@ const state = {
 };
 
 /**
+ * Check if a course is marked as studied / done by the student
+ */
+function isCourseDone(courseId) {
+  return !!(state.personalProgress && state.personalProgress[courseId]?.done);
+}
+
+/**
  * Check if a course is newly added and should show the green dot:
  * Strictly ONLY when viewing the "À rattraper" tab and the course is not yet studied.
  */

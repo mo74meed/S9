@@ -1,7 +1,7 @@
 /**
  * Recensement S9 - Bundled JavaScript
  * Single file bundle containing initialData, Storage, Sync, and App logic.
- * Generated on 2026-09-29
+ * Generated on 2026-09-30
  */
 (function() {
 /**
@@ -2411,6 +2411,13 @@ const state = {
   // Tracks new course IDs displayed during the current session of viewing "À rattraper"
   pendingSeenCatchupIds: new Set()
 };
+
+/**
+ * Check if a course is marked as studied / done by the student
+ */
+function isCourseDone(courseId) {
+  return !!(state.personalProgress && state.personalProgress[courseId]?.done);
+}
 
 /**
  * Check if a course is newly added and should show the green dot:
