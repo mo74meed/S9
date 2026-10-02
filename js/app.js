@@ -421,6 +421,7 @@ async function init() {
  * Render Complete Dashboard
  */
 function renderDashboard() {
+  populateProfessors();
   updateStats();
   renderModuleQuickCards();
   renderCoursesView();
@@ -430,16 +431,86 @@ function renderDashboard() {
 
 /**
  * Populate professors dropdown
+ * Dynamic & sorted by module:
+ * - If a module filter is active, only show the professors who teach that module.
+ * - If "Tous les Modules" is active, group and sort professors by their respective modules.
  */
 function populateProfessors() {
-  const profs = Array.from(new Set(state.courses.map(c => c.prof).filter(Boolean))).sort();
-  elements.filterProf.innerHTML = '<option value="">Tous les Enseignants (' + profs.length + ')</option>';
-  profs.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p;
-    opt.textContent = p;
-    elements.filterProf.appendChild(opt);
-  });
+  if (!elements.filterProf) return;
+
+  const currentSelectedProf = state.filters.prof || '';
+  const selectedModule = state.filters.module || '';
+
+  // Get list of courses relevant to the current module filter
+  const relevantCourses = selectedModule
+    ? state.courses.filter(c => c.module === selectedModule)
+    : state.courses;
+
+  // Extract unique professors for the relevant scope
+  const relevantProfs = Array.from(new Set(relevantCourses.map(c => c.prof).filter(Boolean)))
+    .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+  // Check if current selected prof is still valid in the new scope
+  if (currentSelectedProf && !relevantProfs.includes(currentSelectedProf)) {
+    state.filters.prof = '';
+  }
+
+  // Clear options
+  elements.filterProf.innerHTML = '';
+
+  // Top default option
+  const defaultOpt = document.createElement('option');
+  defaultOpt.value = '';
+  defaultOpt.textContent = `Tous les Enseignants (${relevantProfs.length})`;
+  elements.filterProf.appendChild(defaultOpt);
+
+  if (selectedModule) {
+    // Only 1 module selected: show only professors for this module
+    const meta = MODULES_META[selectedModule];
+    const groupLabel = meta ? `${meta.title} (${relevantProfs.length})` : selectedModule;
+    const group = document.createElement('optgroup');
+    group.label = groupLabel;
+
+    relevantProfs.forEach(prof => {
+      const opt = document.createElement('option');
+      opt.value = prof;
+      opt.textContent = prof;
+      if (prof === state.filters.prof) {
+        opt.selected = true;
+      }
+      group.appendChild(opt);
+    });
+
+    elements.filterProf.appendChild(group);
+  } else {
+    // All modules: Group professors by module according to MODULES_META
+    const moduleKeys = Object.keys(MODULES_META);
+    moduleKeys.forEach(modKey => {
+      const meta = MODULES_META[modKey];
+      const modCourses = state.courses.filter(c => c.module === modKey);
+      const modProfs = Array.from(new Set(modCourses.map(c => c.prof).filter(Boolean)))
+        .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+      if (modProfs.length > 0) {
+        const group = document.createElement('optgroup');
+        group.label = meta ? `${meta.title} (${modProfs.length})` : modKey;
+
+        modProfs.forEach(prof => {
+          const opt = document.createElement('option');
+          opt.value = prof;
+          opt.textContent = prof;
+          if (prof === state.filters.prof) {
+            opt.selected = true;
+          }
+          group.appendChild(opt);
+        });
+
+        elements.filterProf.appendChild(group);
+      }
+    });
+  }
+
+  elements.filterProf.value = state.filters.prof;
 }
 
 /**
@@ -2812,6 +2883,6 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Expose for browser console and programmatic access
 if (typeof window !== 'undefined') {
-  window.RecensementApp = { state, Storage, Sync, setViewMode, openExamsModal, setExamYear };
+  window.RecensementApp = { state, Storage, Sync, setViewMode, openExamsModal, setExamYear, renderDashboard, populateProfessors, selectModuleFilter };
 }
 
