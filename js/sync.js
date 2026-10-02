@@ -153,6 +153,7 @@ export const Sync = {
 
     const courses = [];
     let currentModule = '';
+    let currentSubModule = '';
     let currentProf = '';
     let counter = 1;
 
@@ -165,13 +166,20 @@ export const Sync = {
       // Module in Col 0
       if (c[0] && c[0].v) {
         const val0 = String(c[0].v).trim();
-        if (val0) currentModule = val0;
+        if (val0 && val0 !== currentModule) {
+          currentModule = val0;
+          currentSubModule = '';
+        }
       }
 
       // Submodule in Col 1
       let subModule = '';
       if (c[1] && c[1].v) {
         subModule = String(c[1].v).trim();
+        if (subModule) currentSubModule = subModule;
+      }
+      if (!subModule && currentSubModule) {
+        subModule = currentSubModule;
       }
 
       // Prof in Col 3
@@ -210,6 +218,11 @@ export const Sync = {
 
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
+
+      if (!subModule && typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
+        const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
+        if (initCourse && initCourse.submodule) subModule = initCourse.submodule;
+      }
 
       courses.push({
         id,
@@ -320,6 +333,7 @@ export const Sync = {
 
     const courses = [];
     let currentModule = '';
+    let currentSubModule = '';
     let currentProf = '';
     let counter = 1;
 
@@ -328,8 +342,20 @@ export const Sync = {
       if (!row) continue;
 
       if (row[0] && row[0].trim()) {
-        currentModule = row[0].trim();
+        const val0 = row[0].trim();
+        if (val0 && val0 !== currentModule) {
+          currentModule = val0;
+          currentSubModule = '';
+        }
       }
+
+      let subModule = (row[1] || '').trim();
+      if (subModule) {
+        currentSubModule = subModule;
+      } else if (currentSubModule) {
+        subModule = currentSubModule;
+      }
+
       if (row[3] && row[3].trim()) {
         currentProf = row[3].trim();
       }
@@ -341,7 +367,6 @@ export const Sync = {
         continue;
       }
 
-      const subModule = (row[1] || '').trim();
       const c1 = (row[6] || '').trim().toUpperCase() === 'TRUE';
       const c2 = (row[7] || '').trim().toUpperCase() === 'TRUE';
 
@@ -359,6 +384,11 @@ export const Sync = {
 
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
+
+      if (!subModule && typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
+        const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
+        if (initCourse && initCourse.submodule) subModule = initCourse.submodule;
+      }
 
       courses.push({
         id,

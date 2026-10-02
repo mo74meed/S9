@@ -430,10 +430,64 @@ function renderDashboard() {
 }
 
 /**
+ * Sub-modules definition matching the S9 curriculum & the tracking Excel file.
+ * Divides ORL-Ophtalmo into two distinct sub-modules (ORL and Ophtalmologie),
+ * and structures professors cleanly into their sub-disciplines.
+ */
+const SUBMODULES_ORDER = [
+  { name: 'Gynécologie - Obstétrique', module: 'GYNECO-OBSTETRIQUE' },
+  { name: 'ORL', module: 'ORL - OPHTALMO' },
+  { name: 'Ophtalmologie', module: 'ORL - OPHTALMO' },
+  { name: 'Médecine Sociale & Santé Publique', module: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ' },
+  { name: 'Urgences - Réanimation', module: 'URGENCES - RÉANIMATION' }
+];
+
+const PROF_TO_SUBMODULE = {
+  // Gynécologie - Obstétrique
+  'Pr. Bouchikhi': 'Gynécologie - Obstétrique',
+  'Pr. Chaara': 'Gynécologie - Obstétrique',
+  'Pr. Errarhay': 'Gynécologie - Obstétrique',
+  'Pr. Fdili': 'Gynécologie - Obstétrique',
+  'Pr. Melhouf': 'Gynécologie - Obstétrique',
+  'Pr. S.Jayi': 'Gynécologie - Obstétrique',
+
+  // ORL
+  'Pr. Afellah': 'ORL',
+  'Pr. Benmansour': 'ORL',
+  'Pr. Kamal': 'ORL',
+  'Pr. Laamarti': 'ORL',
+  'Pr. Ouatassi': 'ORL',
+  'Pr. Ridal': 'ORL',
+  'Pr. Zaki': 'ORL',
+
+  // Ophtalmologie
+  'Pr. Abdellaoui': 'Ophtalmologie',
+  'Pr. Benatiya': 'Ophtalmologie',
+  'Pr. Chraibi': 'Ophtalmologie',
+  'Pr. Moutei': 'Ophtalmologie',
+
+  // Médecine Sociale & Santé Publique
+  'Pr. Benmaamar': 'Médecine Sociale & Santé Publique',
+  'Pr. El Harch': 'Médecine Sociale & Santé Publique',
+  'Pr. Oumokhtar': 'Médecine Sociale & Santé Publique',
+  'Pr. Tachfouti': 'Médecine Sociale & Santé Publique',
+
+  // Urgences - Réanimation
+  'Pr. Berdai': 'Urgences - Réanimation',
+  'Pr. Bouazzaoui': 'Urgences - Réanimation',
+  'Pr. Boukatta': 'Urgences - Réanimation',
+  'Pr. Derkaoui': 'Urgences - Réanimation',
+  'Pr. Harandou': 'Urgences - Réanimation',
+  'Pr. Houari': 'Urgences - Réanimation',
+  'Pr. Kechna': 'Urgences - Réanimation',
+  'Pr. Shimi': 'Urgences - Réanimation'
+};
+
+/**
  * Populate professors dropdown
- * Dynamic & sorted by module:
- * - If a module filter is active, only show the professors who teach that module.
- * - If "Tous les Modules" is active, group and sort professors by their respective modules.
+ * Dynamic & sorted by sub-modules:
+ * - If a module filter is active (e.g. ORL - OPHTALMO), sub-divide professors into its sub-modules (ORL vs Ophtalmologie).
+ * - If "Tous les Modules" is active, group and sort professors by each of the 5 sub-modules.
  */
 function populateProfessors() {
   if (!elements.filterProf) return;
@@ -464,50 +518,59 @@ function populateProfessors() {
   defaultOpt.textContent = `Tous les Enseignants (${relevantProfs.length})`;
   elements.filterProf.appendChild(defaultOpt);
 
-  if (selectedModule) {
-    // Only 1 module selected: show only professors for this module
-    const meta = MODULES_META[selectedModule];
-    const groupLabel = meta ? `${meta.title} (${relevantProfs.length})` : selectedModule;
-    const group = document.createElement('optgroup');
-    group.label = groupLabel;
+  // Active sub-modules to render
+  const activeSubgroups = SUBMODULES_ORDER.filter(sub => {
+    if (!selectedModule) return true;
+    return sub.module === selectedModule;
+  });
 
-    relevantProfs.forEach(prof => {
+  const profsAssigned = new Set();
+
+  activeSubgroups.forEach(subgroup => {
+    const groupProfs = relevantProfs.filter(prof => {
+      if (PROF_TO_SUBMODULE[prof] === subgroup.name) {
+        return true;
+      }
+      return relevantCourses.some(c => c.prof === prof && c.submodule === subgroup.name);
+    }).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+    if (groupProfs.length > 0) {
+      groupProfs.forEach(p => profsAssigned.add(p));
+
+      const groupEl = document.createElement('optgroup');
+      groupEl.label = `${subgroup.name} (${groupProfs.length})`;
+
+      groupProfs.forEach(prof => {
+        const opt = document.createElement('option');
+        opt.value = prof;
+        opt.textContent = prof;
+        if (prof === state.filters.prof) {
+          opt.selected = true;
+        }
+        groupEl.appendChild(opt);
+      });
+
+      elements.filterProf.appendChild(groupEl);
+    }
+  });
+
+  // Fallback for any professors not assigned to a designated sub-module
+  const remainingProfs = relevantProfs.filter(p => !profsAssigned.has(p));
+  if (remainingProfs.length > 0) {
+    const fallbackGroup = document.createElement('optgroup');
+    fallbackGroup.label = `Autres (${remainingProfs.length})`;
+
+    remainingProfs.forEach(prof => {
       const opt = document.createElement('option');
       opt.value = prof;
       opt.textContent = prof;
       if (prof === state.filters.prof) {
         opt.selected = true;
       }
-      group.appendChild(opt);
+      fallbackGroup.appendChild(opt);
     });
 
-    elements.filterProf.appendChild(group);
-  } else {
-    // All modules: Group professors by module according to MODULES_META
-    const moduleKeys = Object.keys(MODULES_META);
-    moduleKeys.forEach(modKey => {
-      const meta = MODULES_META[modKey];
-      const modCourses = state.courses.filter(c => c.module === modKey);
-      const modProfs = Array.from(new Set(modCourses.map(c => c.prof).filter(Boolean)))
-        .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
-
-      if (modProfs.length > 0) {
-        const group = document.createElement('optgroup');
-        group.label = meta ? `${meta.title} (${modProfs.length})` : modKey;
-
-        modProfs.forEach(prof => {
-          const opt = document.createElement('option');
-          opt.value = prof;
-          opt.textContent = prof;
-          if (prof === state.filters.prof) {
-            opt.selected = true;
-          }
-          group.appendChild(opt);
-        });
-
-        elements.filterProf.appendChild(group);
-      }
-    });
+    elements.filterProf.appendChild(fallbackGroup);
   }
 
   elements.filterProf.value = state.filters.prof;

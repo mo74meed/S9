@@ -9,7 +9,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_001",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Uterus cicatriciel",
       "title": "Uterus cicatriciel",
@@ -22,7 +22,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_002",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Le retard de croissance intra-utérine RCIU",
       "title": "Le retard de croissance intra-utérine RCIU",
@@ -35,7 +35,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_003",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "les infections génitales",
       "title": "les infections génitales",
@@ -48,7 +48,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_004",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Cancer de la vulve",
       "title": "Cancer de la vulve",
@@ -61,7 +61,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_005",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Infections urinaires et grossesse",
       "title": "Infections urinaires et grossesse",
@@ -74,7 +74,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_006",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Toxoplasmose et grossesse",
       "title": "Toxoplasmose et grossesse",
@@ -87,7 +87,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_007",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Rubéole et grossesse",
       "title": "Rubéole et grossesse",
@@ -100,7 +100,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_008",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Streptocoque B et grossesse",
       "title": "Streptocoque B et grossesse",
@@ -113,7 +113,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_009",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Errarhay",
       "rawTitle": "Les suites de couches normales et pathologiques",
       "title": "Les suites de couches normales et pathologiques",
@@ -126,7 +126,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_010",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "Cancer du sein",
       "title": "Cancer du sein",
@@ -139,7 +139,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_011",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "Cancer de l'ovaire",
       "title": "Cancer de l'ovaire",
@@ -152,7 +152,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_012",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "Grossesse extra-utérine",
       "title": "Grossesse extra-utérine",
@@ -165,7 +165,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_013",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "Les Maladies trophoblastiques Gestationnelles",
       "title": "Les Maladies trophoblastiques Gestationnelles",
@@ -178,7 +178,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_014",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "Les avortements",
       "title": "Les avortements",
@@ -191,7 +191,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_015",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "La rupture prématurée des membranes",
       "title": "La rupture prématurée des membranes",
@@ -204,7 +204,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_016",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Bouchikhi",
       "rawTitle": "La délivrance normale et pathologique",
       "title": "La délivrance normale et pathologique",
@@ -217,7 +217,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_017",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Fdili",
       "rawTitle": "Diagnostic et surveillance de la grossesse",
       "title": "Diagnostic et surveillance de la grossesse",
@@ -230,7 +230,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_018",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Fdili",
       "rawTitle": "Hémorragies du 3ème trimestre",
       "title": "Hémorragies du 3ème trimestre",
@@ -243,7 +243,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_019",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Fdili",
       "rawTitle": "Présentations défléchies",
       "title": "Présentations défléchies",
@@ -256,7 +256,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_020",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "Diabète et grossesse",
       "title": "Diabète et grossesse",
@@ -269,7 +269,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_021",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "Pré-éclampsie",
       "title": "Pré-éclampsie",
@@ -282,7 +282,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_022",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "Allo-immunisations foeto-maternelles: Rhésus",
       "title": "Allo-immunisations foeto-maternelles: Rhésus",
@@ -295,7 +295,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_023",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "La grossesse gémellaire",
       "title": "La grossesse gémellaire",
@@ -308,7 +308,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_024",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "La menace d’accouchement prématuré",
       "title": "La menace d’accouchement prématuré",
@@ -321,7 +321,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_025",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Chaara",
       "rawTitle": "La souffrance foetale aiguë > devenue asphyxie +++",
       "title": "La souffrance foetale aiguë",
@@ -343,7 +343,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_026",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "Accouchement normal",
       "title": "Accouchement normal",
@@ -356,7 +356,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_027",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "presentation de siege",
       "title": "presentation de siege",
@@ -369,7 +369,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_028",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "Dysplasies cervicales",
       "title": "Dysplasies cervicales",
@@ -382,7 +382,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_029",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "Les fibromes utérins",
       "title": "Les fibromes utérins",
@@ -395,7 +395,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_030",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "Cancer du col uterin",
       "title": "Cancer du col uterin",
@@ -408,7 +408,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_031",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. Melhouf",
       "rawTitle": "Le cancer de l'endomètre",
       "title": "Le cancer de l'endomètre",
@@ -421,7 +421,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_032",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. S.Jayi",
       "rawTitle": "Endometrioses",
       "title": "Endometrioses",
@@ -434,7 +434,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_033",
       "module": "GYNECO-OBSTETRIQUE",
-      "submodule": "",
+      "submodule": "Gynécologie - Obstétrique",
       "prof": "Pr. S.Jayi",
       "rawTitle": "Abord du couple infertile",
       "title": "Abord du couple infertile",
@@ -447,7 +447,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_034",
       "module": "ORL - OPHTALMO",
-      "submodule": "OPHTALMO",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Moutei",
       "rawTitle": "Anatomie et physiologie de la vision",
       "title": "Anatomie et physiologie de la vision",
@@ -460,7 +460,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_035",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Moutei",
       "rawTitle": "Examen clinique en ophtalmologie",
       "title": "Examen clinique en ophtalmologie",
@@ -473,7 +473,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_036",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Moutei",
       "rawTitle": "Conduite à tenir devant un oeil rouge",
       "title": "Conduite à tenir devant un oeil rouge",
@@ -486,7 +486,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_037",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Moutei",
       "rawTitle": "Conduite à tenir devant une baisse de l’acuité visuelle",
       "title": "Conduite à tenir devant une baisse de l’acuité visuelle",
@@ -499,7 +499,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_038",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Chraibi",
       "rawTitle": "Les conjonctivites",
       "title": "Les conjonctivites",
@@ -512,7 +512,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_039",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Chraibi",
       "rawTitle": "Les kératites",
       "title": "Les kératites",
@@ -525,7 +525,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_040",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Abdellaoui",
       "rawTitle": "Les manifestations oculaires liées au diabète",
       "title": "Les manifestations oculaires liées au diabète",
@@ -538,7 +538,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_041",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Abdellaoui",
       "rawTitle": "Le décollement de la rétine rhegmatogène",
       "title": "Le décollement de la rétine rhegmatogène",
@@ -551,7 +551,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_042",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Abdellaoui",
       "rawTitle": "La dégénérescence maculaire liées à l'âge",
       "title": "La dégénérescence maculaire liées à l'âge",
@@ -564,7 +564,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_043",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Abdellaoui",
       "rawTitle": "L’uvéite",
       "title": "L’uvéite",
@@ -577,7 +577,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_044",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Abdellaoui",
       "rawTitle": "Les strabismes",
       "title": "Les strabismes",
@@ -590,7 +590,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_045",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "Leucocorie",
       "title": "Leucocorie",
@@ -603,7 +603,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_046",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "Les traumatismes oculo-orbitaires",
       "title": "Les traumatismes oculo-orbitaires",
@@ -616,7 +616,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_047",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "CAT devant une exophtalmie",
       "title": "CAT devant une exophtalmie",
@@ -629,7 +629,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_048",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "CAT devant un larmoiement",
       "title": "CAT devant un larmoiement",
@@ -642,7 +642,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_049",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "Les amétropies",
       "title": "Les amétropies",
@@ -655,7 +655,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_050",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "Les cataractes",
       "title": "Les cataractes",
@@ -668,7 +668,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_051",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "Ophtalmologie",
       "prof": "Pr. Benatiya",
       "rawTitle": "Les glaucomes",
       "title": "Les glaucomes",
@@ -703,7 +703,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_053",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Benmansour",
       "rawTitle": "otites moyennes chroniques",
       "title": "otites moyennes chroniques",
@@ -716,7 +716,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_054",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Benmansour",
       "rawTitle": "paralysie faciale",
       "title": "paralysie faciale",
@@ -729,7 +729,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_055",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Ridal",
       "rawTitle": "Les sinusites (nouveau cours)",
       "title": "Les sinusites",
@@ -751,7 +751,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_056",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Ridal",
       "rawTitle": "Les angines",
       "title": "Les angines",
@@ -764,7 +764,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_057",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Ridal",
       "rawTitle": "Nodules thyroidiens",
       "title": "Nodules thyroidiens",
@@ -777,7 +777,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_058",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Ouatassi",
       "rawTitle": "Les surdités",
       "title": "Les surdités",
@@ -790,7 +790,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_059",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Ouatassi",
       "rawTitle": "La rhinite allergique",
       "title": "La rhinite allergique",
@@ -803,7 +803,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_060",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Laamarti",
       "rawTitle": "Les vertiges (cours changé)",
       "title": "Les vertiges",
@@ -825,7 +825,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_061",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Afellah",
       "rawTitle": "SAOS (nouveau cours)",
       "title": "SAOS",
@@ -847,7 +847,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_062",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Zaki",
       "rawTitle": "Les cancers du cavum et des voies aéro-digestives sup",
       "title": "Les cancers du cavum et des voies aéro-digestives sup",
@@ -860,7 +860,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_063",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Kamal",
       "rawTitle": "Les cellulites cervico-faciales",
       "title": "Les cellulites cervico-faciales",
@@ -873,7 +873,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_064",
       "module": "ORL - OPHTALMO",
-      "submodule": "",
+      "submodule": "ORL",
       "prof": "Pr. Kamal",
       "rawTitle": "Les traumatismes maxillo-faciaux",
       "title": "Les traumatismes maxillo-faciaux",
@@ -886,7 +886,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_065",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "Epidémiologie générale",
       "title": "Epidémiologie générale",
@@ -899,7 +899,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_066",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "Les indicateurs de santé",
       "title": "Les indicateurs de santé",
@@ -912,7 +912,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_067",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "Les enquêtes épidémiologiques",
       "title": "Les enquêtes épidémiologiques",
@@ -925,7 +925,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_068",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "les sources d'erreurs et de biais en épidémiologie",
       "title": "les sources d'erreurs et de biais en épidémiologie",
@@ -938,7 +938,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_069",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "principes de la surveillance épidémioloique",
       "title": "principes de la surveillance épidémioloique",
@@ -951,7 +951,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_070",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "épidémiologie et prophylaxie des ISTs",
       "title": "épidémiologie et prophylaxie des ISTs",
@@ -964,7 +964,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_071",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Benmaamar",
       "rawTitle": "épidémiologie et prophylaxies des hépatites virales",
       "title": "épidémiologie et prophylaxies des hépatites virales",
@@ -977,7 +977,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_072",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "L’assurance Maladie au Maroc",
       "title": "L’assurance Maladie au Maroc",
@@ -990,7 +990,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_073",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Introduction aux systèmes de santé",
       "title": "Introduction aux systèmes de santé",
@@ -1003,7 +1003,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_074",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Le système de santé au maroc",
       "title": "Le système de santé au maroc",
@@ -1016,7 +1016,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_075",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Mesure de l’état de santé:La transition epidémiologique",
       "title": "Mesure de l’état de santé:La transition epidémiologique",
@@ -1029,7 +1029,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_076",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Epidémiologie et prophylaxie des cancers",
       "title": "Epidémiologie et prophylaxie des cancers",
@@ -1042,7 +1042,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_077",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Introduction à l'economie de santé",
       "title": "Introduction à l'economie de santé",
@@ -1055,7 +1055,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_078",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Epidémiologie et prévention des maladies transmissibles",
       "title": "Epidémiologie et prévention des maladies transmissibles",
@@ -1068,7 +1068,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_079",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
       "title": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
@@ -1081,7 +1081,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_080",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Prophylaxie de la tuberculose au maroc",
       "title": "Prophylaxie de la tuberculose au maroc",
@@ -1094,7 +1094,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_081",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "Investigation d'un episode epidermique",
       "title": "Investigation d'un episode epidermique",
@@ -1107,7 +1107,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_082",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Tachfouti",
       "rawTitle": "La prévention et le depistage",
       "title": "La prévention et le depistage",
@@ -1120,7 +1120,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_083",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. El Harch",
       "rawTitle": "Epidémiologie et surveillance de la grippe",
       "title": "Epidémiologie et surveillance de la grippe",
@@ -1133,7 +1133,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_084",
       "module": "MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ",
-      "submodule": "",
+      "submodule": "Santé Publique",
       "prof": "Pr. Oumokhtar",
       "rawTitle": "Santé et environnement",
       "title": "Santé et environnement",
@@ -1146,7 +1146,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_085",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Bouazzaoui",
       "rawTitle": "Infections associées aux soins",
       "title": "Infections associées aux soins",
@@ -1159,7 +1159,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_086",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Bouazzaoui",
       "rawTitle": "Introduction à l’anesthésie",
       "title": "Introduction à l’anesthésie",
@@ -1172,7 +1172,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_087",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Kechna",
       "rawTitle": "Pancréatite aiguë grave",
       "title": "Pancréatite aiguë grave",
@@ -1185,7 +1185,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_088",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Houari",
       "rawTitle": "Les états de choc: généralités",
       "title": "Les états de choc: généralités",
@@ -1198,7 +1198,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_089",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Houari",
       "rawTitle": "L’état de choc anaphylactique",
       "title": "L’état de choc anaphylactique",
@@ -1211,7 +1211,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_090",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Houari",
       "rawTitle": "L'état de choc septique",
       "title": "L'état de choc septique",
@@ -1224,7 +1224,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_091",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Houari",
       "rawTitle": "L'état de choc hémorragique",
       "title": "L'état de choc hémorragique",
@@ -1237,7 +1237,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_092",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Houari",
       "rawTitle": "L’état de choc cardiogénique",
       "title": "L’état de choc cardiogénique",
@@ -1250,7 +1250,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_093",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Boukatta",
       "rawTitle": "Arrêt cardiaque chez l’adulte",
       "title": "Arrêt cardiaque chez l’adulte",
@@ -1263,7 +1263,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_094",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Boukatta",
       "rawTitle": "Insuffisance respiratoire aiguë chez l’adulte",
       "title": "Insuffisance respiratoire aiguë chez l’adulte",
@@ -1276,7 +1276,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_095",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Boukatta",
       "rawTitle": "Ventilation artificielle",
       "title": "Ventilation artificielle",
@@ -1289,7 +1289,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_096",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les déséquilibres acido-basiques",
       "title": "Les déséquilibres acido-basiques",
@@ -1302,7 +1302,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_097",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les déséquilibres glycémiques",
       "title": "Les déséquilibres glycémiques",
@@ -1315,7 +1315,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_098",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les dyskaliémies",
       "title": "Les dyskaliémies",
@@ -1328,7 +1328,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_099",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les dyscalcémies",
       "title": "Les dyscalcémies",
@@ -1341,7 +1341,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_100",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Hémorragique en obstétrique",
       "title": "Hémorragique en obstétrique",
@@ -1354,7 +1354,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_101",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les pathologies hypertensives au cours de la grossesse",
       "title": "Les pathologies hypertensives au cours de la grossesse",
@@ -1367,7 +1367,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_102",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Les dysnatrémies",
       "title": "Les dysnatrémies",
@@ -1380,7 +1380,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_103",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "Obstruction grave des voies aériennes chez l’enfant",
       "title": "Obstruction grave des voies aériennes chez l’enfant",
@@ -1393,7 +1393,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_104",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "CAT devant un coma non traumatique",
       "title": "CAT devant un coma non traumatique",
@@ -1406,7 +1406,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_105",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Harandou",
       "rawTitle": "La douleur",
       "title": "La douleur",
@@ -1419,7 +1419,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_106",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Berdai",
       "rawTitle": "L’intubation orotrachéale",
       "title": "L’intubation orotrachéale",
@@ -1432,7 +1432,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_107",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Berdai",
       "rawTitle": "Les abords vasculaires en urgence et en réanimation",
       "title": "Les abords vasculaires en urgence et en réanimation",
@@ -1445,7 +1445,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_108",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Berdai",
       "rawTitle": "Les envenimations scorpioniques",
       "title": "Les envenimations scorpioniques",
@@ -1458,7 +1458,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_109",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Berdai",
       "rawTitle": "Les envenimations ophidiennes",
       "title": "Les envenimations ophidiennes",
@@ -1471,7 +1471,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_110",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Intoxication aiguë",
       "title": "Intoxication aiguë",
@@ -1484,7 +1484,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_111",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Intoxication au monoxyde de carbone",
       "title": "Intoxication au monoxyde de carbone",
@@ -1497,7 +1497,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_112",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Intoxication aiguë aux pesticides organophosphorés",
       "title": "Intoxication aiguë aux pesticides organophosphorés",
@@ -1510,7 +1510,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_113",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Intoxication au paracétamol",
       "title": "Intoxication au paracétamol",
@@ -1523,7 +1523,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_114",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Intoxication par le Paraphénylène-Diamine Takaout",
       "title": "Intoxication par le Paraphénylène-Diamine Takaout",
@@ -1536,7 +1536,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_115",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Accidents d'électrisation",
       "title": "Accidents d'électrisation",
@@ -1549,7 +1549,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_116",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Derkaoui",
       "rawTitle": "Noyades",
       "title": "Noyades",
@@ -1562,7 +1562,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_117",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Shimi",
       "rawTitle": "PEC du traumatisme crânien grave à la phase initiale",
       "title": "PEC du traumatisme crânien grave à la phase initiale",
@@ -1575,7 +1575,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_118",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Shimi",
       "rawTitle": "Prise en charge du patient polytraumatisé",
       "title": "Prise en charge du patient polytraumatisé",
@@ -1588,7 +1588,7 @@ export const INITIAL_DATA = {
     {
       "id": "c_119",
       "module": "URGENCES - RÉANIMATION",
-      "submodule": "",
+      "submodule": "Urgences - Réanimation",
       "prof": "Pr. Shimi",
       "rawTitle": "Prise en charge du brûlé grave à la phase aiguë",
       "title": "Prise en charge du brûlé grave à la phase aiguë",
