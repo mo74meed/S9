@@ -2368,8 +2368,6 @@ const Sync = {
         facultyStatus,
         questions,
         weight,
-        questions,
-        weight,
         sheetC1: c1,
         sheetC2: c2
       });
@@ -2522,9 +2520,15 @@ const Sync = {
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
 
-      if (!subModule && typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
+      let questions = 0;
+      let weight = 0;
+      if (typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
         const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
-        if (initCourse && initCourse.submodule) subModule = initCourse.submodule;
+        if (initCourse) {
+          if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
+          questions = initCourse.questions || 0;
+          weight = initCourse.weight || 0;
+        }
       }
 
       courses.push({
@@ -2536,6 +2540,8 @@ const Sync = {
         title: cleanTitle,
         badges,
         facultyStatus,
+        questions,
+        weight,
         sheetC1: c1,
         sheetC2: c2
       });
@@ -2569,7 +2575,7 @@ const Sync = {
       console.warn('[Sync] JSONP failed, trying Tier 2 direct CSV:', errJsonp.message);
     }
 
-    // Tier 2: Try direct CSV fetch with normalized export URL
+    // Tier 2: Try direct CSV fetch with normalized URL
     try {
       const data = await this.fetchDirectCsv(csvExportUrl);
       console.log('[Sync] Direct CSV fetch successful!');
@@ -2578,7 +2584,7 @@ const Sync = {
       console.warn('[Sync] Direct CSV failed, trying Tier 3 proxy:', errDirect.message);
     }
 
-    // Tier 3: Try CORS proxy with normalized export URL
+    // Tier 3: Try CORS proxy with normalized URL
     try {
       const data = await this.fetchViaProxy(csvExportUrl);
       console.log('[Sync] Proxy fetch successful!');
@@ -2815,6 +2821,37 @@ const COURSE_WEIGHTS_DATA = {
   'c_119': { questions: 3 }
 };
 const TOTAL_CORPUS_QUESTIONS = 2242;
+function getCourseQuestions(course) {
+  if (course && typeof course.questions === 'number' && !isNaN(course.questions)) {
+    return course.questions;
+  }
+  const fromDict = COURSE_WEIGHTS_DATA[course?.id];
+  if (fromDict && typeof fromDict.questions === 'number') {
+    return fromDict.questions;
+  }
+  if (typeof INITIAL_DATA !== 'undefined' && Array.isArray(INITIAL_DATA?.courses)) {
+    const initC = INITIAL_DATA.courses.find(c => c.id === course?.id);
+    if (initC && typeof initC.questions === 'number') return initC.questions;
+  }
+  return 0;
+}
+
+function getCourseWeight(course) {
+  if (course && typeof course.weight === 'number' && !isNaN(course.weight)) {
+    return course.weight;
+  }
+  const q = getCourseQuestions(course);
+  return Number(((q / TOTAL_CORPUS_QUESTIONS) * 100).toFixed(2));
+}
+
+function hydrateCoursesWithWeights(courses) {
+  if (!Array.isArray(courses)) return;
+  courses.forEach(c => {
+    c.questions = getCourseQuestions(c);
+    c.weight = getCourseWeight(c);
+  });
+}
+
 
 
 /**
@@ -3282,8 +3319,10 @@ async function init() {
     state.courses = cached;
   } else {
     state.courses = INITIAL_DATA.courses;
-    Storage.setCachedCourses(state.courses);
   }
+  // Guarantee questions and weights are populated on every single course
+  hydrateCoursesWithWeights(state.courses);
+  Storage.setCachedCourses(state.courses);
 
   // Reconcile faculty dates
   reconcileFacultyDates();
@@ -3826,6 +3865,15 @@ function getFilteredCourses() {
     });
   }
 
+  // When sorting by weight: sort descending by number of questions
+  if (state.filters.sortByWeight) {
+    return list.sort((a, b) => {
+      const qDiff = getCourseQuestions(b) - getCourseQuestions(a);
+      if (qDiff !== 0) return qDiff;
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
   return list;
 }
 
@@ -3965,7 +4013,7 @@ function renderSyllabusView(filteredCourses) {
 
       if (state.filters.sortByWeight) {
         // Direct High-Yield Ranked List by Weight (Descending)
-        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
+        modCourses.sort((a, b) => getCourseQuestions(b) - getCourseQuestions(a));
 
         const rankedHeader = document.createElement('div');
         rankedHeader.className = 'p-2.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800/60 flex items-center justify-between text-xs font-bold text-amber-800 dark:text-amber-300';
@@ -3974,7 +4022,7 @@ function renderSyllabusView(filteredCourses) {
             <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
             <span>Classement High-Yield (${modCourses.length} cours classés par nombre de questions)</span>
           </div>
-          <span class="text-[11px] opacity-75 font-semibold">Total : ${modCourses.reduce((sum, c) => sum + (c.questions || 0), 0)} questions</span>
+          <span class="text-[11px] opacity-75 font-semibold">Total : ${modCourses.reduce((sum, c) => sum + getCourseQuestions(c), 0)} questions</span>
         `;
         body.appendChild(rankedHeader);
 
@@ -4140,9 +4188,9 @@ function createCourseRowElement(course) {
             ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
           ${state.filters.sortByWeight ? `
-            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+            <span class="weight-badge" title="${getCourseQuestions(course)} questions au total (${getCourseWeight(course)}% du corpus)">
               <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
-              <span>${course.questions} questions</span>
+              <span>${getCourseQuestions(course)} questions</span>
             </span>
           ` : ''}
 
@@ -4266,9 +4314,9 @@ function renderTableView(courses) {
             ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
           ${state.filters.sortByWeight ? `
-            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+            <span class="weight-badge" title="${getCourseQuestions(course)} questions au total (${getCourseWeight(course)}% du corpus)">
               <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
-              <span>${course.questions} questions</span>
+              <span>${getCourseQuestions(course)} questions</span>
             </span>
           ` : ''}
           ${(course.badges || []).map(b => `
@@ -4371,9 +4419,9 @@ function renderCardsView(courses) {
           ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
         ${state.filters.sortByWeight ? `
-            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+            <span class="weight-badge" title="${getCourseQuestions(course)} questions au total (${getCourseWeight(course)}% du corpus)">
               <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
-              <span>${course.questions} questions</span>
+              <span>${getCourseQuestions(course)} questions</span>
             </span>
           ` : ''}
 
@@ -4839,6 +4887,8 @@ function setupEventListeners() {
   elements.btnResetFilters.onclick = resetAllFilters;
   if (elements.btnToggleWeightSort) {
     elements.btnToggleWeightSort.onclick = () => {
+      hydrateCoursesWithWeights(state.courses);
+      Storage.setCachedCourses(state.courses);
       state.filters.sortByWeight = !state.filters.sortByWeight;
       updateWeightSortButtonUI();
       renderDashboard();

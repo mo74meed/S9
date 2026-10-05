@@ -10,18 +10,19 @@ let app = fs.readFileSync(path.join(baseDir, 'js', 'app.js'), 'utf8');
 
 initialData = initialData
   .replace(/import\s+[^;]+;\r?\n?/g, '')
-  .replace(/export\s+const\s+INITIAL_DATA/g, 'const INITIAL_DATA');
+  .replace(/export\s+(default\s+)?/g, '');
 
 storage = storage
   .replace(/import\s+[^;]+;\r?\n?/g, '')
-  .replace(/export\s+const\s+Storage/g, 'const Storage');
+  .replace(/export\s+(default\s+)?/g, '');
 
 sync = sync
   .replace(/import\s+[^;]+;\r?\n?/g, '')
-  .replace(/export\s+const\s+Sync/g, 'const Sync');
+  .replace(/export\s+(default\s+)?/g, '');
 
 app = app
-  .replace(/import\s+[^;]+;\r?\n?/g, '');
+  .replace(/import\s+[^;]+;\r?\n?/g, '')
+  .replace(/export\s+(default\s+)?/g, '');
 
 const bundle = `/**
  * Recensement S9 - Bundled JavaScript
