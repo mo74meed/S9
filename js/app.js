@@ -1155,6 +1155,15 @@ function getFilteredCourses() {
     return true;
   });
 
+  // When sorting by weight: ALWAYS sort descending by number of questions (High-Yield décroissant)
+  if (state.filters.sortByWeight) {
+    return list.sort((a, b) => {
+      const qDiff = getCourseQuestions(b) - getCourseQuestions(a);
+      if (qDiff !== 0) return qDiff;
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
   // When filtering "À rattraper": sort chronologically by date added (newest first)
   if (state.filters.tab === 'catchup') {
     return list.sort((a, b) => {
@@ -1173,15 +1182,6 @@ function getFilteredCourses() {
       const timeB = parseD(b.facultyStatusDate);
       if (timeB !== timeA) return timeB - timeA;
 
-      return (a.id || '').localeCompare(b.id || '');
-    });
-  }
-
-  // When sorting by weight: sort descending by number of questions
-  if (state.filters.sortByWeight) {
-    return list.sort((a, b) => {
-      const qDiff = getCourseQuestions(b) - getCourseQuestions(a);
-      if (qDiff !== 0) return qDiff;
       return (a.id || '').localeCompare(b.id || '');
     });
   }
@@ -1355,9 +1355,6 @@ function renderSyllabusView(filteredCourses) {
         return;
       }
 
-      if (state.filters.sortByWeight) {
-        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
-      }
       const distinctSubmods = Array.from(new Set(modCourses.map(c => c.submodule).filter(Boolean)));
       const hasMultipleSubmods = distinctSubmods.length > 1;
 
@@ -1600,7 +1597,16 @@ function createCourseRowElement(course) {
 function renderTableView(courses) {
   elements.coursesTableBody.innerHTML = '';
 
-  courses.forEach(course => {
+  let listToRender = [...courses];
+  if (state.filters.sortByWeight) {
+    listToRender.sort((a, b) => {
+      const qDiff = getCourseQuestions(b) - getCourseQuestions(a);
+      if (qDiff !== 0) return qDiff;
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
+  listToRender.forEach(course => {
     const progress = state.personalProgress[course.id] || { done: false, c1: false, c2: false, note: '' };
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
@@ -1685,7 +1691,16 @@ function renderTableView(courses) {
 function renderCardsView(courses) {
   elements.coursesCardsView.innerHTML = '';
 
-  courses.forEach(course => {
+  let listToRender = [...courses];
+  if (state.filters.sortByWeight) {
+    listToRender.sort((a, b) => {
+      const qDiff = getCourseQuestions(b) - getCourseQuestions(a);
+      if (qDiff !== 0) return qDiff;
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
+
+  listToRender.forEach(course => {
     const progress = state.personalProgress[course.id] || { done: false, c1: false, c2: false, note: '' };
     const isDone = !!progress.done;
     const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
