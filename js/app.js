@@ -485,6 +485,8 @@ const elements = {
   btnCloseSettingsModal: document.getElementById('btnCloseSettingsModal'),
   settingSheetUrl: document.getElementById('settingSheetUrl'),
   settingAutoSync: document.getElementById('settingAutoSync'),
+  settingDefaultView: document.getElementById('settingDefaultView'),
+  settingRememberWeightSort: document.getElementById('settingRememberWeightSort'),
   btnSaveSettingsModal: document.getElementById('btnSaveSettingsModal'),
   btnResetFacultyOverrides: document.getElementById('btnResetFacultyOverrides'),
   btnExportBackup: document.getElementById('btnExportBackup'),
@@ -621,9 +623,10 @@ async function init() {
   // Initialize Theme
   initTheme();
 
-  // Load settings
+  // Load settings (theme, favorite view mode, sort by weight)
   state.settings = Storage.getSettings();
   state.activeView = state.settings.viewMode || 'syllabus';
+  state.filters.sortByWeight = !!state.settings.sortByWeight;
 
   // Load cached courses or initial pre-bundled
   const cached = Storage.getCachedCourses();
@@ -2070,18 +2073,14 @@ function setupEventListeners() {
 
       state.filters.tab = tab;
 
-      // Smart view switching:
-      // When at 'Tous', default to Syllabus view.
-      // When at any other filter (À Rattraper, Étudiés, À faire), default to the Rows/Table view (the second one).
-      if (tab === 'all') {
-        setViewMode('syllabus');
+      // Preserve user's preferred view mode across all tabs
+      if (tab === 'catchup') {
+        setActiveMobileNav('catchup');
+      } else if (tab === 'all') {
         setActiveMobileNav('syllabus');
-      } else {
-        setViewMode('table');
-        if (tab === 'catchup') {
-          setActiveMobileNav('catchup');
-        }
       }
+      renderCoursesView();
+      refreshIcons();
     };
   });
 
@@ -2360,7 +2359,9 @@ function resetAllFilters() {
 
 function setViewMode(mode) {
   state.activeView = mode;
+  state.settings.viewMode = mode;
   Storage.saveSettings({ viewMode: mode });
+  if (elements.settingDefaultView) elements.settingDefaultView.value = mode;
 
   // Update button visual states
   [
@@ -2385,6 +2386,15 @@ function openSettingsModal() {
   const settings = Storage.getSettings();
   elements.settingSheetUrl.value = settings.sheetUrl;
   elements.settingAutoSync.checked = settings.autoSync;
+  if (elements.settingThemeToggle) {
+    elements.settingThemeToggle.checked = document.documentElement.classList.contains('dark');
+  }
+  if (elements.settingDefaultView) {
+    elements.settingDefaultView.value = state.activeView;
+  }
+  if (elements.settingRememberWeightSort) {
+    elements.settingRememberWeightSort.checked = !!state.filters.sortByWeight;
+  }
   elements.settingsModal.classList.remove('hidden');
   refreshIcons();
 }
@@ -2392,14 +2402,32 @@ function openSettingsModal() {
 function saveSettingsModal() {
   const newUrl = elements.settingSheetUrl.value.trim();
   const newAuto = elements.settingAutoSync.checked;
+  const newView = elements.settingDefaultView ? elements.settingDefaultView.value : state.activeView;
+  const newWeight = elements.settingRememberWeightSort ? elements.settingRememberWeightSort.checked : state.filters.sortByWeight;
+  const newDark = elements.settingThemeToggle ? elements.settingThemeToggle.checked : document.documentElement.classList.contains('dark');
 
   Storage.saveSettings({
     sheetUrl: newUrl,
-    autoSync: newAuto
+    autoSync: newAuto,
+    viewMode: newView,
+    sortByWeight: newWeight,
+    theme: newDark ? 'dark' : 'light'
   });
 
+  if (newView !== state.activeView) {
+    setViewMode(newView);
+  }
+
+  if (newWeight !== state.filters.sortByWeight) {
+    state.filters.sortByWeight = newWeight;
+    updateWeightSortButtonUI();
+    renderCoursesView();
+  }
+
+  applyTheme(newDark ? 'dark' : 'light', false);
+
   elements.settingsModal.classList.add('hidden');
-  showToast('Paramètres enregistrés !', 'success');
+  showToast('Préférences enregistrées avec succès ! ⭐', 'success');
 }
 
 /**

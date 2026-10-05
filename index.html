@@ -807,9 +807,11 @@
         </div>
       </div>
 
-            <!-- Appearance / Theme -->
+            <!-- Appearance / Theme & View Preferences -->
       <div class="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Apparence & Thème</h4>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Apparence & Préférences par Défaut</h4>
+        
+        <!-- Dark Mode Toggle -->
         <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div>
             <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
@@ -819,6 +821,34 @@
             <div class="text-[11px] text-slate-500 dark:text-slate-400">Interface sombre à contraste élevé, reposante pour les révisions nocturnes</div>
           </div>
           <input type="checkbox" id="settingThemeToggle" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+        </div>
+
+        <!-- Default View Preference -->
+        <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <i data-lucide="layout" class="w-4 h-4 text-indigo-500"></i>
+              Vue par Défaut Préférée
+            </div>
+            <select id="settingDefaultView" class="bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-2.5 py-1 text-xs text-slate-800 dark:text-slate-200 font-semibold focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-2xs">
+              <option value="syllabus">📚 Syllabus Organisé (Modules)</option>
+              <option value="table">📋 Tableau / Liste Compacte</option>
+              <option value="cards">🗂️ Grille de Cartes</option>
+            </select>
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400">La vue sélectionnée s'ouvre automatiquement au démarrage et reste active lors de la navigation.</div>
+        </div>
+
+        <!-- Remember Weight Sort -->
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+          <div>
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+              Mémoriser le Tri par Poids (Questions)
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Garder automatiquement le classement High-Yield actif entre vos visites</div>
+          </div>
+          <input type="checkbox" id="settingRememberWeightSort" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
         </div>
       </div>
 

@@ -10,16 +10,20 @@ const STORAGE_KEYS = {
   CACHED_COURSES: 'recensement_cached_courses_v1',
   FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1',
   FACULTY_DATES: 'recensement_faculty_dates_v1',
-  SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1'
+  SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1',
+  THEME: 's9_theme',
+  PREFERRED_VIEW: 's9_preferred_view',
+  SORT_BY_WEIGHT: 's9_sort_by_weight'
 };
 
 const DEFAULT_SETTINGS = {
-  theme: 'light', // Light theme by default
+  theme: 'light', // 'light' | 'dark'
   autoSync: true,
   syncHour: 20,
   syncMinute: 0,
   sheetUrl: 'https://docs.google.com/spreadsheets/d/1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74/export?format=csv&gid=0',
-  viewMode: 'syllabus', // Default view is organized syllabus by module
+  viewMode: 'syllabus', // 'syllabus' | 'table' | 'cards'
+  sortByWeight: false,
   enableCouches: true
 };
 
@@ -82,7 +86,19 @@ export const Storage = {
   getSettings() {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-      return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : { ...DEFAULT_SETTINGS };
+      const parsed = raw ? JSON.parse(raw) : {};
+      const theme = localStorage.getItem(STORAGE_KEYS.THEME) || parsed.theme || DEFAULT_SETTINGS.theme;
+      const viewMode = localStorage.getItem(STORAGE_KEYS.PREFERRED_VIEW) || parsed.viewMode || DEFAULT_SETTINGS.viewMode;
+      const rawWeight = localStorage.getItem(STORAGE_KEYS.SORT_BY_WEIGHT);
+      const sortByWeight = rawWeight !== null ? rawWeight === 'true' : (parsed.sortByWeight ?? DEFAULT_SETTINGS.sortByWeight);
+
+      return {
+        ...DEFAULT_SETTINGS,
+        ...parsed,
+        theme,
+        viewMode,
+        sortByWeight
+      };
     } catch (e) {
       return { ...DEFAULT_SETTINGS };
     }
@@ -93,6 +109,9 @@ export const Storage = {
       const current = this.getSettings();
       const updated = { ...current, ...newSettings };
       localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(updated));
+      if (updated.theme) localStorage.setItem(STORAGE_KEYS.THEME, updated.theme);
+      if (updated.viewMode) localStorage.setItem(STORAGE_KEYS.PREFERRED_VIEW, updated.viewMode);
+      if (typeof updated.sortByWeight === 'boolean') localStorage.setItem(STORAGE_KEYS.SORT_BY_WEIGHT, String(updated.sortByWeight));
       return updated;
     } catch (e) {
       console.error('Failed to save settings:', e);
