@@ -1023,8 +1023,8 @@ export const INITIAL_DATA = {
       "sheetC1": false,
       "sheetC2": false,
       "facultyStatusDate": "21/09/2026",
-      "questions": 144,
-      "weight": 6.42
+      "questions": 20,
+      "weight": 0.89
     },
     {
       "id": "c_066",

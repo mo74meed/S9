@@ -71,7 +71,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_064': { questions: 4 },
 
   // Santé Publique & Éco
-  'c_065': { questions: 144 },
+  'c_065': { questions: 20 },
   'c_066': { questions: 33 },
   'c_067': { questions: 42 },
   'c_068': { questions: 9 },
@@ -779,8 +779,6 @@ function renderSubmoduleNav() {
       if (item.key === 'all' || isActive) {
         state.filters.module = '';
         state.filters.submodule = '';
-  state.filters.sortByWeight = false;
-  updateWeightSortButtonUI();
       } else {
         state.filters.module = item.module || '';
         state.filters.submodule = item.submodule || '';
@@ -2218,7 +2216,8 @@ function setupEventListeners() {
       Storage.setCachedCourses(state.courses);
       state.filters.sortByWeight = !state.filters.sortByWeight;
       updateWeightSortButtonUI();
-      renderDashboard();
+      renderCoursesView();
+      refreshIcons();
       if (state.filters.sortByWeight) {
         showToast('Tri par poids activé : cours classés par nombre de questions 🔥', 'info');
       } else {
