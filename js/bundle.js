@@ -23,7 +23,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_002",
@@ -36,7 +38,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 18,
+      "weight": 0.8
     },
     {
       "id": "c_003",
@@ -49,7 +53,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 36,
+      "weight": 1.61
     },
     {
       "id": "c_004",
@@ -62,7 +68,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_005",
@@ -75,7 +83,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_006",
@@ -88,7 +98,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 17,
+      "weight": 0.76
     },
     {
       "id": "c_007",
@@ -101,7 +113,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_008",
@@ -114,7 +128,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_009",
@@ -127,7 +143,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 81,
+      "weight": 3.61
     },
     {
       "id": "c_010",
@@ -140,7 +158,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 47,
+      "weight": 2.1
     },
     {
       "id": "c_011",
@@ -153,7 +173,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_012",
@@ -166,7 +188,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_013",
@@ -179,7 +203,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 31,
+      "weight": 1.38
     },
     {
       "id": "c_014",
@@ -192,7 +218,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_015",
@@ -205,7 +233,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_016",
@@ -218,7 +248,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_017",
@@ -231,7 +263,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_018",
@@ -244,7 +278,9 @@ const INITIAL_DATA = {
       "facultyStatus": "En cours",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 29,
+      "weight": 1.29
     },
     {
       "id": "c_019",
@@ -257,7 +293,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_020",
@@ -270,7 +308,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_021",
@@ -283,7 +323,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_022",
@@ -296,7 +338,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 18,
+      "weight": 0.8
     },
     {
       "id": "c_023",
@@ -309,7 +353,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_024",
@@ -322,7 +368,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_025",
@@ -344,7 +392,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_026",
@@ -357,7 +407,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_027",
@@ -370,7 +422,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_028",
@@ -383,7 +437,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_029",
@@ -396,7 +452,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_030",
@@ -409,7 +467,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 27,
+      "weight": 1.2
     },
     {
       "id": "c_031",
@@ -422,7 +482,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_032",
@@ -435,7 +497,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_033",
@@ -448,7 +512,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_034",
@@ -461,7 +527,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_035",
@@ -474,7 +542,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_036",
@@ -487,7 +557,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_037",
@@ -500,7 +572,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_038",
@@ -513,7 +587,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "21/09/2026"
+      "facultyStatusDate": "21/09/2026",
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_039",
@@ -526,7 +602,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_040",
@@ -539,7 +617,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 67,
+      "weight": 2.99
     },
     {
       "id": "c_041",
@@ -552,7 +632,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_042",
@@ -565,7 +647,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_043",
@@ -578,7 +662,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_044",
@@ -591,7 +677,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_045",
@@ -604,7 +692,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_046",
@@ -617,7 +707,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 17,
+      "weight": 0.76
     },
     {
       "id": "c_047",
@@ -630,7 +722,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_048",
@@ -643,7 +737,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_049",
@@ -656,7 +752,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_050",
@@ -669,7 +767,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 32,
+      "weight": 1.43
     },
     {
       "id": "c_051",
@@ -682,7 +782,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_052",
@@ -704,7 +806,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_053",
@@ -717,7 +821,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_054",
@@ -730,7 +836,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_055",
@@ -752,7 +860,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_056",
@@ -765,7 +875,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_057",
@@ -778,7 +890,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 20,
+      "weight": 0.89
     },
     {
       "id": "c_058",
@@ -791,7 +905,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_059",
@@ -804,7 +920,9 @@ const INITIAL_DATA = {
       "facultyStatus": "En cours",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_060",
@@ -826,7 +944,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 41,
+      "weight": 1.83
     },
     {
       "id": "c_061",
@@ -848,7 +968,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_062",
@@ -861,7 +983,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 35,
+      "weight": 1.56
     },
     {
       "id": "c_063",
@@ -874,7 +998,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_064",
@@ -887,7 +1013,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_065",
@@ -900,7 +1028,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "21/09/2026"
+      "facultyStatusDate": "21/09/2026",
+      "questions": 144,
+      "weight": 6.42
     },
     {
       "id": "c_066",
@@ -913,7 +1043,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 33,
+      "weight": 1.47
     },
     {
       "id": "c_067",
@@ -926,7 +1058,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 42,
+      "weight": 1.87
     },
     {
       "id": "c_068",
@@ -939,7 +1073,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_069",
@@ -952,7 +1088,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_070",
@@ -965,7 +1103,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_071",
@@ -978,7 +1118,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_072",
@@ -991,7 +1133,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_073",
@@ -1004,7 +1148,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_074",
@@ -1017,7 +1163,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 28,
+      "weight": 1.25
     },
     {
       "id": "c_075",
@@ -1030,7 +1178,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 33,
+      "weight": 1.47
     },
     {
       "id": "c_076",
@@ -1043,7 +1193,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_077",
@@ -1056,7 +1208,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 35,
+      "weight": 1.56
     },
     {
       "id": "c_078",
@@ -1069,7 +1223,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_079",
@@ -1082,7 +1238,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_080",
@@ -1095,7 +1253,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_081",
@@ -1108,7 +1268,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_082",
@@ -1121,7 +1283,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_083",
@@ -1134,7 +1298,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 0,
+      "weight": 0
     },
     {
       "id": "c_084",
@@ -1147,7 +1313,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 39,
+      "weight": 1.74
     },
     {
       "id": "c_085",
@@ -1160,7 +1328,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_086",
@@ -1173,7 +1343,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_087",
@@ -1186,7 +1358,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_088",
@@ -1199,7 +1373,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_089",
@@ -1212,7 +1388,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_090",
@@ -1225,7 +1403,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 12,
+      "weight": 0.54
     },
     {
       "id": "c_091",
@@ -1238,7 +1418,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_092",
@@ -1251,7 +1433,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_093",
@@ -1264,7 +1448,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_094",
@@ -1277,7 +1463,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_095",
@@ -1290,7 +1478,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_096",
@@ -1303,7 +1493,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_097",
@@ -1316,7 +1508,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_098",
@@ -1329,7 +1523,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_099",
@@ -1342,7 +1538,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_100",
@@ -1355,7 +1553,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_101",
@@ -1368,7 +1568,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_102",
@@ -1381,7 +1583,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 20,
+      "weight": 0.89
     },
     {
       "id": "c_103",
@@ -1394,7 +1598,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_104",
@@ -1407,7 +1613,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_105",
@@ -1420,7 +1628,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_106",
@@ -1433,7 +1643,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_107",
@@ -1446,7 +1658,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_108",
@@ -1459,7 +1673,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_109",
@@ -1472,7 +1688,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_110",
@@ -1485,7 +1703,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_111",
@@ -1498,7 +1718,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_112",
@@ -1511,7 +1733,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_113",
@@ -1524,7 +1748,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_114",
@@ -1537,7 +1763,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_115",
@@ -1550,7 +1778,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_116",
@@ -1563,7 +1793,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 0,
+      "weight": 0
     },
     {
       "id": "c_117",
@@ -1576,7 +1808,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_118",
@@ -1589,7 +1823,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_119",
@@ -1602,7 +1838,9 @@ const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 3,
+      "weight": 0.13
     }
   ]
 };
@@ -2108,9 +2346,15 @@ const Sync = {
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
 
-      if (!subModule && typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
+      let questions = 0;
+      let weight = 0;
+      if (typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
         const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
-        if (initCourse && initCourse.submodule) subModule = initCourse.submodule;
+        if (initCourse) {
+          if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
+          questions = initCourse.questions || 0;
+          weight = initCourse.weight || 0;
+        }
       }
 
       courses.push({
@@ -2122,6 +2366,10 @@ const Sync = {
         title: cleanTitle,
         badges,
         facultyStatus,
+        questions,
+        weight,
+        questions,
+        weight,
         sheetC1: c1,
         sheetC2: c2
       });
@@ -2435,6 +2683,139 @@ const Sync = {
 };
 
 
+// Course Weights Dictionary (Total: 2242 questions across S9 corpus)
+const COURSE_WEIGHTS_DATA = {
+  // Gynéco-Obstétrique
+  'c_001': { questions: 11 },
+  'c_002': { questions: 18 },
+  'c_003': { questions: 36 },
+  'c_004': { questions: 8 },
+  'c_005': { questions: 26 },
+  'c_006': { questions: 17 },
+  'c_007': { questions: 7 },
+  'c_008': { questions: 4 },
+  'c_009': { questions: 81 },
+  'c_010': { questions: 47 },
+  'c_011': { questions: 19 },
+  'c_012': { questions: 25 },
+  'c_013': { questions: 31 },
+  'c_014': { questions: 8 },
+  'c_015': { questions: 13 },
+  'c_016': { questions: 24 },
+  'c_017': { questions: 21 },
+  'c_018': { questions: 29 },
+  'c_019': { questions: 25 },
+  'c_020': { questions: 24 },
+  'c_021': { questions: 21 },
+  'c_022': { questions: 18 },
+  'c_023': { questions: 16 },
+  'c_024': { questions: 13 },
+  'c_025': { questions: 6 },
+  'c_026': { questions: 13 },
+  'c_027': { questions: 15 },
+  'c_028': { questions: 9 },
+  'c_029': { questions: 21 },
+  'c_030': { questions: 27 },
+  'c_031': { questions: 13 },
+  'c_032': { questions: 2 },
+  'c_033': { questions: 4 },
+
+  // Ophtalmologie
+  'c_034': { questions: 10 },
+  'c_035': { questions: 22 },
+  'c_036': { questions: 19 },
+  'c_037': { questions: 19 },
+  'c_038': { questions: 10 },
+  'c_039': { questions: 5 },
+  'c_040': { questions: 67 },
+  'c_041': { questions: 19 },
+  'c_042': { questions: 24 },
+  'c_043': { questions: 21 },
+  'c_044': { questions: 19 },
+  'c_045': { questions: 11 },
+  'c_046': { questions: 17 },
+  'c_047': { questions: 26 },
+  'c_048': { questions: 30 },
+  'c_049': { questions: 22 },
+  'c_050': { questions: 32 },
+  'c_051': { questions: 30 },
+
+  // ORL
+  'c_052': { questions: 30 },
+  'c_053': { questions: 25 },
+  'c_054': { questions: 25 },
+  'c_055': { questions: 26 },
+  'c_056': { questions: 16 },
+  'c_057': { questions: 20 },
+  'c_058': { questions: 22 },
+  'c_059': { questions: 13 },
+  'c_060': { questions: 41 },
+  'c_061': { questions: 1 },
+  'c_062': { questions: 35 },
+  'c_063': { questions: 9 },
+  'c_064': { questions: 4 },
+
+  // Santé Publique & Éco
+  'c_065': { questions: 144 },
+  'c_066': { questions: 33 },
+  'c_067': { questions: 42 },
+  'c_068': { questions: 9 },
+  'c_069': { questions: 13 },
+  'c_070': { questions: 11 },
+  'c_071': { questions: 4 },
+  'c_072': { questions: 11 },
+  'c_073': { questions: 19 },
+  'c_074': { questions: 28 },
+  'c_075': { questions: 33 },
+  'c_076': { questions: 10 },
+  'c_077': { questions: 35 },
+  'c_078': { questions: 11 },
+  'c_079': { questions: 1 },
+  'c_080': { questions: 5 },
+  'c_081': { questions: 5 },
+  'c_082': { questions: 19 },
+  'c_083': { questions: 0 },
+  'c_084': { questions: 39 },
+
+  // Urgences - Réanimation
+  'c_085': { questions: 8 },
+  'c_086': { questions: 7 },
+  'c_087': { questions: 19 },
+  'c_088': { questions: 3 },
+  'c_089': { questions: 6 },
+  'c_090': { questions: 12 },
+  'c_091': { questions: 9 },
+  'c_092': { questions: 3 },
+  'c_093': { questions: 11 },
+  'c_094': { questions: 15 },
+  'c_095': { questions: 2 },
+  'c_096': { questions: 16 },
+  'c_097': { questions: 3 },
+  'c_098': { questions: 8 },
+  'c_099': { questions: 8 },
+  'c_100': { questions: 9 },
+  'c_101': { questions: 21 },
+  'c_102': { questions: 20 },
+  'c_103': { questions: 19 },
+  'c_104': { questions: 6 },
+  'c_105': { questions: 2 },
+  'c_106': { questions: 1 },
+  'c_107': { questions: 1 },
+  'c_108': { questions: 1 },
+  'c_109': { questions: 1 },
+  'c_110': { questions: 22 },
+  'c_111': { questions: 9 },
+  'c_112': { questions: 6 },
+  'c_113': { questions: 4 },
+  'c_114': { questions: 5 },
+  'c_115': { questions: 7 },
+  'c_116': { questions: 0 },
+  'c_117': { questions: 15 },
+  'c_118': { questions: 25 },
+  'c_119': { questions: 3 }
+};
+const TOTAL_CORPUS_QUESTIONS = 2242;
+
 
 /**
  * Main Application Controller for Recensement S9 Dashboard
@@ -2454,6 +2835,7 @@ const state = {
     tab: 'all',          // 'all' | 'catchup' | 'done' | 'todo'
     module: '',
     submodule: '',
+    sortByWeight: false,
     facStatus: '',
     prof: '',
     search: ''
@@ -2726,6 +3108,8 @@ const elements = {
   filterFacStatus: document.getElementById('filterFacStatus'),
   filterProf: document.getElementById('filterProf'),
   btnResetFilters: document.getElementById('btnResetFilters'),
+  btnToggleWeightSort: document.getElementById('btnToggleWeightSort'),
+  weightFilterIndicator: document.getElementById('weightFilterIndicator'),
 
   // View Switchers
   btnViewSyllabus: document.getElementById('btnViewSyllabus'),
@@ -3044,6 +3428,8 @@ function renderSubmoduleNav() {
       if (item.key === 'all' || isActive) {
         state.filters.module = '';
         state.filters.submodule = '';
+  state.filters.sortByWeight = false;
+  updateWeightSortButtonUI();
       } else {
         state.filters.module = item.module || '';
         state.filters.submodule = item.submodule || '';
@@ -3073,7 +3459,26 @@ function renderSubmoduleNav() {
   });
 }
 
+
+function updateWeightSortButtonUI() {
+  if (!elements.btnToggleWeightSort) return;
+  if (state.filters.sortByWeight) {
+    elements.btnToggleWeightSort.classList.add('is-active');
+    if (elements.weightFilterIndicator) {
+      elements.weightFilterIndicator.textContent = 'Actif (Trié)';
+      elements.weightFilterIndicator.className = 'text-[10px] px-1.5 py-0.2 rounded-full bg-white/20 text-white font-extrabold';
+    }
+  } else {
+    elements.btnToggleWeightSort.classList.remove('is-active');
+    if (elements.weightFilterIndicator) {
+      elements.weightFilterIndicator.textContent = '2242 Qs';
+      elements.weightFilterIndicator.className = 'text-[10px] px-1.5 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-extrabold border border-amber-200 dark:border-amber-800';
+    }
+  }
+}
+
 function renderDashboard() {
+  updateWeightSortButtonUI();
   populateProfessors();
   updateStats();
   renderSubmoduleNav();
@@ -3558,6 +3963,41 @@ function renderSyllabusView(filteredCourses) {
       const body = document.createElement('div');
       body.className = 'p-3 sm:p-5 space-y-4 bg-white dark:bg-slate-900';
 
+      if (state.filters.sortByWeight) {
+        // Direct High-Yield Ranked List by Weight (Descending)
+        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
+
+        const rankedHeader = document.createElement('div');
+        rankedHeader.className = 'p-2.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800/60 flex items-center justify-between text-xs font-bold text-amber-800 dark:text-amber-300';
+        rankedHeader.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+            <span>Classement High-Yield (${modCourses.length} cours classés par nombre de questions)</span>
+          </div>
+          <span class="text-[11px] opacity-75 font-semibold">Total : ${modCourses.reduce((sum, c) => sum + (c.questions || 0), 0)} questions</span>
+        `;
+        body.appendChild(rankedHeader);
+
+        const rowsList = document.createElement('div');
+        rowsList.className = 'space-y-2';
+
+        modCourses.forEach((course, rankIdx) => {
+          if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
+          const row = createCourseRowElement(course);
+          rowsList.appendChild(row);
+        });
+
+        body.appendChild(rowsList);
+        section.appendChild(body);
+        elements.coursesSyllabusView.appendChild(section);
+        return;
+      }
+
+      if (state.filters.sortByWeight) {
+        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
+      }
       const distinctSubmods = Array.from(new Set(modCourses.map(c => c.submodule).filter(Boolean)));
       const hasMultipleSubmods = distinctSubmods.length > 1;
 
@@ -3699,6 +4139,12 @@ function createCourseRowElement(course) {
           <span class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}" data-id="${course.id}">
             ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
+          ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
 
           <!-- Title Notes Badges (Nouveau cours, cours changé, etc.) -->
           ${(course.badges || []).map(b => `
@@ -3819,6 +4265,12 @@ function renderTableView(courses) {
           <span class="font-bold text-slate-900 dark:text-slate-100 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
             ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
+          ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
           ${(course.badges || []).map(b => `
             <span class="title-badge ${b.bg} ${b.textCol} ${b.border}">
               ${b.text}
@@ -3918,6 +4370,12 @@ function renderCardsView(courses) {
         <h4 class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
           ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
+        ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
 
         <!-- Badges -->
         <div class="flex items-center gap-1 flex-wrap mb-2">
@@ -4379,6 +4837,18 @@ function setupEventListeners() {
   };
 
   elements.btnResetFilters.onclick = resetAllFilters;
+  if (elements.btnToggleWeightSort) {
+    elements.btnToggleWeightSort.onclick = () => {
+      state.filters.sortByWeight = !state.filters.sortByWeight;
+      updateWeightSortButtonUI();
+      renderDashboard();
+      if (state.filters.sortByWeight) {
+        showToast('Tri par poids activé : cours classés par nombre de questions 🔥', 'info');
+      } else {
+        showToast('Ordre standard du programme rétabli', 'info');
+      }
+    };
+  }
   elements.btnEmptyReset.onclick = resetAllFilters;
 
   // View Switchers

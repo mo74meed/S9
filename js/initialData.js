@@ -17,7 +17,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_002",
@@ -30,7 +32,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 18,
+      "weight": 0.8
     },
     {
       "id": "c_003",
@@ -43,7 +47,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 36,
+      "weight": 1.61
     },
     {
       "id": "c_004",
@@ -56,7 +62,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_005",
@@ -69,7 +77,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_006",
@@ -82,7 +92,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 17,
+      "weight": 0.76
     },
     {
       "id": "c_007",
@@ -95,7 +107,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_008",
@@ -108,7 +122,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_009",
@@ -121,7 +137,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 81,
+      "weight": 3.61
     },
     {
       "id": "c_010",
@@ -134,7 +152,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 47,
+      "weight": 2.1
     },
     {
       "id": "c_011",
@@ -147,7 +167,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_012",
@@ -160,7 +182,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_013",
@@ -173,7 +197,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 31,
+      "weight": 1.38
     },
     {
       "id": "c_014",
@@ -186,7 +212,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_015",
@@ -199,7 +227,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_016",
@@ -212,7 +242,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_017",
@@ -225,7 +257,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_018",
@@ -238,7 +272,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "En cours",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 29,
+      "weight": 1.29
     },
     {
       "id": "c_019",
@@ -251,7 +287,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_020",
@@ -264,7 +302,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_021",
@@ -277,7 +317,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_022",
@@ -290,7 +332,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 18,
+      "weight": 0.8
     },
     {
       "id": "c_023",
@@ -303,7 +347,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_024",
@@ -316,7 +362,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_025",
@@ -338,7 +386,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_026",
@@ -351,7 +401,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_027",
@@ -364,7 +416,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_028",
@@ -377,7 +431,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_029",
@@ -390,7 +446,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_030",
@@ -403,7 +461,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 27,
+      "weight": 1.2
     },
     {
       "id": "c_031",
@@ -416,7 +476,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_032",
@@ -429,7 +491,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_033",
@@ -442,7 +506,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_034",
@@ -455,7 +521,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_035",
@@ -468,7 +536,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_036",
@@ -481,7 +551,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_037",
@@ -494,7 +566,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_038",
@@ -507,7 +581,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "21/09/2026"
+      "facultyStatusDate": "21/09/2026",
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_039",
@@ -520,7 +596,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_040",
@@ -533,7 +611,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 67,
+      "weight": 2.99
     },
     {
       "id": "c_041",
@@ -546,7 +626,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_042",
@@ -559,7 +641,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 24,
+      "weight": 1.07
     },
     {
       "id": "c_043",
@@ -572,7 +656,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_044",
@@ -585,7 +671,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_045",
@@ -598,7 +686,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_046",
@@ -611,7 +701,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 17,
+      "weight": 0.76
     },
     {
       "id": "c_047",
@@ -624,7 +716,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_048",
@@ -637,7 +731,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_049",
@@ -650,7 +746,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_050",
@@ -663,7 +761,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 32,
+      "weight": 1.43
     },
     {
       "id": "c_051",
@@ -676,7 +776,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_052",
@@ -698,7 +800,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 30,
+      "weight": 1.34
     },
     {
       "id": "c_053",
@@ -711,7 +815,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_054",
@@ -724,7 +830,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_055",
@@ -746,7 +854,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 26,
+      "weight": 1.16
     },
     {
       "id": "c_056",
@@ -759,7 +869,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_057",
@@ -772,7 +884,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 20,
+      "weight": 0.89
     },
     {
       "id": "c_058",
@@ -785,7 +899,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_059",
@@ -798,7 +914,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "En cours",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_060",
@@ -820,7 +938,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 41,
+      "weight": 1.83
     },
     {
       "id": "c_061",
@@ -842,7 +962,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_062",
@@ -855,7 +977,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 35,
+      "weight": 1.56
     },
     {
       "id": "c_063",
@@ -868,7 +992,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_064",
@@ -881,7 +1007,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_065",
@@ -894,7 +1022,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "21/09/2026"
+      "facultyStatusDate": "21/09/2026",
+      "questions": 144,
+      "weight": 6.42
     },
     {
       "id": "c_066",
@@ -907,7 +1037,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 33,
+      "weight": 1.47
     },
     {
       "id": "c_067",
@@ -920,7 +1052,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 42,
+      "weight": 1.87
     },
     {
       "id": "c_068",
@@ -933,7 +1067,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_069",
@@ -946,7 +1082,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 13,
+      "weight": 0.58
     },
     {
       "id": "c_070",
@@ -959,7 +1097,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_071",
@@ -972,7 +1112,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_072",
@@ -985,7 +1127,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_073",
@@ -998,7 +1142,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_074",
@@ -1011,7 +1157,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 28,
+      "weight": 1.25
     },
     {
       "id": "c_075",
@@ -1024,7 +1172,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 33,
+      "weight": 1.47
     },
     {
       "id": "c_076",
@@ -1037,7 +1187,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 10,
+      "weight": 0.45
     },
     {
       "id": "c_077",
@@ -1050,7 +1202,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 35,
+      "weight": 1.56
     },
     {
       "id": "c_078",
@@ -1063,7 +1217,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_079",
@@ -1076,7 +1232,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_080",
@@ -1089,7 +1247,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_081",
@@ -1102,7 +1262,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_082",
@@ -1115,7 +1277,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_083",
@@ -1128,7 +1292,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 0,
+      "weight": 0
     },
     {
       "id": "c_084",
@@ -1141,7 +1307,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 39,
+      "weight": 1.74
     },
     {
       "id": "c_085",
@@ -1154,7 +1322,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_086",
@@ -1167,7 +1337,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_087",
@@ -1180,7 +1352,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_088",
@@ -1193,7 +1367,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_089",
@@ -1206,7 +1382,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_090",
@@ -1219,7 +1397,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 12,
+      "weight": 0.54
     },
     {
       "id": "c_091",
@@ -1232,7 +1412,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_092",
@@ -1245,7 +1427,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_093",
@@ -1258,7 +1442,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 11,
+      "weight": 0.49
     },
     {
       "id": "c_094",
@@ -1271,7 +1457,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_095",
@@ -1284,7 +1472,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": "17/09/2026"
+      "facultyStatusDate": "17/09/2026",
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_096",
@@ -1297,7 +1487,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 16,
+      "weight": 0.71
     },
     {
       "id": "c_097",
@@ -1310,7 +1502,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 3,
+      "weight": 0.13
     },
     {
       "id": "c_098",
@@ -1323,7 +1517,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_099",
@@ -1336,7 +1532,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 8,
+      "weight": 0.36
     },
     {
       "id": "c_100",
@@ -1349,7 +1547,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_101",
@@ -1362,7 +1562,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 21,
+      "weight": 0.94
     },
     {
       "id": "c_102",
@@ -1375,7 +1577,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 20,
+      "weight": 0.89
     },
     {
       "id": "c_103",
@@ -1388,7 +1592,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 19,
+      "weight": 0.85
     },
     {
       "id": "c_104",
@@ -1401,7 +1607,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_105",
@@ -1414,7 +1622,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 2,
+      "weight": 0.09
     },
     {
       "id": "c_106",
@@ -1427,7 +1637,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_107",
@@ -1440,7 +1652,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_108",
@@ -1453,7 +1667,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_109",
@@ -1466,7 +1682,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 1,
+      "weight": 0.04
     },
     {
       "id": "c_110",
@@ -1479,7 +1697,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 22,
+      "weight": 0.98
     },
     {
       "id": "c_111",
@@ -1492,7 +1712,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 9,
+      "weight": 0.4
     },
     {
       "id": "c_112",
@@ -1505,7 +1727,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 6,
+      "weight": 0.27
     },
     {
       "id": "c_113",
@@ -1518,7 +1742,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 4,
+      "weight": 0.18
     },
     {
       "id": "c_114",
@@ -1531,7 +1757,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 5,
+      "weight": 0.22
     },
     {
       "id": "c_115",
@@ -1544,7 +1772,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 7,
+      "weight": 0.31
     },
     {
       "id": "c_116",
@@ -1557,7 +1787,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 0,
+      "weight": 0
     },
     {
       "id": "c_117",
@@ -1570,7 +1802,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 15,
+      "weight": 0.67
     },
     {
       "id": "c_118",
@@ -1583,7 +1817,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 25,
+      "weight": 1.12
     },
     {
       "id": "c_119",
@@ -1596,7 +1832,9 @@ export const INITIAL_DATA = {
       "facultyStatus": "Non effectué",
       "sheetC1": false,
       "sheetC2": false,
-      "facultyStatusDate": null
+      "facultyStatusDate": null,
+      "questions": 3,
+      "weight": 0.13
     }
   ]
 };

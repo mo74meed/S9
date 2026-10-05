@@ -247,9 +247,15 @@ export const Sync = {
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
 
-      if (!subModule && typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
+      let questions = 0;
+      let weight = 0;
+      if (typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
         const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
-        if (initCourse && initCourse.submodule) subModule = initCourse.submodule;
+        if (initCourse) {
+          if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
+          questions = initCourse.questions || 0;
+          weight = initCourse.weight || 0;
+        }
       }
 
       courses.push({
@@ -261,6 +267,10 @@ export const Sync = {
         title: cleanTitle,
         badges,
         facultyStatus,
+        questions,
+        weight,
+        questions,
+        weight,
         sheetC1: c1,
         sheetC2: c2
       });

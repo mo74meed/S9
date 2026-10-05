@@ -1,3 +1,136 @@
+// Course Weights Dictionary (Total: 2242 questions across S9 corpus)
+const COURSE_WEIGHTS_DATA = {
+  // Gynéco-Obstétrique
+  'c_001': { questions: 11 },
+  'c_002': { questions: 18 },
+  'c_003': { questions: 36 },
+  'c_004': { questions: 8 },
+  'c_005': { questions: 26 },
+  'c_006': { questions: 17 },
+  'c_007': { questions: 7 },
+  'c_008': { questions: 4 },
+  'c_009': { questions: 81 },
+  'c_010': { questions: 47 },
+  'c_011': { questions: 19 },
+  'c_012': { questions: 25 },
+  'c_013': { questions: 31 },
+  'c_014': { questions: 8 },
+  'c_015': { questions: 13 },
+  'c_016': { questions: 24 },
+  'c_017': { questions: 21 },
+  'c_018': { questions: 29 },
+  'c_019': { questions: 25 },
+  'c_020': { questions: 24 },
+  'c_021': { questions: 21 },
+  'c_022': { questions: 18 },
+  'c_023': { questions: 16 },
+  'c_024': { questions: 13 },
+  'c_025': { questions: 6 },
+  'c_026': { questions: 13 },
+  'c_027': { questions: 15 },
+  'c_028': { questions: 9 },
+  'c_029': { questions: 21 },
+  'c_030': { questions: 27 },
+  'c_031': { questions: 13 },
+  'c_032': { questions: 2 },
+  'c_033': { questions: 4 },
+
+  // Ophtalmologie
+  'c_034': { questions: 10 },
+  'c_035': { questions: 22 },
+  'c_036': { questions: 19 },
+  'c_037': { questions: 19 },
+  'c_038': { questions: 10 },
+  'c_039': { questions: 5 },
+  'c_040': { questions: 67 },
+  'c_041': { questions: 19 },
+  'c_042': { questions: 24 },
+  'c_043': { questions: 21 },
+  'c_044': { questions: 19 },
+  'c_045': { questions: 11 },
+  'c_046': { questions: 17 },
+  'c_047': { questions: 26 },
+  'c_048': { questions: 30 },
+  'c_049': { questions: 22 },
+  'c_050': { questions: 32 },
+  'c_051': { questions: 30 },
+
+  // ORL
+  'c_052': { questions: 30 },
+  'c_053': { questions: 25 },
+  'c_054': { questions: 25 },
+  'c_055': { questions: 26 },
+  'c_056': { questions: 16 },
+  'c_057': { questions: 20 },
+  'c_058': { questions: 22 },
+  'c_059': { questions: 13 },
+  'c_060': { questions: 41 },
+  'c_061': { questions: 1 },
+  'c_062': { questions: 35 },
+  'c_063': { questions: 9 },
+  'c_064': { questions: 4 },
+
+  // Santé Publique & Éco
+  'c_065': { questions: 144 },
+  'c_066': { questions: 33 },
+  'c_067': { questions: 42 },
+  'c_068': { questions: 9 },
+  'c_069': { questions: 13 },
+  'c_070': { questions: 11 },
+  'c_071': { questions: 4 },
+  'c_072': { questions: 11 },
+  'c_073': { questions: 19 },
+  'c_074': { questions: 28 },
+  'c_075': { questions: 33 },
+  'c_076': { questions: 10 },
+  'c_077': { questions: 35 },
+  'c_078': { questions: 11 },
+  'c_079': { questions: 1 },
+  'c_080': { questions: 5 },
+  'c_081': { questions: 5 },
+  'c_082': { questions: 19 },
+  'c_083': { questions: 0 },
+  'c_084': { questions: 39 },
+
+  // Urgences - Réanimation
+  'c_085': { questions: 8 },
+  'c_086': { questions: 7 },
+  'c_087': { questions: 19 },
+  'c_088': { questions: 3 },
+  'c_089': { questions: 6 },
+  'c_090': { questions: 12 },
+  'c_091': { questions: 9 },
+  'c_092': { questions: 3 },
+  'c_093': { questions: 11 },
+  'c_094': { questions: 15 },
+  'c_095': { questions: 2 },
+  'c_096': { questions: 16 },
+  'c_097': { questions: 3 },
+  'c_098': { questions: 8 },
+  'c_099': { questions: 8 },
+  'c_100': { questions: 9 },
+  'c_101': { questions: 21 },
+  'c_102': { questions: 20 },
+  'c_103': { questions: 19 },
+  'c_104': { questions: 6 },
+  'c_105': { questions: 2 },
+  'c_106': { questions: 1 },
+  'c_107': { questions: 1 },
+  'c_108': { questions: 1 },
+  'c_109': { questions: 1 },
+  'c_110': { questions: 22 },
+  'c_111': { questions: 9 },
+  'c_112': { questions: 6 },
+  'c_113': { questions: 4 },
+  'c_114': { questions: 5 },
+  'c_115': { questions: 7 },
+  'c_116': { questions: 0 },
+  'c_117': { questions: 15 },
+  'c_118': { questions: 25 },
+  'c_119': { questions: 3 }
+};
+const TOTAL_CORPUS_QUESTIONS = 2242;
+
 
 /**
  * Main Application Controller for Recensement S9 Dashboard
@@ -20,6 +153,7 @@ const state = {
     tab: 'all',          // 'all' | 'catchup' | 'done' | 'todo'
     module: '',
     submodule: '',
+    sortByWeight: false,
     facStatus: '',
     prof: '',
     search: ''
@@ -292,6 +426,8 @@ const elements = {
   filterFacStatus: document.getElementById('filterFacStatus'),
   filterProf: document.getElementById('filterProf'),
   btnResetFilters: document.getElementById('btnResetFilters'),
+  btnToggleWeightSort: document.getElementById('btnToggleWeightSort'),
+  weightFilterIndicator: document.getElementById('weightFilterIndicator'),
 
   // View Switchers
   btnViewSyllabus: document.getElementById('btnViewSyllabus'),
@@ -610,6 +746,8 @@ function renderSubmoduleNav() {
       if (item.key === 'all' || isActive) {
         state.filters.module = '';
         state.filters.submodule = '';
+  state.filters.sortByWeight = false;
+  updateWeightSortButtonUI();
       } else {
         state.filters.module = item.module || '';
         state.filters.submodule = item.submodule || '';
@@ -639,7 +777,26 @@ function renderSubmoduleNav() {
   });
 }
 
+
+function updateWeightSortButtonUI() {
+  if (!elements.btnToggleWeightSort) return;
+  if (state.filters.sortByWeight) {
+    elements.btnToggleWeightSort.classList.add('is-active');
+    if (elements.weightFilterIndicator) {
+      elements.weightFilterIndicator.textContent = 'Actif (Trié)';
+      elements.weightFilterIndicator.className = 'text-[10px] px-1.5 py-0.2 rounded-full bg-white/20 text-white font-extrabold';
+    }
+  } else {
+    elements.btnToggleWeightSort.classList.remove('is-active');
+    if (elements.weightFilterIndicator) {
+      elements.weightFilterIndicator.textContent = '2242 Qs';
+      elements.weightFilterIndicator.className = 'text-[10px] px-1.5 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-extrabold border border-amber-200 dark:border-amber-800';
+    }
+  }
+}
+
 function renderDashboard() {
+  updateWeightSortButtonUI();
   populateProfessors();
   updateStats();
   renderSubmoduleNav();
@@ -1124,6 +1281,41 @@ function renderSyllabusView(filteredCourses) {
       const body = document.createElement('div');
       body.className = 'p-3 sm:p-5 space-y-4 bg-white dark:bg-slate-900';
 
+      if (state.filters.sortByWeight) {
+        // Direct High-Yield Ranked List by Weight (Descending)
+        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
+
+        const rankedHeader = document.createElement('div');
+        rankedHeader.className = 'p-2.5 rounded-xl bg-amber-500/10 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800/60 flex items-center justify-between text-xs font-bold text-amber-800 dark:text-amber-300';
+        rankedHeader.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+            <span>Classement High-Yield (${modCourses.length} cours classés par nombre de questions)</span>
+          </div>
+          <span class="text-[11px] opacity-75 font-semibold">Total : ${modCourses.reduce((sum, c) => sum + (c.questions || 0), 0)} questions</span>
+        `;
+        body.appendChild(rankedHeader);
+
+        const rowsList = document.createElement('div');
+        rowsList.className = 'space-y-2';
+
+        modCourses.forEach((course, rankIdx) => {
+          if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
+          const row = createCourseRowElement(course);
+          rowsList.appendChild(row);
+        });
+
+        body.appendChild(rowsList);
+        section.appendChild(body);
+        elements.coursesSyllabusView.appendChild(section);
+        return;
+      }
+
+      if (state.filters.sortByWeight) {
+        modCourses.sort((a, b) => (b.questions || 0) - (a.questions || 0));
+      }
       const distinctSubmods = Array.from(new Set(modCourses.map(c => c.submodule).filter(Boolean)));
       const hasMultipleSubmods = distinctSubmods.length > 1;
 
@@ -1265,6 +1457,12 @@ function createCourseRowElement(course) {
           <span class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}" data-id="${course.id}">
             ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
+          ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
 
           <!-- Title Notes Badges (Nouveau cours, cours changé, etc.) -->
           ${(course.badges || []).map(b => `
@@ -1385,6 +1583,12 @@ function renderTableView(courses) {
           <span class="font-bold text-slate-900 dark:text-slate-100 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
             ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
+          ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
           ${(course.badges || []).map(b => `
             <span class="title-badge ${b.bg} ${b.textCol} ${b.border}">
               ${b.text}
@@ -1484,6 +1688,12 @@ function renderCardsView(courses) {
         <h4 class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
           ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
+        ${state.filters.sortByWeight ? `
+            <span class="weight-badge" title="${course.questions} questions au total (${course.weight}% du corpus)">
+              <i data-lucide="help-circle" class="w-3 h-3 text-amber-600 dark:text-amber-400"></i>
+              <span>${course.questions} questions</span>
+            </span>
+          ` : ''}
 
         <!-- Badges -->
         <div class="flex items-center gap-1 flex-wrap mb-2">
@@ -1945,6 +2155,18 @@ function setupEventListeners() {
   };
 
   elements.btnResetFilters.onclick = resetAllFilters;
+  if (elements.btnToggleWeightSort) {
+    elements.btnToggleWeightSort.onclick = () => {
+      state.filters.sortByWeight = !state.filters.sortByWeight;
+      updateWeightSortButtonUI();
+      renderDashboard();
+      if (state.filters.sortByWeight) {
+        showToast('Tri par poids activé : cours classés par nombre de questions 🔥', 'info');
+      } else {
+        showToast('Ordre standard du programme rétabli', 'info');
+      }
+    };
+  }
   elements.btnEmptyReset.onclick = resetAllFilters;
 
   // View Switchers
