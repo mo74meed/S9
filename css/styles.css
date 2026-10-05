@@ -75,6 +75,7 @@ html.dark .light-card:hover {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   transition: all 0.18s ease;
+  position: relative;
 }
 
 .course-row:hover {
@@ -90,8 +91,8 @@ html.dark .light-card:hover {
 }
 
 .course-row.is-catchup {
-  border-left: 4px solid #f59e0b !important;
-  background-color: #ffffff;
+  background-color: #fffdf5;
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35);
 }
 
 html.dark .course-row {
@@ -112,51 +113,221 @@ html.dark .course-row.is-done {
 }
 
 html.dark .course-row.is-catchup {
-  border-left: 4px solid #f59e0b !important;
-  background-color: rgba(120, 53, 15, 0.18);
+  background-color: rgba(120, 53, 15, 0.2);
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.4);
 }
 
-/* Distinct Module Border Indicators for Instant Recognition */
-.course-row.mod-border-gyneco {
-  border-left: 3.5px solid #f43f5e;
+/* ======================================================== */
+/* DISTINCT MODULE COLOR SIGNATURES (NEVER OVERRIDDEN)       */
+/* ======================================================== */
+
+/* 1. Left Color Indicator Bars on Course Rows */
+.course-row.mod-gyneco {
+  border-left: 4.5px solid #f43f5e !important;
 }
-.course-row.mod-border-orl-ophtalmo {
-  border-left: 3.5px solid #f59e0b;
+.course-row.mod-ophtalmo {
+  border-left: 4.5px solid #06b6d4 !important;
 }
-.course-row.mod-border-sante-publique {
-  border-left: 3.5px solid #10b981;
+.course-row.mod-orl {
+  border-left: 4.5px solid #f59e0b !important;
 }
-.course-row.mod-border-urgences-rea {
-  border-left: 3.5px solid #3b82f6;
+.course-row.mod-sante {
+  border-left: 4.5px solid #10b981 !important;
+}
+.course-row.mod-urgences {
+  border-left: 4.5px solid #3b82f6 !important;
 }
 
-/* Section Accordion Headers - Tinted per module */
+/* 2. Submodule High-Contrast Pill Badges */
+.badge-submod {
+  font-size: 0.685rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-submod-gyneco {
+  background-color: #ffe4e6;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+html.dark .badge-submod-gyneco {
+  background-color: rgba(225, 29, 72, 0.25);
+  color: #fda4af;
+  border: 1px solid rgba(244, 63, 94, 0.5);
+}
+
+.badge-submod-ophtalmo {
+  background-color: #cffafe;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+html.dark .badge-submod-ophtalmo {
+  background-color: rgba(6, 182, 212, 0.25);
+  color: #67e8f9;
+  border: 1px solid rgba(6, 182, 212, 0.5);
+}
+
+.badge-submod-orl {
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+html.dark .badge-submod-orl {
+  background-color: rgba(245, 158, 11, 0.25);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.badge-submod-sante {
+  background-color: #d1fae5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+html.dark .badge-submod-sante {
+  background-color: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.badge-submod-urgences {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+html.dark .badge-submod-urgences {
+  background-color: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+}
+
+/* 3. Section Accordion Headers - Tinted per module */
 .mod-header-gyneco {
-  background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(to right, rgba(244, 63, 94, 0.1), rgba(255, 255, 255, 0.95));
 }
 html.dark .mod-header-gyneco {
-  background: linear-gradient(to right, rgba(244, 63, 94, 0.18), rgba(17, 24, 39, 0.95));
+  background: linear-gradient(to right, rgba(244, 63, 94, 0.2), rgba(17, 24, 39, 0.95));
 }
 
 .mod-header-orl-ophtalmo {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(255, 255, 255, 0.95));
 }
 html.dark .mod-header-orl-ophtalmo {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.18), rgba(17, 24, 39, 0.95));
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(17, 24, 39, 0.95));
 }
 
 .mod-header-sante-publique {
-  background: linear-gradient(to right, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(255, 255, 255, 0.95));
 }
 html.dark .mod-header-sante-publique {
-  background: linear-gradient(to right, rgba(16, 185, 129, 0.18), rgba(17, 24, 39, 0.95));
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(17, 24, 39, 0.95));
 }
 
 .mod-header-urgences-rea {
-  background: linear-gradient(to right, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.1), rgba(255, 255, 255, 0.95));
 }
 html.dark .mod-header-urgences-rea {
-  background: linear-gradient(to right, rgba(59, 130, 246, 0.18), rgba(17, 24, 39, 0.95));
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.2), rgba(17, 24, 39, 0.95));
+}
+
+/* 4. Submodule Segmented Nav Pills */
+.submod-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #334155;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+html.dark .submod-nav-btn {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #cbd5e1;
+}
+
+.submod-nav-btn:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+html.dark .submod-nav-btn:hover {
+  border-color: #374151;
+  background-color: #1e293b;
+}
+
+/* Active Nav Pill states with distinctive module illumination */
+.submod-nav-btn.active-all {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4338ca !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+}
+.submod-nav-btn.active-gyneco {
+  background-color: #f43f5e !important;
+  color: #ffffff !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.35);
+}
+.submod-nav-btn.active-ophtalmo {
+  background-color: #06b6d4 !important;
+  color: #ffffff !important;
+  border-color: #0891b2 !important;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
+}
+.submod-nav-btn.active-orl {
+  background-color: #f59e0b !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+}
+.submod-nav-btn.active-sante {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  border-color: #059669 !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
+}
+.submod-nav-btn.active-urgences {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+}
+
+/* 5. Submodule Dividers inside Accordion */
+.submod-divider-ophtalmo {
+  background: linear-gradient(to right, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0.02));
+  border-left: 3.5px solid #06b6d4;
+  border-radius: 0.75rem;
+}
+html.dark .submod-divider-ophtalmo {
+  background: linear-gradient(to right, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.03));
+  border-left: 3.5px solid #06b6d4;
+}
+
+.submod-divider-orl {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.02));
+  border-left: 3.5px solid #f59e0b;
+  border-radius: 0.75rem;
+}
+html.dark .submod-divider-orl {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.03));
+  border-left: 3.5px solid #f59e0b;
 }
 
 /* Slim Medical Scrollbars */

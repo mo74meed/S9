@@ -11,6 +11,34 @@ export const Sync = {
   syncTimeoutId: null,
 
   /**
+   * Normalize Submodule name to canonical format
+   */
+  normalizeSubmodule(rawSub, module) {
+    const s = (rawSub || '').trim().toUpperCase();
+    const m = (module || '').trim().toUpperCase();
+    if (s.includes('OPHTALMO')) return 'Ophtalmologie';
+    if (s.includes('ORL')) return 'ORL';
+    if (m.includes('GYNECO') || s.includes('GYNECO')) return 'Gynécologie - Obstétrique';
+    if (m.includes('SANTÉ') || m.includes('SANTE') || s.includes('SANTÉ') || s.includes('SANTE')) return 'Santé Publique';
+    if (m.includes('URGENCES') || s.includes('URGENCES')) return 'Urgences - Réanimation';
+    return rawSub || '';
+  },
+
+  /**
+   * Normalize Submodule name to canonical format
+   */
+  normalizeSubmodule(rawSub, module) {
+    const s = (rawSub || '').trim().toUpperCase();
+    const m = (module || '').trim().toUpperCase();
+    if (s.includes('OPHTALMO')) return 'Ophtalmologie';
+    if (s.includes('ORL')) return 'ORL';
+    if (m.includes('GYNECO') || s.includes('GYNECO')) return 'Gynécologie - Obstétrique';
+    if (m.includes('SANTÉ') || m.includes('SANTE') || s.includes('SANTÉ') || s.includes('SANTE')) return 'Santé Publique';
+    if (m.includes('URGENCES') || s.includes('URGENCES')) return 'Urgences - Réanimation';
+    return rawSub || '';
+  },
+
+  /**
    * Extract Google Spreadsheet ID and GID from URL
    */
   extractSheetInfo(url) {
@@ -227,7 +255,7 @@ export const Sync = {
       courses.push({
         id,
         module: currentModule,
-        submodule: subModule,
+        submodule: this.normalizeSubmodule(subModule, currentModule),
         prof: currentProf,
         rawTitle,
         title: cleanTitle,
@@ -393,7 +421,7 @@ export const Sync = {
       courses.push({
         id,
         module: currentModule,
-        submodule: subModule,
+        submodule: this.normalizeSubmodule(subModule, currentModule),
         prof: currentProf,
         rawTitle,
         title: cleanTitle,

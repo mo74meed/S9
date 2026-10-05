@@ -19,6 +19,7 @@ const state = {
   filters: {
     tab: 'all',          // 'all' | 'catchup' | 'done' | 'todo'
     module: '',
+    submodule: '',
     facStatus: '',
     prof: '',
     search: ''
@@ -109,8 +110,19 @@ function reconcileFacultyDates() {
 
   if (datesChanged) {
     Storage.saveFacultyDates(facultyDates);
-    Storage.setCachedCourses(state.courses);
+        Storage.setCachedCourses(state.courses);
   }
+
+  // Ensure canonical submodule names on all courses
+  state.courses.forEach(c => {
+    const s = (c.submodule || '').trim().toUpperCase();
+    const m = (c.module || '').trim().toUpperCase();
+    if (s.includes('OPHTALMO')) c.submodule = 'Ophtalmologie';
+    else if (s === 'ORL' || s.includes('ORL')) c.submodule = 'ORL';
+    else if (m.includes('GYNECO') || s.includes('GYNECO')) c.submodule = 'Gynécologie - Obstétrique';
+    else if (m.includes('SANTÉ') || m.includes('SANTE') || s.includes('SANTÉ')) c.submodule = 'Santé Publique';
+    else if (m.includes('URGENCES') || s.includes('URGENCES')) c.submodule = 'Urgences - Réanimation';
+  });
 }
 
 function applyFacultyOverrides() {
@@ -170,11 +182,14 @@ const MODULES_META = {
     short: 'Gynéco-Obs',
     coeff: '1.0 (Gynéco 0.4 / Obs 0.6)',
     coeffShort: 'Coeff 1.0',
-    color: 'text-pink-600',
-    bgLight: 'bg-pink-50',
-    border: 'border-pink-200',
-    accentBar: 'bg-pink-500',
-    icon: 'baby'
+    color: 'text-rose-600 dark:text-rose-400',
+    bgLight: 'bg-rose-50 dark:bg-rose-950/40',
+    border: 'border-rose-200 dark:border-rose-800/60',
+    accentBar: 'bg-rose-500',
+    icon: 'baby',
+    quickCardBorder: 'hover:border-rose-300 dark:hover:border-rose-700',
+    headerBgClass: 'mod-header-gyneco',
+    badgeClass: 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800'
   },
   'ORL - OPHTALMO': {
     id: 'orl-ophtalmo',
@@ -182,11 +197,14 @@ const MODULES_META = {
     short: 'ORL - Ophtalmo',
     coeff: '2.0 (ORL 1.0 / Ophtalmo 1.0)',
     coeffShort: 'Coeff 2.0',
-    color: 'text-amber-600',
-    bgLight: 'bg-amber-50',
-    border: 'border-amber-200',
+    color: 'text-amber-600 dark:text-amber-400',
+    bgLight: 'bg-amber-50 dark:bg-amber-950/40',
+    border: 'border-amber-200 dark:border-amber-800/60',
     accentBar: 'bg-amber-500',
-    icon: 'eye'
+    icon: 'eye',
+    quickCardBorder: 'hover:border-amber-300 dark:hover:border-amber-700',
+    headerBgClass: 'mod-header-orl-ophtalmo',
+    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800'
   },
   'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ': {
     id: 'sante-publique',
@@ -194,11 +212,14 @@ const MODULES_META = {
     short: 'Santé Publique & Éco',
     coeff: '1.0 (Santé Publique 0.8 / Éco 0.2)',
     coeffShort: 'Coeff 1.0',
-    color: 'text-emerald-600',
-    bgLight: 'bg-emerald-50',
-    border: 'border-emerald-200',
+    color: 'text-emerald-600 dark:text-emerald-400',
+    bgLight: 'bg-emerald-50 dark:bg-emerald-950/40',
+    border: 'border-emerald-200 dark:border-emerald-800/60',
     accentBar: 'bg-emerald-500',
-    icon: 'activity'
+    icon: 'activity',
+    quickCardBorder: 'hover:border-emerald-300 dark:hover:border-emerald-700',
+    headerBgClass: 'mod-header-sante-publique',
+    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800'
   },
   'URGENCES - RÉANIMATION': {
     id: 'urgences-rea',
@@ -206,11 +227,14 @@ const MODULES_META = {
     short: 'Urgences - Réa',
     coeff: '1.0 (Urgences 0.6 / Réa 0.4)',
     coeffShort: 'Coeff 1.0',
-    color: 'text-blue-600',
-    bgLight: 'bg-blue-50',
-    border: 'border-blue-200',
+    color: 'text-blue-600 dark:text-blue-400',
+    bgLight: 'bg-blue-50 dark:bg-blue-950/40',
+    border: 'border-blue-200 dark:border-blue-800/60',
     accentBar: 'bg-blue-500',
-    icon: 'siren'
+    icon: 'siren',
+    quickCardBorder: 'hover:border-blue-300 dark:hover:border-blue-700',
+    headerBgClass: 'mod-header-urgences-rea',
+    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800'
   }
 };
 
@@ -248,6 +272,7 @@ const elements = {
   mobileCatchupBadge: document.getElementById('mobileCatchupBadge'),
 
   // Navigation & Modules
+  submoduleNavContainer: document.getElementById('submoduleNavContainer'),
   moduleCardsContainer: document.getElementById('moduleCardsContainer'),
   btnToggleAllAccordions: document.getElementById('btnToggleAllAccordions'),
 
@@ -510,9 +535,114 @@ async function init() {
 /**
  * Render Complete Dashboard
  */
+/**
+ * Module & Submodule Color Mapping Helpers
+ */
+function getCourseSubmoduleClass(course) {
+  const sub = (course.submodule || '').toLowerCase();
+  const mod = (course.module || '').toUpperCase();
+  if (sub.includes('ophtalmo')) return 'mod-ophtalmo';
+  if (sub.includes('orl')) return 'mod-orl';
+  if (mod.includes('GYNECO') || sub.includes('gynéco')) return 'mod-gyneco';
+  if (mod.includes('SANTÉ') || mod.includes('SANTE') || sub.includes('santé')) return 'mod-sante';
+  if (mod.includes('URGENCES') || sub.includes('urgences')) return 'mod-urgences';
+  return 'mod-urgences';
+}
+
+function getSubmoduleBadge(submodule, moduleKey) {
+  const sub = (submodule || '').toLowerCase();
+  const mod = (moduleKey || '').toUpperCase();
+
+  if (sub.includes('ophtalmo')) {
+    return `<span class="badge-submod badge-submod-ophtalmo"><i data-lucide="eye" class="w-3 h-3"></i>Ophtalmo</span>`;
+  }
+  if (sub.includes('orl')) {
+    return `<span class="badge-submod badge-submod-orl"><i data-lucide="ear" class="w-3 h-3"></i>ORL</span>`;
+  }
+  if (mod.includes('GYNECO') || sub.includes('gynéco')) {
+    return `<span class="badge-submod badge-submod-gyneco"><i data-lucide="baby" class="w-3 h-3"></i>Gynéco-Obs</span>`;
+  }
+  if (mod.includes('SANTÉ') || mod.includes('SANTE') || sub.includes('santé')) {
+    return `<span class="badge-submod badge-submod-sante"><i data-lucide="activity" class="w-3 h-3"></i>Santé Publique</span>`;
+  }
+  if (mod.includes('URGENCES') || sub.includes('urgences')) {
+    return `<span class="badge-submod badge-submod-urgences"><i data-lucide="siren" class="w-3 h-3"></i>Urgences-Réa</span>`;
+  }
+  return `<span class="badge-submod badge-submod-urgences"><i data-lucide="book-open" class="w-3 h-3"></i>${submodule || 'Général'}</span>`;
+}
+
+/**
+ * 1-Click Submodule Segmented Navigator
+ */
+function renderSubmoduleNav() {
+  if (!elements.submoduleNavContainer) return;
+  elements.submoduleNavContainer.innerHTML = '';
+
+  const navItems = [
+    { key: 'all', shortLabel: 'Tous', count: state.courses.length, icon: 'layers', activeClass: 'active-all' },
+    { key: 'gyneco', shortLabel: 'Gynéco-Obs', module: 'GYNECO-OBSTETRIQUE', submodule: 'Gynécologie - Obstétrique', count: state.courses.filter(c => c.module === 'GYNECO-OBSTETRIQUE').length, icon: 'baby', activeClass: 'active-gyneco' },
+    { key: 'ophtalmo', shortLabel: 'Ophtalmologie', module: 'ORL - OPHTALMO', submodule: 'Ophtalmologie', count: state.courses.filter(c => (c.submodule || '').toLowerCase().includes('ophtalmo')).length, icon: 'eye', activeClass: 'active-ophtalmo' },
+    { key: 'orl', shortLabel: 'ORL', module: 'ORL - OPHTALMO', submodule: 'ORL', count: state.courses.filter(c => (c.submodule || '').toLowerCase().includes('orl') && !(c.submodule || '').toLowerCase().includes('ophtalmo')).length, icon: 'ear', activeClass: 'active-orl' },
+    { key: 'sante', shortLabel: 'Santé Publique', module: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ', submodule: 'Santé Publique', count: state.courses.filter(c => c.module === 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ').length, icon: 'activity', activeClass: 'active-sante' },
+    { key: 'urgences', shortLabel: 'Urgences-Réa', module: 'URGENCES - RÉANIMATION', submodule: 'Urgences - Réanimation', count: state.courses.filter(c => c.module === 'URGENCES - RÉANIMATION').length, icon: 'siren', activeClass: 'active-urgences' }
+  ];
+
+  navItems.forEach(item => {
+    let isActive = false;
+    if (item.key === 'all') {
+      isActive = !state.filters.module && !state.filters.submodule;
+    } else if (item.submodule) {
+      isActive = state.filters.submodule === item.submodule;
+    } else {
+      isActive = state.filters.module === item.module;
+    }
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `submod-nav-btn ${isActive ? item.activeClass : ''}`;
+    btn.innerHTML = `
+      <i data-lucide="${item.icon}" class="w-3.5 h-3.5"></i>
+      <span>${item.shortLabel}</span>
+      <span class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">${item.count}</span>
+    `;
+
+    btn.onclick = () => {
+      if (item.key === 'all' || isActive) {
+        state.filters.module = '';
+        state.filters.submodule = '';
+      } else {
+        state.filters.module = item.module || '';
+        state.filters.submodule = item.submodule || '';
+        if (item.module) {
+          state.moduleCollapsed[item.module] = false;
+        }
+      }
+
+      if (elements.filterModule) {
+        elements.filterModule.value = state.filters.module;
+      }
+      populateProfessors();
+      renderDashboard();
+
+      if (state.filters.module && state.activeView === 'syllabus') {
+        const meta = MODULES_META[state.filters.module];
+        if (meta) {
+          setTimeout(() => {
+            const el = document.getElementById(`section-${meta.id}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        }
+      }
+    };
+
+    elements.submoduleNavContainer.appendChild(btn);
+  });
+}
+
 function renderDashboard() {
   populateProfessors();
   updateStats();
+  renderSubmoduleNav();
   renderModuleQuickCards();
   renderCoursesView();
   updateExamsCountdown();
@@ -528,7 +658,7 @@ const SUBMODULES_ORDER = [
   { name: 'Gynécologie - Obstétrique', module: 'GYNECO-OBSTETRIQUE' },
   { name: 'ORL', module: 'ORL - OPHTALMO' },
   { name: 'Ophtalmologie', module: 'ORL - OPHTALMO' },
-  { name: 'Médecine Sociale & Santé Publique', module: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ' },
+  { name: 'Santé Publique', module: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ' },
   { name: 'Urgences - Réanimation', module: 'URGENCES - RÉANIMATION' }
 ];
 
@@ -557,10 +687,10 @@ const PROF_TO_SUBMODULE = {
   'Pr. Moutei': 'Ophtalmologie',
 
   // Médecine Sociale & Santé Publique
-  'Pr. Benmaamar': 'Médecine Sociale & Santé Publique',
-  'Pr. El Harch': 'Médecine Sociale & Santé Publique',
-  'Pr. Oumokhtar': 'Médecine Sociale & Santé Publique',
-  'Pr. Tachfouti': 'Médecine Sociale & Santé Publique',
+  'Pr. Benmaamar': 'Santé Publique',
+  'Pr. El Harch': 'Santé Publique',
+  'Pr. Oumokhtar': 'Santé Publique',
+  'Pr. Tachfouti': 'Santé Publique',
 
   // Urgences - Réanimation
   'Pr. Berdai': 'Urgences - Réanimation',
@@ -584,11 +714,14 @@ function populateProfessors() {
 
   const currentSelectedProf = state.filters.prof || '';
   const selectedModule = state.filters.module || '';
+  const selectedSubmodule = state.filters.submodule || '';
 
-  // Get list of courses relevant to the current module filter
-  const relevantCourses = selectedModule
-    ? state.courses.filter(c => c.module === selectedModule)
-    : state.courses;
+  // Get list of courses relevant to the current module & submodule filters
+  const relevantCourses = state.courses.filter(c => {
+    if (selectedModule && c.module !== selectedModule) return false;
+    if (selectedSubmodule && c.submodule !== selectedSubmodule) return false;
+    return true;
+  });
 
   // Extract unique professors for the relevant scope
   const relevantProfs = Array.from(new Set(relevantCourses.map(c => c.prof).filter(Boolean)))
@@ -610,8 +743,9 @@ function populateProfessors() {
 
   // Active sub-modules to render
   const activeSubgroups = SUBMODULES_ORDER.filter(sub => {
-    if (!selectedModule) return true;
-    return sub.module === selectedModule;
+    if (selectedSubmodule) return sub.name === selectedSubmodule;
+    if (selectedModule) return sub.module === selectedModule;
+    return true;
   });
 
   const profsAssigned = new Set();
@@ -739,19 +873,28 @@ function renderModuleQuickCards() {
     
     // Jump and scroll to module or filter
     card.onclick = () => {
-      if (state.activeView === 'syllabus') {
+      const isSelected = state.filters.module === modKey;
+      if (isSelected) {
+        state.filters.module = '';
+        state.filters.submodule = '';
+      } else {
+        state.filters.module = modKey;
+        state.filters.submodule = '';
+        state.moduleCollapsed[modKey] = false;
+      }
+      if (elements.filterModule) elements.filterModule.value = state.filters.module;
+      populateProfessors();
+      renderDashboard();
+
+      if (!isSelected && state.activeView === 'syllabus') {
         const targetSection = document.getElementById(`section-${meta.id}`);
         if (targetSection) {
-          state.moduleCollapsed[modKey] = false;
-          renderDashboard();
           setTimeout(() => {
             const el = document.getElementById(`section-${meta.id}`);
             if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 50);
-          return;
+          }, 60);
         }
       }
-      selectModuleFilter(isSelected ? '' : modKey);
     };
 
     card.innerHTML = `
@@ -794,6 +937,13 @@ function getFilteredCourses() {
     if (state.filters.tab === 'todo' && isDone) return false;
 
     if (state.filters.module && course.module !== state.filters.module) return false;
+    if (state.filters.submodule) {
+      const fSub = state.filters.submodule.toLowerCase();
+      const cSub = (course.submodule || '').toLowerCase();
+      if (fSub.includes('ophtalmo') && !cSub.includes('ophtalmo')) return false;
+      else if (fSub === 'orl' && (!cSub.includes('orl') || cSub.includes('ophtalmo'))) return false;
+      else if (!fSub.includes('ophtalmo') && fSub !== 'orl' && cSub !== fSub) return false;
+    }
     if (state.filters.facStatus && course.facultyStatus !== state.filters.facStatus) return false;
     if (state.filters.prof && course.prof !== state.filters.prof) return false;
 
@@ -969,56 +1119,106 @@ function renderSyllabusView(filteredCourses) {
 
     section.appendChild(header);
 
-    // Module Body (Lessons grouped by Professor)
+    // Module Body (Lessons grouped by Submodule & Professor)
     if (!isCollapsed) {
       const body = document.createElement('div');
       body.className = 'p-3 sm:p-5 space-y-4 bg-white dark:bg-slate-900';
 
-      // Group courses by Professor (maintaining sheet order)
-      const profGroups = [];
-      const seenProfs = new Set();
+      const distinctSubmods = Array.from(new Set(modCourses.map(c => c.submodule).filter(Boolean)));
+      const hasMultipleSubmods = distinctSubmods.length > 1;
 
-      modCourses.forEach(c => {
-        const profName = c.prof || 'Enseignants Divers';
-        if (!seenProfs.has(profName)) {
-          seenProfs.add(profName);
-          profGroups.push({
-            prof: profName,
-            courses: modCourses.filter(item => (item.prof || 'Enseignants Divers') === profName)
+      if (hasMultipleSubmods) {
+        distinctSubmods.forEach(submodName => {
+          const submodCourses = modCourses.filter(c => c.submodule === submodName);
+          if (submodCourses.length === 0) return;
+
+          const isOphtalmo = submodName.toLowerCase().includes('ophtalmo');
+          const isORL = submodName.toLowerCase().includes('orl');
+          const dividerClass = isOphtalmo ? 'submod-divider-ophtalmo' : (isORL ? 'submod-divider-orl' : '');
+          const badgeHtml = getSubmoduleBadge(submodName, modKey);
+
+          const submodHeader = document.createElement('div');
+          submodHeader.className = `p-2.5 rounded-xl flex items-center justify-between gap-2 mt-4 first:mt-0 ${dividerClass}`;
+          submodHeader.innerHTML = `
+            <div class="flex items-center gap-2">
+              ${badgeHtml}
+              <span class="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-wide">${submodName}</span>
+            </div>
+            <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400">${submodCourses.length} cours</span>
+          `;
+          body.appendChild(submodHeader);
+
+          const seenProfs = new Set();
+          submodCourses.forEach(c => {
+            const profName = c.prof || 'Enseignants Divers';
+            if (!seenProfs.has(profName)) {
+              seenProfs.add(profName);
+              const profCourses = submodCourses.filter(item => (item.prof || 'Enseignants Divers') === profName);
+
+              const groupBlock = document.createElement('div');
+              groupBlock.className = 'space-y-2 mt-2';
+
+              const groupHeader = document.createElement('div');
+              groupHeader.className = 'flex items-center gap-2 px-1 pt-1 pb-0.5';
+              groupHeader.innerHTML = `
+                <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">${profName}</span>
+                <span class="text-[11px] text-slate-400 font-medium">(${profCourses.length} cours)</span>
+                <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1 ml-2"></div>
+              `;
+              groupBlock.appendChild(groupHeader);
+
+              const rowsList = document.createElement('div');
+              rowsList.className = 'space-y-2';
+              profCourses.forEach(course => {
+                if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+                  state.pendingSeenCatchupIds.add(course.id);
+                }
+                const row = createCourseRowElement(course);
+                rowsList.appendChild(row);
+              });
+
+              groupBlock.appendChild(rowsList);
+              body.appendChild(groupBlock);
+            }
           });
-        }
-      });
-
-      profGroups.forEach(group => {
-        const groupBlock = document.createElement('div');
-        groupBlock.className = 'space-y-2';
-
-        // Professor Group Divider Header
-        const groupHeader = document.createElement('div');
-        groupHeader.className = 'flex items-center gap-2 px-1 pt-1 pb-0.5';
-        groupHeader.innerHTML = `
-          <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i>
-          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">${group.prof}</span>
-          <span class="text-[11px] text-slate-400 font-medium">(${group.courses.length} cours)</span>
-          <div class="h-px bg-slate-100 flex-1 ml-2"></div>
-        `;
-        groupBlock.appendChild(groupHeader);
-
-        // Course rows list
-        const rowsList = document.createElement('div');
-        rowsList.className = 'space-y-2';
-
-        group.courses.forEach(course => {
-          if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
-            state.pendingSeenCatchupIds.add(course.id);
-          }
-          const row = createCourseRowElement(course);
-          rowsList.appendChild(row);
         });
+      } else {
+        const seenProfs = new Set();
+        modCourses.forEach(c => {
+          const profName = c.prof || 'Enseignants Divers';
+          if (!seenProfs.has(profName)) {
+            seenProfs.add(profName);
+            const profCourses = modCourses.filter(item => (item.prof || 'Enseignants Divers') === profName);
 
-        groupBlock.appendChild(rowsList);
-        body.appendChild(groupBlock);
-      });
+            const groupBlock = document.createElement('div');
+            groupBlock.className = 'space-y-2';
+
+            const groupHeader = document.createElement('div');
+            groupHeader.className = 'flex items-center gap-2 px-1 pt-1 pb-0.5';
+            groupHeader.innerHTML = `
+              <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">${profName}</span>
+              <span class="text-[11px] text-slate-400 font-medium">(${profCourses.length} cours)</span>
+              <div class="h-px bg-slate-100 dark:bg-slate-800 flex-1 ml-2"></div>
+            `;
+            groupBlock.appendChild(groupHeader);
+
+            const rowsList = document.createElement('div');
+            rowsList.className = 'space-y-2';
+            profCourses.forEach(course => {
+              if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+                state.pendingSeenCatchupIds.add(course.id);
+              }
+              const row = createCourseRowElement(course);
+              rowsList.appendChild(row);
+            });
+
+            groupBlock.appendChild(rowsList);
+            body.appendChild(groupBlock);
+          }
+        });
+      }
 
       section.appendChild(body);
     }
@@ -1037,9 +1237,10 @@ function createCourseRowElement(course) {
   const isDone = !!progress.done;
   const isCatchup = course.facultyStatus === 'Effectué' && !isDone;
   const facStatusClass = getFacultyStatusClass(course.facultyStatus);
+  const modClass = getCourseSubmoduleClass(course);
 
   const row = document.createElement('div');
-  row.className = `course-row rounded-xl p-3 sm:p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
+  row.className = `course-row ${modClass} rounded-xl p-3 sm:p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
     isDone ? 'is-done' : ''
   } ${isCatchup ? 'is-catchup' : ''}`;
 
@@ -1075,7 +1276,7 @@ function createCourseRowElement(course) {
 
           <!-- Priority Catchup Badge -->
           ${isCatchup ? `
-            <span class="title-badge bg-amber-50 text-amber-800 border-amber-300 flex items-center gap-1 font-bold">
+            <span class="title-badge bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-700 flex items-center gap-1 font-bold">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
               À rattraper
             </span>
@@ -1083,15 +1284,11 @@ function createCourseRowElement(course) {
         </div>
 
         <!-- Sub-details (Submodule & Prof) -->
-        <div class="flex items-center gap-2 text-xs text-slate-500 flex-wrap">
-          ${course.submodule ? `
-            <span class="font-semibold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded text-[10px] uppercase">
-              ${course.submodule}
-            </span>
-          ` : ''}
-          <span>${course.prof || 'Enseignant non spécifié'}</span>
+        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
+          ${getSubmoduleBadge(course.submodule, course.module)}
+          <span class="font-medium text-slate-700 dark:text-slate-300">${course.prof || 'Enseignant non spécifié'}</span>
           ${progress.note ? `
-            <span class="text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded text-[10px] flex items-center gap-1 font-semibold border border-amber-200">
+            <span class="text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.2 rounded text-[10px] flex items-center gap-1 font-semibold border border-amber-200 dark:border-amber-800">
               <i data-lucide="file-text" class="w-3 h-3"></i> Note perso
             </span>
           ` : ''}
@@ -1196,7 +1393,7 @@ function renderTableView(courses) {
         </div>
       </td>
       <td class="py-3 px-4 text-xs font-semibold text-slate-600">
-        ${course.submodule || (MODULES_META[course.module]?.short || 'Module')}
+        ${getSubmoduleBadge(course.submodule, course.module)}
       </td>
       <td class="py-3 px-4 text-xs text-slate-600">
         ${course.prof || '-'}
@@ -1255,7 +1452,8 @@ function renderCardsView(courses) {
     }
 
     const card = document.createElement('div');
-    card.className = `light-card rounded-2xl p-4 flex flex-col justify-between border transition ${
+    const modClass = getCourseSubmoduleClass(course);
+    card.className = `light-card course-row ${modClass} rounded-2xl p-4 flex flex-col justify-between border transition ${
       isDone 
         ? 'bg-indigo-50/30 border-indigo-200' 
         : isCatchup 
@@ -1266,9 +1464,7 @@ function renderCardsView(courses) {
     card.innerHTML = `
       <div>
         <div class="flex items-center justify-between gap-2 mb-2">
-          <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${meta.bgLight} ${meta.color}">
-            ${course.submodule || meta.short}
-          </span>
+          ${getSubmoduleBadge(course.submodule, course.module)}
           <!-- Interactive Faculty Status Selector Pill -->
       <div class="status-pill ${facStatusClass} relative cursor-pointer inline-flex items-center gap-1.5 hover:opacity-90 transition shadow-sm" title="Modifier le statut faculté">
         <i data-lucide="${getFacultyStatusIcon(course.facultyStatus)}" class="w-3 h-3 pointer-events-none flex-shrink-0"></i>
@@ -1517,6 +1713,17 @@ async function triggerSync(isScheduled = false) {
         Storage.saveSeenCatchupIds(Array.from(seenSet));
       }
 
+      // Ensure canonical submodule names on all remote courses
+      remoteCourses.forEach(rc => {
+        const s = (rc.submodule || '').trim().toUpperCase();
+        const m = (rc.module || '').trim().toUpperCase();
+        if (s.includes('OPHTALMO')) rc.submodule = 'Ophtalmologie';
+        else if (s === 'ORL' || s.includes('ORL')) rc.submodule = 'ORL';
+        else if (m.includes('GYNECO') || s.includes('GYNECO')) rc.submodule = 'Gynécologie - Obstétrique';
+        else if (m.includes('SANTÉ') || m.includes('SANTE') || s.includes('SANTÉ')) rc.submodule = 'Santé Publique';
+        else if (m.includes('URGENCES') || s.includes('URGENCES')) rc.submodule = 'Urgences - Réanimation';
+      });
+
       state.courses = remoteCourses;
       state.sheetDate = result.data.sheetUpdateDate;
 
@@ -1721,6 +1928,7 @@ function setupEventListeners() {
   // Filters
   elements.filterModule.onchange = (e) => {
     state.filters.module = e.target.value;
+    state.filters.submodule = '';
     renderDashboard();
   };
 
@@ -1831,9 +2039,11 @@ function setupEventListeners() {
   });
 }
 
-function selectModuleFilter(modKey) {
+function selectModuleFilter(modKey, subKey = '') {
   state.filters.module = modKey;
-  elements.filterModule.value = modKey;
+  state.filters.submodule = subKey;
+  if (elements.filterModule) elements.filterModule.value = modKey;
+  populateProfessors();
   renderDashboard();
 }
 
@@ -1844,6 +2054,7 @@ function resetAllFilters() {
   state.filters.tab = 'all';
   setViewMode('syllabus');
   state.filters.module = '';
+  state.filters.submodule = '';
   state.filters.facStatus = '';
   state.filters.prof = '';
   state.filters.search = '';
