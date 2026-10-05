@@ -6,6 +6,22 @@
   <title>Recensement S9 - Suivi des Cours & Avancement Médical</title>
   <meta name="description" content="Dashboard clair de suivi des cours S9 Médecine - Recensement faculté et avancement personnel">
   <meta name="theme-color" content="#ffffff">
+  <!-- Immediate Theme Initializer (Anti-Flicker) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('s9_theme');
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        }
+      } catch(e) {}
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
   
   <!-- Tailwind CSS CDN (with dev notice filter) -->
@@ -47,12 +63,12 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Light Theme Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=2.7">
+  <link rel="stylesheet" href="css/styles.css?v=3.0">
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10 transition-colors duration-200">
 
   <!-- TOP HEADER -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 shadow-xs transition-all">
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 shadow-xs transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Brand & Title -->
@@ -62,14 +78,14 @@
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-1.5 sm:gap-2">
-            <h1 class="font-extrabold text-sm sm:text-base md:text-lg text-slate-900 tracking-tight truncate">
+            <h1 class="font-extrabold text-sm sm:text-base md:text-lg text-slate-900 dark:text-white tracking-tight truncate">
               Recensement S9
             </h1>
-            <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 flex-shrink-0">
+            <span class="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/80 flex-shrink-0">
               26/27
             </span>
           </div>
-          <p class="text-xs text-slate-500 hidden sm:block truncate">Faculté de Médecine & Pharmacie • Suivi Personnalisé des Enseignements</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block truncate">Faculté de Médecine & Pharmacie • Suivi Personnalisé des Enseignements</p>
         </div>
       </div>
 
@@ -77,17 +93,17 @@
       <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
         
         <!-- Next Sync Badge (Desktop only) -->
-        <div id="syncBadge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-medium text-slate-700">
+        <div id="syncBadge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-700 dark:text-slate-300">
           <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-indicator"></span>
           <span id="nextSyncLabel">Synchro à 20:00</span>
         </div>
 
         <!-- Exam Countdown & Calendar Trigger -->
-        <button id="btnOpenExamsModal" title="Calendrier et Compte à Rebours des Examens S9" class="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-800 border border-amber-200 font-semibold text-xs sm:text-sm transition shadow-xs">
+        <button id="btnOpenExamsModal" title="Calendrier et Compte à Rebours des Examens S9" class="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 active:scale-95 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60 font-semibold text-xs sm:text-sm transition shadow-xs">
           <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-600 flex-shrink-0"></i>
           <span class="font-bold flex items-center gap-1">
             <span class="hidden sm:inline">Examens:</span>
-            <span id="headerExamCountdownPill" class="text-amber-900 font-black">J-...</span>
+            <span id="headerExamCountdownPill" class="text-amber-900 dark:text-amber-200 font-black">J-...</span>
           </span>
         </button>
 
@@ -97,8 +113,13 @@
           <span class="hidden md:inline">Synchroniser</span>
         </button>
 
+                <!-- Theme Mode Toggle (Dark / Light) -->
+        <button id="btnThemeToggle" type="button" title="Basculer entre Mode Sombre et Mode Clair" class="theme-toggle-btn p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 transition">
+          <i data-lucide="moon" id="themeIcon" class="theme-toggle-icon w-4 h-4"></i>
+        </button>
+
         <!-- Settings / Backup Modal Trigger -->
-        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 border border-slate-200 text-slate-600 hover:text-slate-900 transition">
+        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 transition">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -123,18 +144,18 @@
     </div>
 
     <!-- EXAM COUNTDOWN TICKER BANNER -->
-    <div id="examQuickTicker" class="light-card rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 bg-gradient-to-r from-amber-500/10 via-indigo-500/5 to-white border-amber-200/80 shadow-xs cursor-pointer hover:border-amber-300 active:scale-[0.99] transition">
+    <div id="examQuickTicker" class="light-card rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 bg-gradient-to-r from-amber-500/10 via-indigo-500/5 to-white dark:from-amber-950/30 dark:via-indigo-950/20 dark:to-slate-900 border-amber-200/80 dark:border-amber-900/50 shadow-xs cursor-pointer hover:border-amber-300 dark:hover:border-amber-700 active:scale-[0.99] transition">
       <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
         <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-300 flex items-center justify-center flex-shrink-0">
           <i data-lucide="timer" class="w-4 h-4"></i>
         </div>
         <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <span class="text-xs font-bold text-slate-800">Session Normale S9 :</span>
-            <span id="tickerNextExamName" class="text-xs font-extrabold text-indigo-700 truncate">Gynécologie - Obstétrique</span>
+            <span class="text-xs font-bold text-slate-800 dark:text-slate-200">Session Normale S9 :</span>
+            <span id="tickerNextExamName" class="text-xs font-extrabold text-indigo-700 dark:text-indigo-400 truncate">Gynécologie - Obstétrique</span>
             <span id="tickerCountdownBadge" class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500 text-white flex-shrink-0">J-...</span>
           </div>
-          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1 sm:line-clamp-none">Du 08 au 22 Janvier • Appuyez pour afficher le calendrier complet</p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 sm:line-clamp-none">Du 08 au 22 Janvier • Appuyez pour afficher le calendrier complet</p>
         </div>
       </div>
       <div class="flex items-center gap-2 self-stretch sm:self-center justify-end pt-1 sm:pt-0 border-t sm:border-t-0 border-amber-100/60">
@@ -159,17 +180,17 @@
         </div>
 
         <div class="space-y-2">
-          <div class="flex justify-between text-xs text-slate-600 font-medium">
-            <span>Moi: <strong id="statMyCount" class="text-slate-900">0</strong>/119 (<span id="statMyPercentSub" class="text-indigo-600 font-bold">0%</span>)</span>
-            <span>Faculté: <strong id="statFacCount" class="text-slate-900">0</strong>/119 (<span id="statFacPercent" class="text-emerald-600 font-bold">0%</span>)</span>
+          <div class="flex justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <span>Moi: <strong id="statMyCount" class="text-slate-900 dark:text-white">0</strong>/119 (<span id="statMyPercentSub" class="text-indigo-600 font-bold">0%</span>)</span>
+            <span>Faculté: <strong id="statFacCount" class="text-slate-900 dark:text-white">0</strong>/119 (<span id="statFacPercent" class="text-emerald-600 font-bold">0%</span>)</span>
           </div>
 
           <!-- Dual Progress Bars -->
           <div class="space-y-1">
-            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
               <div id="statMyBar" class="bg-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
-            <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
               <div id="statFacBar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
           </div>
@@ -182,14 +203,14 @@
       </div>
 
       <!-- Card 2: Priority Catch-up Queue (À rattraper) -->
-      <div id="cardPriorityCatchup" class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border-amber-300 hover:border-amber-400 cursor-pointer bg-gradient-to-br from-white to-amber-50/40 transition group">
+      <div id="cardPriorityCatchup" class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border-amber-300 dark:border-amber-800/80 hover:border-amber-400 dark:hover:border-amber-700 cursor-pointer bg-gradient-to-br from-white to-amber-50/40 dark:from-slate-900 dark:to-amber-950/30 transition group">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+          <span class="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
             File Prioritaire : À Rattraper
             <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
           </span>
-          <div class="p-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs">
+          <div class="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 font-bold text-xs">
             Priorité
           </div>
         </div>
@@ -197,9 +218,9 @@
         <div>
           <div class="flex items-baseline gap-2">
             <span id="statCatchupCount" class="text-3xl font-black tracking-tight text-amber-600">0</span>
-            <span class="text-xs font-medium text-slate-600">cours dispensés en attente d'étude</span>
+            <span class="text-xs font-medium text-slate-600 dark:text-slate-400">cours dispensés en attente d'étude</span>
           </div>
-          <p class="text-[11px] text-amber-700/90 font-medium mt-1.5 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+          <p class="text-[11px] text-amber-700/90 dark:text-amber-400 font-medium mt-1.5 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Cliquer pour afficher cette file d'attente</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </p>
@@ -209,7 +230,7 @@
       <!-- Card 3: Couches de Révision (C1 & C2) -->
       <div class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i>
             Tours de Révision Médicale
           </span>
@@ -217,14 +238,14 @@
         </div>
 
         <div class="grid grid-cols-2 gap-3 pt-1">
-          <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center">
+          <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 border border-slate-200 dark:border-slate-700/80 text-center">
             <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 1 (C1)</div>
-            <div id="statC1Count" class="text-xl font-black text-slate-900 mt-0.5">0</div>
+            <div id="statC1Count" class="text-xl font-black text-slate-900 dark:text-white mt-0.5">0</div>
             <div class="text-[10px] text-slate-400">cours révisés</div>
           </div>
-          <div class="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center">
+          <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 border border-slate-200 dark:border-slate-700/80 text-center">
             <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 2 (C2)</div>
-            <div id="statC2Count" class="text-xl font-black text-slate-900 mt-0.5">0</div>
+            <div id="statC2Count" class="text-xl font-black text-slate-900 dark:text-white mt-0.5">0</div>
             <div class="text-[10px] text-slate-400">cours consolidés</div>
           </div>
         </div>
@@ -264,7 +285,7 @@
             type="text" 
             id="searchInput" 
             placeholder="Rechercher un cours, un enseignant (Pr.), ou un mot-clé..."
-            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-850 transition"
           />
           <button id="btnClearSearch" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1">
             <i data-lucide="x" class="w-3.5 h-3.5"></i>
@@ -272,7 +293,7 @@
         </div>
 
         <!-- Quick Status Tabs -->
-        <div class="flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200 overflow-x-auto no-scrollbar text-xs font-semibold whitespace-nowrap gap-1">
+        <div class="flex items-center p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto no-scrollbar text-xs font-semibold whitespace-nowrap gap-1">
           <button class="quick-tab-btn px-3 py-1.5 rounded-lg transition active bg-white text-indigo-700 shadow-sm" data-tab="all">
             Tous (<span id="countTabAll">119</span>)
           </button>
@@ -288,7 +309,7 @@
         </div>
 
         <!-- View Switcher (Syllabus vs Table vs Cards) -->
-        <div class="hidden sm:flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+        <div class="hidden sm:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
           <button id="btnViewSyllabus" title="Vue Syllabus Organisé (Recommandé)" class="p-1.5 rounded-lg bg-white text-indigo-700 shadow-sm transition flex items-center gap-1 text-xs font-bold px-2.5">
             <i data-lucide="layers" class="w-3.5 h-3.5"></i>
             <span>Syllabus</span>
@@ -304,10 +325,10 @@
       </div>
 
       <!-- Secondary Filters (Module, Prof, Faculty Status) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
         
         <!-- Module Dropdown -->
-        <select id="filterModule" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
+        <select id="filterModule" class="w-full lg:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
           <option value="">Tous les Modules</option>
           <option value="GYNECO-OBSTETRIQUE">Gynéco-Obstétrique</option>
           <option value="ORL - OPHTALMO">ORL - Ophtalmologie</option>
@@ -316,7 +337,7 @@
         </select>
 
         <!-- Faculty Status Dropdown -->
-        <select id="filterFacStatus" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
+        <select id="filterFacStatus" class="w-full lg:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
           <option value="">Statut Faculté: Tous</option>
           <option value="Effectué">Effectué (Dispensé)</option>
           <option value="En cours">En cours</option>
@@ -325,12 +346,12 @@
         </select>
 
         <!-- Professor Dropdown -->
-        <select id="filterProf" class="w-full lg:w-auto bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs truncate">
+        <select id="filterProf" class="w-full lg:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs truncate">
           <option value="">Tous les Enseignants (29)</option>
         </select>
 
         <!-- Reset Button -->
-        <button id="btnResetFilters" class="w-full sm:w-auto sm:ml-auto text-slate-500 hover:text-slate-900 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg hover:bg-slate-100 active:scale-95 transition">
+        <button id="btnResetFilters" class="w-full sm:w-auto sm:ml-auto text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition">
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
           <span>Réinitialiser</span>
         </button>
@@ -359,7 +380,7 @@
       <!-- VIEW 2: COMPACT TABLE VIEW -->
       <div id="coursesTableView" class="hidden light-card rounded-2xl overflow-hidden overflow-x-auto">
         <table class="w-full text-left text-sm">
-          <thead class="bg-slate-100/80 text-[11px] uppercase font-bold text-slate-500 border-b border-slate-200">
+          <thead class="bg-slate-100/80 dark:bg-slate-800/90 text-[11px] uppercase font-bold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
             <tr>
               <th class="py-3 px-4 w-12 text-center">Fait</th>
               <th class="py-3 px-4">Cours & Mentions</th>
@@ -370,7 +391,7 @@
               <th class="py-3 px-4 text-center">Notes</th>
             </tr>
           </thead>
-          <tbody id="coursesTableBody" class="divide-y divide-slate-100">
+          <tbody id="coursesTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
             <!-- Table rows injected here -->
           </tbody>
         </table>
@@ -406,7 +427,7 @@
         
         <!-- Left: Back Button + Title -->
         <div class="flex items-center gap-3">
-          <button id="btnBackToCourses" type="button" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-indigo-50 active:scale-95 text-slate-700 hover:text-indigo-700 border border-slate-200 transition font-bold text-xs sm:text-sm flex-shrink-0" title="Retourner aux cours">
+          <button id="btnBackToCourses" type="button" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 active:scale-95 text-slate-700 dark:text-slate-300 hover:text-indigo-700 dark:hover:text-indigo-300 border border-slate-200 dark:border-slate-700 transition font-bold text-xs sm:text-sm flex-shrink-0" title="Retourner aux cours">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             <span class="hidden sm:inline">Retour Syllabus</span>
             <span class="sm:hidden">Retour</span>
@@ -429,13 +450,13 @@
         <div class="flex items-center justify-between md:justify-end gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
           
           <!-- Year Switcher -->
-          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold flex-shrink-0">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold flex-shrink-0">
             <button id="btnExamYear2027" type="button" class="px-2.5 py-1 rounded-lg bg-white text-indigo-700 shadow-xs transition">2027</button>
             <button id="btnExamYear2026" type="button" class="px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition">2026 (PDF)</button>
           </div>
 
           <!-- Page View Tabs -->
-          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold flex-shrink-0">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold flex-shrink-0">
             <button id="tabBtnCountdown" type="button" class="exam-tab-btn px-3 py-1.5 rounded-lg bg-white text-indigo-700 shadow-xs transition flex items-center gap-1.5 active font-bold" data-tab="countdown">
               <i data-lucide="timer" class="w-3.5 h-3.5"></i>
               <span>Décompte</span>
@@ -535,13 +556,13 @@
       <!-- ================= SECTION 2: REAL CALENDAR & MOBILE AGENDA ================= -->
       <div id="examSectionCalendar" class="hidden space-y-5">
         <!-- Calendar Toolbar & Month Navigation -->
-        <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-slate-50 rounded-2xl border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700">
           <div class="flex items-center gap-3">
             <div class="p-2.5 rounded-xl bg-indigo-600 text-white shadow-xs">
               <i data-lucide="calendar" class="w-5 h-5"></i>
             </div>
             <div>
-              <h4 id="calendarMonthTitle" class="text-base font-extrabold text-slate-900">Janvier 2027</h4>
+              <h4 id="calendarMonthTitle" class="text-base font-extrabold text-slate-900 dark:text-white">Janvier 2027</h4>
               <p class="text-xs text-slate-500">Période des examens du 08 au 22 Janvier • Appuyez sur un jour pour inspecter</p>
             </div>
           </div>
@@ -583,14 +604,14 @@
         </div>
 
         <!-- Day Inspector Detail Card -->
-        <div id="calendarDayDetail" class="rounded-2xl p-4 sm:p-5 bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div id="calendarDayDetail" class="rounded-2xl p-4 sm:p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="flex items-center gap-3.5">
             <div id="detailDayBadge" class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex flex-col items-center justify-center font-bold text-sm leading-tight flex-shrink-0 shadow-2xs">
               <span class="text-[10px] font-bold uppercase">Janv</span>
               <span class="text-base font-extrabold" id="detailDayNumber">08</span>
             </div>
             <div>
-              <h5 id="detailDayTitle" class="text-sm sm:text-base font-bold text-slate-900">Vendredi 08 Janvier 2027 • 12h00 à 13h30</h5>
+              <h5 id="detailDayTitle" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Vendredi 08 Janvier 2027 • 12h00 à 13h30</h5>
               <p id="detailDayDesc" class="text-xs text-slate-600 mt-0.5">Épreuve 1 : Gynécologie - Obstétrique • Durée : 1h30</p>
             </div>
           </div>
@@ -618,7 +639,7 @@
 
       <!-- ================= SECTION 3: OFFICIAL SCHEDULE ================= -->
       <div id="examSectionPdf" class="hidden space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
           <div>
             <h4 class="text-sm font-bold text-slate-900">Extrait Officiel — 5ème Année Médecine</h4>
             <p class="text-xs text-slate-500">Service des affaires estudiantines • Faculté de Médecine et de Pharmacie de Fès</p>
@@ -632,7 +653,7 @@
         <!-- Schedule Table -->
         <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-xs">
           <table class="w-full text-left text-xs">
-            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+            <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th class="px-4 py-3">Date & Jour</th>
                 <th class="px-4 py-3">Horaire</th>
@@ -642,7 +663,7 @@
                 <th class="px-4 py-3 text-right">Action</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 bg-white" id="officialScheduleTbody">
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800 bg-white dark:bg-slate-900" id="officialScheduleTbody">
               <!-- Injected via JS -->
             </tbody>
           </table>
@@ -654,7 +675,7 @@
   </main>
 
   <!-- MOBILE BOTTOM DOCK -->
-  <nav class="md:hidden mobile-bottom-dock px-2 sm:px-4 py-1.5">
+  <nav class="md:hidden mobile-bottom-dock px-2 sm:px-4 py-1.5 dark:bg-slate-900/95 dark:border-slate-800">
     <div class="flex items-center justify-around">
       <button id="btnMobileSyllabus" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-indigo-600 active" data-nav="syllabus">
         <i data-lucide="book-open" class="w-4 h-4"></i>
@@ -692,7 +713,7 @@
       <div class="flex items-start justify-between gap-4">
         <div>
           <span id="noteModalModule" class="text-[11px] font-bold uppercase text-indigo-600">Module</span>
-          <h3 id="noteModalTitle" class="text-base font-bold text-slate-900">Titre du cours</h3>
+          <h3 id="noteModalTitle" class="text-base font-bold text-slate-900 dark:text-white">Titre du cours</h3>
           <p id="noteModalProf" class="text-xs text-slate-500">Enseignant</p>
         </div>
         <button id="btnCloseNoteModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
@@ -774,6 +795,21 @@
         </div>
       </div>
 
+            <!-- Appearance / Theme -->
+      <div class="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Apparence & Thème</h4>
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+          <div>
+            <div class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <i data-lucide="moon" class="w-4 h-4 text-indigo-500"></i>
+              Mode Sombre (Dark Theme)
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Interface sombre à contraste élevé, reposante pour les révisions nocturnes</div>
+          </div>
+          <input type="checkbox" id="settingThemeToggle" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+        </div>
+      </div>
+
       <!-- Backup & Restore -->
       <div class="space-y-3 pt-3 border-t border-slate-100">
         <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Sauvegarde & Restauration</h4>
@@ -848,6 +884,6 @@
   </div>
 
   <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
-  <script src="js/bundle.js?v=3.3"></script>
+  <script src="js/bundle.js?v=3.4"></script>
 </body>
 </html>

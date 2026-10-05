@@ -285,6 +285,9 @@ const elements = {
   noteSaveStatus: document.getElementById('noteSaveStatus'),
 
   // Settings Modal
+  btnThemeToggle: document.getElementById('btnThemeToggle'),
+  themeIcon: document.getElementById('themeIcon'),
+  settingThemeToggle: document.getElementById('settingThemeToggle'),
   btnOpenSettings: document.getElementById('btnOpenSettings'),
   settingsModal: document.getElementById('settingsModal'),
   btnCloseSettingsModal: document.getElementById('btnCloseSettingsModal'),
@@ -358,7 +361,74 @@ const elements = {
 /**
  * Initialize Application
  */
+
+/**
+ * Dark Theme Management
+ */
+function initTheme() {
+  const savedTheme = localStorage.getItem('s9_theme');
+  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = savedTheme === 'dark' || (!savedTheme && systemDark);
+  applyTheme(isDark ? 'dark' : 'light', false);
+
+  if (window.matchMedia) {
+    try {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('s9_theme')) {
+          applyTheme(e.matches ? 'dark' : 'light', false);
+        }
+      });
+    } catch (e) {}
+  }
+}
+
+function toggleTheme() {
+  const isCurrentlyDark = document.documentElement.classList.contains('dark');
+  const nextTheme = isCurrentlyDark ? 'light' : 'dark';
+  localStorage.setItem('s9_theme', nextTheme);
+  applyTheme(nextTheme, true);
+}
+
+function applyTheme(theme, showNotification = false) {
+  const isDark = theme === 'dark';
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', '#090d16');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', '#ffffff');
+  }
+
+  const themeIcons = document.querySelectorAll('.theme-toggle-icon, #themeIcon');
+  themeIcons.forEach(icon => {
+    icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  });
+
+  const toggleBtns = document.querySelectorAll('.theme-toggle-btn, #btnThemeToggle');
+  toggleBtns.forEach(btn => {
+    btn.setAttribute('title', isDark ? 'Activer le mode clair' : 'Activer le mode sombre');
+  });
+
+  const settingCheck = document.getElementById('settingThemeToggle');
+  if (settingCheck) {
+    settingCheck.checked = isDark;
+  }
+
+  refreshIcons();
+
+  if (showNotification) {
+    showToast(isDark ? 'Mode sombre activé 🌙' : 'Mode clair activé ☀️', 'info');
+  }
+}
+
 async function init() {
+  // Initialize Theme
+  initTheme();
+
   // Load settings
   state.settings = Storage.getSettings();
   state.activeView = state.settings.viewMode || 'syllabus';
@@ -392,6 +462,26 @@ async function init() {
   populateProfessors();
 
   // Setup UI Listeners
+
+  // Theme Toggle Listener
+  if (elements.btnThemeToggle) {
+    elements.btnThemeToggle.onclick = toggleTheme;
+  }
+  if (elements.settingThemeToggle) {
+    elements.settingThemeToggle.onchange = (e) => {
+      applyTheme(e.target.checked ? 'dark' : 'light', true);
+    };
+  }
+
+  // Keyboard shortcut: Press 'd' when not typing to toggle dark mode
+  document.addEventListener('keydown', (e) => {
+    if ((e.key === 'd' || e.key === 'D') && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+      if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+        toggleTheme();
+      }
+    }
+  });
+
   setupEventListeners();
 
   // Setup Exam Countdown & Calendar Feature
@@ -641,15 +731,14 @@ function renderModuleQuickCards() {
     const isSelected = state.filters.module === modKey;
 
     const card = document.createElement('div');
-    card.className = `light-card rounded-xl p-3 cursor-pointer transition border ${
+    card.className = `light-card rounded-xl p-3 cursor-pointer transition border ${meta.quickCardBorder} ${
       isSelected 
-        ? 'border-indigo-500 bg-indigo-50/50 ring-2 ring-indigo-500/20' 
-        : 'hover:border-slate-300'
+        ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/40 ring-2 ring-indigo-500/30' 
+        : 'hover:border-slate-300 dark:hover:border-slate-700'
     }`;
     
     // Jump and scroll to module or filter
     card.onclick = () => {
-      // If we are in syllabus view, scroll directly to module section
       if (state.activeView === 'syllabus') {
         const targetSection = document.getElementById(`section-${meta.id}`);
         if (targetSection) {
@@ -671,17 +760,17 @@ function renderModuleQuickCards() {
           <div class="p-1.5 rounded-lg ${meta.bgLight} ${meta.color}">
             <i data-lucide="${meta.icon}" class="w-3.5 h-3.5"></i>
           </div>
-          <span class="font-bold text-xs text-slate-800">${meta.short}</span>
+          <span class="font-bold text-xs text-slate-800 dark:text-slate-100">${meta.short}</span>
         </div>
-        <span class="text-xs font-bold ${percent === 100 ? 'text-emerald-600' : 'text-indigo-600'}">${percent}%</span>
+        <span class="text-xs font-bold ${percent === 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-indigo-600 dark:text-indigo-400'}">${percent}%</span>
       </div>
 
       <div class="space-y-1 mt-2">
-        <div class="flex justify-between text-[10px] text-slate-500 font-medium">
-          <span>Moi: <strong>${modMyDone}</strong>/${modTotal}</span>
-          <span>Fac: <strong>${modFacDone}</strong>/${modTotal} (<span class="text-emerald-600 font-bold">${facPercent}%</span>)</span>
+        <div class="flex justify-between text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+          <span>Moi: <strong class="text-slate-800 dark:text-slate-200">${modMyDone}</strong>/${modTotal}</span>
+          <span>Fac: <strong class="text-slate-800 dark:text-slate-200">${modFacDone}</strong>/${modTotal} (<span class="text-emerald-600 dark:text-emerald-400 font-bold">${facPercent}%</span>)</span>
         </div>
-        <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+        <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
           <div class="${meta.accentBar} h-1.5 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
         </div>
       </div>
@@ -831,11 +920,11 @@ function renderSyllabusView(filteredCourses) {
     // Module Container Box
     const section = document.createElement('div');
     section.id = `section-${meta.id}`;
-    section.className = 'light-card rounded-2xl overflow-hidden border border-slate-200 transition-all';
+    section.className = `light-card rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all ${meta.borderAccentClass || ''}`;
 
     // Module Header Bar (Accordion Trigger)
     const header = document.createElement('div');
-    header.className = `p-4 sm:p-5 flex items-center justify-between gap-3 cursor-pointer select-none bg-gradient-to-r from-slate-50 to-white hover:bg-slate-100/60 border-b ${isCollapsed ? 'border-transparent' : 'border-slate-200'} transition`;
+    header.className = `p-4 sm:p-5 flex items-center justify-between gap-3 cursor-pointer select-none ${meta.headerBgClass || ''} hover:opacity-95 border-b ${isCollapsed ? 'border-transparent' : 'border-slate-200 dark:border-slate-800'} transition`;
     header.onclick = () => {
       state.moduleCollapsed[modKey] = !state.moduleCollapsed[modKey];
       renderCoursesView();
@@ -849,14 +938,14 @@ function renderSyllabusView(filteredCourses) {
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
-            <h3 class="font-extrabold text-sm sm:text-base text-slate-900 truncate tracking-tight">
+            <h3 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white truncate tracking-tight">
               ${meta.title}
             </h3>
-            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${meta.bgLight} ${meta.color} border ${meta.border}">
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full border ${meta.badgeClass}">
               ${meta.coeffShort}
             </span>
           </div>
-          <p class="text-xs text-slate-500 mt-0.5">
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             ${modMyDone} sur ${allModCourses.length} cours étudiés (${modPercent}%) • Faculté : ${modFacDone} dispensés (${allModCourses.length > 0 ? Math.round((modFacDone / allModCourses.length) * 100) : 0}%)
           </p>
         </div>
@@ -865,14 +954,14 @@ function renderSyllabusView(filteredCourses) {
       <div class="flex items-center gap-3 flex-shrink-0">
         <!-- Mini Progress Pill -->
         <div class="hidden sm:flex items-center gap-2">
-          <div class="w-20 bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div class="w-20 bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
             <div class="${meta.accentBar} h-2 rounded-full" style="width: ${modPercent}%"></div>
           </div>
-          <span class="text-xs font-bold text-slate-700">${modPercent}%</span>
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-300">${modPercent}%</span>
         </div>
 
         <!-- Chevron -->
-        <div class="p-1 rounded-lg text-slate-400 hover:text-slate-700">
+        <div class="p-1 rounded-lg text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
           <i data-lucide="${isCollapsed ? 'chevron-down' : 'chevron-up'}" class="w-5 h-5"></i>
         </div>
       </div>
@@ -883,7 +972,7 @@ function renderSyllabusView(filteredCourses) {
     // Module Body (Lessons grouped by Professor)
     if (!isCollapsed) {
       const body = document.createElement('div');
-      body.className = 'p-3 sm:p-5 space-y-4 bg-white';
+      body.className = 'p-3 sm:p-5 space-y-4 bg-white dark:bg-slate-900';
 
       // Group courses by Professor (maintaining sheet order)
       const profGroups = [];
@@ -972,7 +1061,7 @@ function createCourseRowElement(course) {
       <div class="min-w-0 flex-1">
         <div class="flex items-center gap-2 flex-wrap mb-1">
           <!-- Main Clean Title -->
-          <span class="font-bold text-sm text-slate-900 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500' : ''}" data-id="${course.id}">
+          <span class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug cursor-pointer ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}" data-id="${course.id}">
             ${isNewUnseenCourse(course) ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
 
@@ -1021,10 +1110,10 @@ function createCourseRowElement(course) {
           class="change-fac-status-select bg-transparent text-inherit font-bold text-[11px] cursor-pointer focus:outline-none pr-3.5 appearance-none" 
           data-id="${course.id}"
         >
-          <option value="Effectué" class="text-slate-900 bg-white font-medium" ${course.facultyStatus === 'Effectué' ? 'selected' : ''}>Effectué</option>
-          <option value="En cours" class="text-slate-900 bg-white font-medium" ${course.facultyStatus === 'En cours' ? 'selected' : ''}>En cours</option>
-          <option value="Non effectué" class="text-slate-900 bg-white font-medium" ${course.facultyStatus === 'Non effectué' ? 'selected' : ''}>Non effectué</option>
-          <option value="Hors programme" class="text-slate-900 bg-white font-medium" ${course.facultyStatus === 'Hors programme' ? 'selected' : ''}>Hors programme</option>
+          <option value="Effectué" class="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-medium" ${course.facultyStatus === 'Effectué' ? 'selected' : ''}>Effectué</option>
+          <option value="En cours" class="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-medium" ${course.facultyStatus === 'En cours' ? 'selected' : ''}>En cours</option>
+          <option value="Non effectué" class="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-medium" ${course.facultyStatus === 'Non effectué' ? 'selected' : ''}>Non effectué</option>
+          <option value="Hors programme" class="text-slate-900 bg-white dark:bg-slate-800 dark:text-white font-medium" ${course.facultyStatus === 'Hors programme' ? 'selected' : ''}>Hors programme</option>
         </select>
         <i data-lucide="chevron-down" class="w-2.5 h-2.5 opacity-60 pointer-events-none absolute right-1.5"></i>
       </div>
@@ -1086,7 +1175,7 @@ function renderTableView(courses) {
     }
 
     const tr = document.createElement('tr');
-    tr.className = `hover:bg-slate-50/80 transition-colors ${isDone ? 'bg-indigo-50/30' : 'bg-white'}`;
+    tr.className = `hover:bg-slate-50/80 dark:hover:bg-slate-800/60 transition-colors ${isDone ? 'bg-indigo-50/30 dark:bg-indigo-950/20' : 'bg-white dark:bg-slate-900'}`;
 
     tr.innerHTML = `
       <td class="py-3 px-4 text-center">
@@ -1096,7 +1185,7 @@ function renderTableView(courses) {
       </td>
       <td class="py-3 px-4">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="font-bold text-slate-900 ${isDone ? 'line-through text-slate-500' : ''}">
+          <span class="font-bold text-slate-900 dark:text-slate-100 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
             ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
           </span>
           ${(course.badges || []).map(b => `
@@ -1196,7 +1285,7 @@ function renderCardsView(courses) {
       </div>
         </div>
 
-        <h4 class="font-bold text-sm text-slate-900 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500' : ''}">
+        <h4 class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-snug mb-1.5 ${isDone ? 'line-through text-slate-500 dark:text-slate-500' : ''}">
           ${isUnseen ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1.5 align-middle" title="Nouvelle leçon dispensée"></span>' : ''}${course.title}
         </h4>
 
@@ -2946,6 +3035,6 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Expose for browser console and programmatic access
 if (typeof window !== 'undefined') {
-  window.RecensementApp = { state, Storage, Sync, setViewMode, openExamsModal, setExamYear, renderDashboard, populateProfessors, selectModuleFilter };
+  window.RecensementApp = { state, Storage, Sync, setViewMode, openExamsModal, setExamYear, renderDashboard, populateProfessors, selectModuleFilter, toggleTheme, initTheme };
 }
 

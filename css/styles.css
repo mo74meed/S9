@@ -1,4 +1,4 @@
-/* 100% Light Theme Design System for Recensement S9 Dashboard */
+/* Design System for Recensement S9 Dashboard (Light & Dark Theme) */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
@@ -14,11 +14,24 @@
   --brand-hover: #4338ca;
 }
 
+html.dark {
+  --bg-main: #090d16;
+  --card-bg: #111827;
+  --card-border: #1f2937;
+  --card-border-hover: #374151;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --brand-primary: #6366f1;
+  --brand-hover: #818cf8;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
   color: var(--text-main);
   -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Crisp Clean Panels */
@@ -27,6 +40,11 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
+}
+
+html.dark .light-panel {
+  background-color: rgba(17, 24, 39, 0.92);
+  border-color: #1f2937;
 }
 
 .light-card {
@@ -39,6 +57,17 @@ body {
 .light-card:hover {
   border-color: var(--card-border-hover);
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+}
+
+html.dark .light-card {
+  background-color: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+}
+
+html.dark .light-card:hover {
+  border-color: #374151;
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.45);
 }
 
 /* Course Row in Syllabus View */
@@ -61,8 +90,73 @@ body {
 }
 
 .course-row.is-catchup {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #f59e0b !important;
   background-color: #ffffff;
+}
+
+html.dark .course-row {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #f1f5f9;
+}
+
+html.dark .course-row:hover {
+  border-color: #374151;
+  background-color: #162032;
+  box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .course-row.is-done {
+  background-color: rgba(30, 27, 75, 0.35);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+html.dark .course-row.is-catchup {
+  border-left: 4px solid #f59e0b !important;
+  background-color: rgba(120, 53, 15, 0.18);
+}
+
+/* Distinct Module Border Indicators for Instant Recognition */
+.course-row.mod-border-gyneco {
+  border-left: 3.5px solid #f43f5e;
+}
+.course-row.mod-border-orl-ophtalmo {
+  border-left: 3.5px solid #f59e0b;
+}
+.course-row.mod-border-sante-publique {
+  border-left: 3.5px solid #10b981;
+}
+.course-row.mod-border-urgences-rea {
+  border-left: 3.5px solid #3b82f6;
+}
+
+/* Section Accordion Headers - Tinted per module */
+.mod-header-gyneco {
+  background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.95));
+}
+html.dark .mod-header-gyneco {
+  background: linear-gradient(to right, rgba(244, 63, 94, 0.18), rgba(17, 24, 39, 0.95));
+}
+
+.mod-header-orl-ophtalmo {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.08), rgba(255, 255, 255, 0.95));
+}
+html.dark .mod-header-orl-ophtalmo {
+  background: linear-gradient(to right, rgba(245, 158, 11, 0.18), rgba(17, 24, 39, 0.95));
+}
+
+.mod-header-sante-publique {
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.95));
+}
+html.dark .mod-header-sante-publique {
+  background: linear-gradient(to right, rgba(16, 185, 129, 0.18), rgba(17, 24, 39, 0.95));
+}
+
+.mod-header-urgences-rea {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.95));
+}
+html.dark .mod-header-urgences-rea {
+  background: linear-gradient(to right, rgba(59, 130, 246, 0.18), rgba(17, 24, 39, 0.95));
 }
 
 /* Slim Medical Scrollbars */
@@ -82,6 +176,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
 
 /* Status Pills */
@@ -119,6 +221,30 @@ body {
   background-color: #fef2f2;
   color: #b91c1c;
   border: 1px solid #fecaca;
+}
+
+html.dark .status-effectue {
+  background-color: rgba(6, 78, 59, 0.4);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+html.dark .status-en-cours {
+  background-color: rgba(120, 53, 15, 0.4);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+html.dark .status-non-effectue {
+  background-color: rgba(30, 41, 59, 0.6);
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+html.dark .status-hors-programme {
+  background-color: rgba(127, 29, 29, 0.4);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.45);
 }
 
 /* Title Annotation Badges */
@@ -173,6 +299,23 @@ body {
   color: #334155;
 }
 
+html.dark .couche-chip.active {
+  background-color: #6366f1;
+  border-color: #4f46e5;
+  box-shadow: 0 1px 4px rgba(99, 102, 241, 0.45);
+}
+
+html.dark .couche-chip.inactive {
+  background-color: #1e293b;
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+html.dark .couche-chip.inactive:hover {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
 /* Checkbox Toggle Button */
 .check-toggle-btn {
   width: 1.5rem;
@@ -200,6 +343,22 @@ body {
   box-shadow: 0 1px 4px rgba(79, 70, 229, 0.35);
 }
 
+html.dark .check-toggle-btn {
+  background-color: #1e293b;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+html.dark .check-toggle-btn:hover {
+  border-color: #818cf8;
+}
+
+html.dark .check-toggle-btn.is-checked {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  box-shadow: 0 1px 4px rgba(99, 102, 241, 0.45);
+}
+
 /* Mobile Dock Navigation */
 @media (max-width: 768px) {
   .mobile-bottom-dock {
@@ -214,6 +373,12 @@ body {
     border-top: 1px solid #e2e8f0;
     padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.5rem);
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  html.dark .mobile-bottom-dock {
+    background-color: rgba(17, 24, 39, 0.97);
+    border-color: #1f2937;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
   }
 
   .mobile-nav-btn {
@@ -233,9 +398,19 @@ body {
     background-color: rgba(79, 70, 229, 0.08);
   }
 
+  html.dark .mobile-nav-btn.active {
+    color: #818cf8;
+    background-color: rgba(99, 102, 241, 0.15);
+  }
+
   .mobile-nav-btn.active[data-nav="exams"] {
     color: #d97706;
     background-color: rgba(217, 119, 6, 0.1);
+  }
+
+  html.dark .mobile-nav-btn.active[data-nav="exams"] {
+    color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.18);
   }
 }
 
@@ -250,6 +425,9 @@ body {
 }
 .timeline-item:last-child .timeline-stem {
   display: none;
+}
+html.dark .timeline-stem {
+  background: #334155;
 }
 
 /* Touch and Mobile Ergonomics */
@@ -358,3 +536,39 @@ body {
   outline-offset: 2px;
 }
 
+/* Dark mode for calendar */
+html.dark .calendar-day-cell {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #e2e8f0;
+}
+
+html.dark .calendar-day-cell:hover {
+  border-color: #374151;
+  background-color: #1e293b;
+}
+
+html.dark .calendar-day-cell.is-outside {
+  background-color: #0b0f19;
+  border-color: #151d2d;
+  color: #475569;
+}
+
+html.dark .calendar-day-cell.is-period {
+  background-color: rgba(49, 46, 129, 0.25);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+html.dark .calendar-day-cell.is-revision {
+  background-color: rgba(120, 53, 15, 0.25);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+html.dark .calendar-day-cell.is-holiday {
+  background-color: rgba(127, 29, 29, 0.25);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+html.dark .calendar-day-cell.is-selected {
+  outline: 2px solid #818cf8;
+}
