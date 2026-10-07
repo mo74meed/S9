@@ -9,7 +9,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_006': { questions: 17 },
   'c_007': { questions: 7 },
   'c_008': { questions: 4 },
-  'c_009': { questions: 81 },
+  'c_009': { questions: 23 },
   'c_010': { questions: 47 },
   'c_011': { questions: 19 },
   'c_012': { questions: 25 },

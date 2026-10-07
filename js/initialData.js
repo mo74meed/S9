@@ -93,8 +93,8 @@ export const INITIAL_DATA = {
     "prof": "Pr. Errarhay",
     "title": "Les suites de couches normales et pathologiques",
     "badges": [],
-    "questions": 81,
-    "weight": 3.64
+    "questions": 23,
+    "weight": 1.03
   },
   {
     "id": "c_010",
