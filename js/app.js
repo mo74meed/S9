@@ -1,6 +1,6 @@
 // Course Weights Dictionary (Total: 2242 questions across S9 corpus)
 const COURSE_WEIGHTS_DATA = {
-  // Gynéco-Obstétrique
+  // GYNECO-OBSTETRIQUE
   'c_001': { questions: 11 },
   'c_002': { questions: 18 },
   'c_003': { questions: 36 },
@@ -34,8 +34,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_031': { questions: 13 },
   'c_032': { questions: 2 },
   'c_033': { questions: 4 },
-
-  // Ophtalmologie
+  // ORL - OPHTALMO
   'c_034': { questions: 10 },
   'c_035': { questions: 22 },
   'c_036': { questions: 19 },
@@ -47,15 +46,13 @@ const COURSE_WEIGHTS_DATA = {
   'c_042': { questions: 24 },
   'c_043': { questions: 21 },
   'c_044': { questions: 19 },
-  'c_045': { questions: 11 },
+  'c_045': { questions: 0 },
   'c_046': { questions: 17 },
   'c_047': { questions: 26 },
   'c_048': { questions: 30 },
   'c_049': { questions: 22 },
   'c_050': { questions: 32 },
   'c_051': { questions: 30 },
-
-  // ORL
   'c_052': { questions: 30 },
   'c_053': { questions: 25 },
   'c_054': { questions: 25 },
@@ -69,10 +66,9 @@ const COURSE_WEIGHTS_DATA = {
   'c_062': { questions: 35 },
   'c_063': { questions: 9 },
   'c_064': { questions: 4 },
-
-  // Santé Publique & Éco
+  // MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ
   'c_065': { questions: 20 },
-  'c_066': { questions: 33 },
+  'c_066': { questions: 14 },
   'c_067': { questions: 42 },
   'c_068': { questions: 9 },
   'c_069': { questions: 13 },
@@ -81,7 +77,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_072': { questions: 11 },
   'c_073': { questions: 19 },
   'c_074': { questions: 28 },
-  'c_075': { questions: 33 },
+  'c_075': { questions: 19 },
   'c_076': { questions: 10 },
   'c_077': { questions: 35 },
   'c_078': { questions: 11 },
@@ -91,8 +87,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_082': { questions: 19 },
   'c_083': { questions: 0 },
   'c_084': { questions: 39 },
-
-  // Urgences - Réanimation
+  // URGENCES - RÉANIMATION
   'c_085': { questions: 8 },
   'c_086': { questions: 7 },
   'c_087': { questions: 19 },
@@ -108,10 +103,10 @@ const COURSE_WEIGHTS_DATA = {
   'c_097': { questions: 3 },
   'c_098': { questions: 8 },
   'c_099': { questions: 8 },
-  'c_100': { questions: 9 },
-  'c_101': { questions: 21 },
+  'c_100': { questions: 6 },
+  'c_101': { questions: 3 },
   'c_102': { questions: 20 },
-  'c_103': { questions: 19 },
+  'c_103': { questions: 4 },
   'c_104': { questions: 6 },
   'c_105': { questions: 2 },
   'c_106': { questions: 1 },
@@ -129,7 +124,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_118': { questions: 25 },
   'c_119': { questions: 3 }
 };
-const TOTAL_CORPUS_QUESTIONS = 2242;
+const TOTAL_CORPUS_QUESTIONS = 2227;
 export function getCourseQuestions(course) {
   if (course && typeof course.questions === 'number' && !isNaN(course.questions)) {
     return course.questions;
