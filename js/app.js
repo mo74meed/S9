@@ -156,6 +156,21 @@ export function hydrateCoursesWithWeights(courses) {
   });
 }
 
+export function parseFacultyDate(dStr) {
+  if (!dStr) return 0;
+  if (typeof dStr === 'number') return dStr;
+  const str = String(dStr).trim();
+  const parts = str.split(/[/.-]/);
+  if (parts.length === 3) {
+    if (parts[0].length === 4) {
+      return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])).getTime();
+    }
+    return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0])).getTime();
+  }
+  const t = Date.parse(str);
+  return isNaN(t) ? 0 : t;
+}
+
 
 
 /**
@@ -1245,7 +1260,18 @@ function renderCoursesView() {
 function renderSyllabusView(filteredCourses) {
   elements.coursesSyllabusView.innerHTML = '';
 
-  const modules = Object.keys(MODULES_META);
+  let modules = Object.keys(MODULES_META);
+
+  // In "À rattraper" tab: order module sections chronologically by their most recent lesson date
+  if (state.filters.tab === 'catchup') {
+    modules.sort((mA, mB) => {
+      const coursesA = filteredCourses.filter(c => c.module === mA);
+      const coursesB = filteredCourses.filter(c => c.module === mB);
+      const maxA = Math.max(...coursesA.map(c => parseFacultyDate(c.facultyStatusDate)), 0);
+      const maxB = Math.max(...coursesB.map(c => parseFacultyDate(c.facultyStatusDate)), 0);
+      return maxB - maxA;
+    });
+  }
   
   modules.forEach(modKey => {
     const meta = MODULES_META[modKey];
@@ -1339,6 +1365,35 @@ function renderSyllabusView(filteredCourses) {
 
         modCourses.forEach((course, rankIdx) => {
           if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
+          const row = createCourseRowElement(course);
+          rowsList.appendChild(row);
+        });
+
+        body.appendChild(rowsList);
+        section.appendChild(body);
+        elements.coursesSyllabusView.appendChild(section);
+        return;
+      }
+
+      if (state.filters.tab === 'catchup') {
+        // Direct chronological list for "À rattraper" (latest done lesson first)
+        modCourses.sort((a, b) => {
+          const timeA = parseFacultyDate(a.facultyStatusDate);
+          const timeB = parseFacultyDate(b.facultyStatusDate);
+          if (timeB !== timeA) return timeB - timeA;
+          const aUnseen = isNewUnseenCourse(a) ? 1 : 0;
+          const bUnseen = isNewUnseenCourse(b) ? 1 : 0;
+          if (bUnseen !== aUnseen) return bUnseen - aUnseen;
+          return (a.id || '').localeCompare(b.id || '');
+        });
+
+        const rowsList = document.createElement('div');
+        rowsList.className = 'space-y-2';
+
+        modCourses.forEach(course => {
+          if (isNewUnseenCourse(course)) {
             state.pendingSeenCatchupIds.add(course.id);
           }
           const row = createCourseRowElement(course);

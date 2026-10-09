@@ -1,7 +1,7 @@
 /**
  * Recensement S9 - Bundled JavaScript
  * Single file bundle containing initialData, Storage, Sync, and App logic.
- * Generated on 2026-10-07
+ * Generated on 2026-10-09
  */
 (function() {
 /**
@@ -20,7 +20,12 @@ const INITIAL_DATA = {
     "title": "Uterus cicatriciel",
     "badges": [],
     "questions": 11,
-    "weight": 0.49
+    "weight": 0.49,
+    "rawTitle": "Uterus cicatriciel",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_002",
@@ -30,7 +35,12 @@ const INITIAL_DATA = {
     "title": "Le retard de croissance intra-utérine RCIU",
     "badges": [],
     "questions": 18,
-    "weight": 0.81
+    "weight": 0.81,
+    "rawTitle": "Le retard de croissance intra-utérine RCIU",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_003",
@@ -40,7 +50,12 @@ const INITIAL_DATA = {
     "title": "les infections génitales",
     "badges": [],
     "questions": 36,
-    "weight": 1.62
+    "weight": 1.62,
+    "rawTitle": "les infections génitales",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_004",
@@ -50,7 +65,12 @@ const INITIAL_DATA = {
     "title": "Cancer de la vulve",
     "badges": [],
     "questions": 8,
-    "weight": 0.36
+    "weight": 0.36,
+    "rawTitle": "Cancer de la vulve",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_005",
@@ -60,7 +80,12 @@ const INITIAL_DATA = {
     "title": "Infections urinaires et grossesse",
     "badges": [],
     "questions": 26,
-    "weight": 1.17
+    "weight": 1.17,
+    "rawTitle": "Infections urinaires et grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_006",
@@ -70,7 +95,12 @@ const INITIAL_DATA = {
     "title": "Toxoplasmose et grossesse",
     "badges": [],
     "questions": 17,
-    "weight": 0.76
+    "weight": 0.76,
+    "rawTitle": "Toxoplasmose et grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_007",
@@ -80,7 +110,12 @@ const INITIAL_DATA = {
     "title": "Rubéole et grossesse",
     "badges": [],
     "questions": 7,
-    "weight": 0.31
+    "weight": 0.31,
+    "rawTitle": "Rubéole et grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_008",
@@ -90,7 +125,12 @@ const INITIAL_DATA = {
     "title": "Streptocoque B et grossesse",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "Streptocoque B et grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_009",
@@ -100,7 +140,12 @@ const INITIAL_DATA = {
     "title": "Les suites de couches normales et pathologiques",
     "badges": [],
     "questions": 23,
-    "weight": 1.03
+    "weight": 1.03,
+    "rawTitle": "Les suites de couches normales et pathologiques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_010",
@@ -110,7 +155,12 @@ const INITIAL_DATA = {
     "title": "Cancer du sein",
     "badges": [],
     "questions": 47,
-    "weight": 2.11
+    "weight": 2.11,
+    "rawTitle": "Cancer du sein",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_011",
@@ -120,7 +170,12 @@ const INITIAL_DATA = {
     "title": "Cancer de l'ovaire",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Cancer de l'ovaire",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_012",
@@ -130,7 +185,12 @@ const INITIAL_DATA = {
     "title": "Grossesse extra-utérine",
     "badges": [],
     "questions": 25,
-    "weight": 1.12
+    "weight": 1.12,
+    "rawTitle": "Grossesse extra-utérine",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_013",
@@ -140,7 +200,12 @@ const INITIAL_DATA = {
     "title": "Les Maladies trophoblastiques Gestationnelles",
     "badges": [],
     "questions": 31,
-    "weight": 1.39
+    "weight": 1.39,
+    "rawTitle": "Les Maladies trophoblastiques Gestationnelles",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_014",
@@ -150,7 +215,12 @@ const INITIAL_DATA = {
     "title": "Les avortements",
     "badges": [],
     "questions": 8,
-    "weight": 0.36
+    "weight": 0.36,
+    "rawTitle": "Les avortements",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_015",
@@ -160,7 +230,12 @@ const INITIAL_DATA = {
     "title": "La rupture prématurée des membranes",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "La rupture prématurée des membranes",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_016",
@@ -170,7 +245,12 @@ const INITIAL_DATA = {
     "title": "La délivrance normale et pathologique",
     "badges": [],
     "questions": 24,
-    "weight": 1.08
+    "weight": 1.08,
+    "rawTitle": "La délivrance normale et pathologique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_017",
@@ -180,7 +260,12 @@ const INITIAL_DATA = {
     "title": "Diagnostic et surveillance de la grossesse",
     "badges": [],
     "questions": 21,
-    "weight": 0.94
+    "weight": 0.94,
+    "rawTitle": "Diagnostic et surveillance de la grossesse",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_018",
@@ -190,7 +275,12 @@ const INITIAL_DATA = {
     "title": "Hémorragies du 3ème trimestre",
     "badges": [],
     "questions": 29,
-    "weight": 1.3
+    "weight": 1.3,
+    "rawTitle": "Hémorragies du 3ème trimestre",
+    "facultyStatus": "En cours",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_019",
@@ -200,7 +290,12 @@ const INITIAL_DATA = {
     "title": "Présentations défléchies",
     "badges": [],
     "questions": 25,
-    "weight": 1.12
+    "weight": 1.12,
+    "rawTitle": "Présentations défléchies",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_020",
@@ -210,7 +305,12 @@ const INITIAL_DATA = {
     "title": "Diabète et grossesse",
     "badges": [],
     "questions": 24,
-    "weight": 1.08
+    "weight": 1.08,
+    "rawTitle": "Diabète et grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_021",
@@ -220,7 +320,12 @@ const INITIAL_DATA = {
     "title": "Pré-éclampsie",
     "badges": [],
     "questions": 21,
-    "weight": 0.94
+    "weight": 0.94,
+    "rawTitle": "Pré-éclampsie",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_022",
@@ -230,7 +335,12 @@ const INITIAL_DATA = {
     "title": "Allo-immunisations foeto-maternelles: Rhésus",
     "badges": [],
     "questions": 18,
-    "weight": 0.81
+    "weight": 0.81,
+    "rawTitle": "Allo-immunisations foeto-maternelles: Rhésus",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_023",
@@ -240,7 +350,12 @@ const INITIAL_DATA = {
     "title": "La grossesse gémellaire",
     "badges": [],
     "questions": 16,
-    "weight": 0.72
+    "weight": 0.72,
+    "rawTitle": "La grossesse gémellaire",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_024",
@@ -250,7 +365,12 @@ const INITIAL_DATA = {
     "title": "La menace d’accouchement prématuré",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "La menace d’accouchement prématuré",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_025",
@@ -258,9 +378,23 @@ const INITIAL_DATA = {
     "submodule": "Gynécologie - Obstétrique",
     "prof": "Pr. Chaara",
     "title": "La souffrance foetale aiguë",
-    "badges": [],
+    "badges": [
+      {
+        "type": "faculty_note",
+        "text": "Note: devenue asphyxie +++",
+        "icon": "info",
+        "bg": "bg-purple-50",
+        "textCol": "text-purple-700",
+        "border": "border-purple-200"
+      }
+    ],
     "questions": 6,
-    "weight": 0.27
+    "weight": 0.27,
+    "rawTitle": "La souffrance foetale aiguë > devenue asphyxie +++",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_026",
@@ -270,7 +404,12 @@ const INITIAL_DATA = {
     "title": "Accouchement normal",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "Accouchement normal",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_027",
@@ -280,7 +419,12 @@ const INITIAL_DATA = {
     "title": "presentation de siege",
     "badges": [],
     "questions": 15,
-    "weight": 0.67
+    "weight": 0.67,
+    "rawTitle": "presentation de siege",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_028",
@@ -290,7 +434,12 @@ const INITIAL_DATA = {
     "title": "Dysplasies cervicales",
     "badges": [],
     "questions": 9,
-    "weight": 0.4
+    "weight": 0.4,
+    "rawTitle": "Dysplasies cervicales",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_029",
@@ -300,7 +449,12 @@ const INITIAL_DATA = {
     "title": "Les fibromes utérins",
     "badges": [],
     "questions": 21,
-    "weight": 0.94
+    "weight": 0.94,
+    "rawTitle": "Les fibromes utérins",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_030",
@@ -310,7 +464,12 @@ const INITIAL_DATA = {
     "title": "Cancer du col uterin",
     "badges": [],
     "questions": 27,
-    "weight": 1.21
+    "weight": 1.21,
+    "rawTitle": "Cancer du col uterin",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_031",
@@ -320,7 +479,12 @@ const INITIAL_DATA = {
     "title": "Le cancer de l'endomètre",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "Le cancer de l'endomètre",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_032",
@@ -330,7 +494,12 @@ const INITIAL_DATA = {
     "title": "Endometrioses",
     "badges": [],
     "questions": 2,
-    "weight": 0.09
+    "weight": 0.09,
+    "rawTitle": "Endometrioses",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_033",
@@ -340,7 +509,12 @@ const INITIAL_DATA = {
     "title": "Abord du couple infertile",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "Abord du couple infertile",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_034",
@@ -350,7 +524,12 @@ const INITIAL_DATA = {
     "title": "Anatomie et physiologie de la vision",
     "badges": [],
     "questions": 10,
-    "weight": 0.45
+    "weight": 0.45,
+    "rawTitle": "Anatomie et physiologie de la vision",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_035",
@@ -360,7 +539,12 @@ const INITIAL_DATA = {
     "title": "Examen clinique en ophtalmologie",
     "badges": [],
     "questions": 22,
-    "weight": 0.99
+    "weight": 0.99,
+    "rawTitle": "Examen clinique en ophtalmologie",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_036",
@@ -370,7 +554,12 @@ const INITIAL_DATA = {
     "title": "Conduite à tenir devant un oeil rouge",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Conduite à tenir devant un oeil rouge",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_037",
@@ -380,7 +569,12 @@ const INITIAL_DATA = {
     "title": "Conduite à tenir devant une baisse de l’acuité visuelle",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Conduite à tenir devant une baisse de l’acuité visuelle",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_038",
@@ -390,7 +584,12 @@ const INITIAL_DATA = {
     "title": "Les conjonctivites",
     "badges": [],
     "questions": 10,
-    "weight": 0.45
+    "weight": 0.45,
+    "rawTitle": "Les conjonctivites",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "21/09/2026"
   },
   {
     "id": "c_039",
@@ -400,7 +599,12 @@ const INITIAL_DATA = {
     "title": "Les kératites",
     "badges": [],
     "questions": 5,
-    "weight": 0.22
+    "weight": 0.22,
+    "rawTitle": "Les kératites",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_040",
@@ -410,7 +614,12 @@ const INITIAL_DATA = {
     "title": "Les manifestations oculaires liées au diabète",
     "badges": [],
     "questions": 67,
-    "weight": 3.01
+    "weight": 3.01,
+    "rawTitle": "Les manifestations oculaires liées au diabète",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_041",
@@ -420,7 +629,12 @@ const INITIAL_DATA = {
     "title": "Le décollement de la rétine rhegmatogène",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Le décollement de la rétine rhegmatogène",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_042",
@@ -430,7 +644,12 @@ const INITIAL_DATA = {
     "title": "La dégénérescence maculaire liées à l'âge",
     "badges": [],
     "questions": 24,
-    "weight": 1.08
+    "weight": 1.08,
+    "rawTitle": "La dégénérescence maculaire liées à l'âge",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_043",
@@ -440,7 +659,12 @@ const INITIAL_DATA = {
     "title": "L’uvéite",
     "badges": [],
     "questions": 21,
-    "weight": 0.94
+    "weight": 0.94,
+    "rawTitle": "L’uvéite",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_044",
@@ -450,7 +674,12 @@ const INITIAL_DATA = {
     "title": "Les strabismes",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Les strabismes",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_045",
@@ -460,7 +689,12 @@ const INITIAL_DATA = {
     "title": "Leucocorie",
     "badges": [],
     "questions": 0,
-    "weight": 0
+    "weight": 0,
+    "rawTitle": "Leucocorie",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_046",
@@ -470,7 +704,12 @@ const INITIAL_DATA = {
     "title": "Les traumatismes oculo-orbitaires",
     "badges": [],
     "questions": 17,
-    "weight": 0.76
+    "weight": 0.76,
+    "rawTitle": "Les traumatismes oculo-orbitaires",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_047",
@@ -480,7 +719,12 @@ const INITIAL_DATA = {
     "title": "CAT devant une exophtalmie",
     "badges": [],
     "questions": 26,
-    "weight": 1.17
+    "weight": 1.17,
+    "rawTitle": "CAT devant une exophtalmie",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_048",
@@ -490,7 +734,12 @@ const INITIAL_DATA = {
     "title": "CAT devant un larmoiement",
     "badges": [],
     "questions": 30,
-    "weight": 1.35
+    "weight": 1.35,
+    "rawTitle": "CAT devant un larmoiement",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_049",
@@ -500,7 +749,12 @@ const INITIAL_DATA = {
     "title": "Les amétropies",
     "badges": [],
     "questions": 22,
-    "weight": 0.99
+    "weight": 0.99,
+    "rawTitle": "Les amétropies",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_050",
@@ -510,7 +764,12 @@ const INITIAL_DATA = {
     "title": "Les cataractes",
     "badges": [],
     "questions": 32,
-    "weight": 1.44
+    "weight": 1.44,
+    "rawTitle": "Les cataractes",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_051",
@@ -520,7 +779,12 @@ const INITIAL_DATA = {
     "title": "Les glaucomes",
     "badges": [],
     "questions": 30,
-    "weight": 1.35
+    "weight": 1.35,
+    "rawTitle": "Les glaucomes",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_052",
@@ -528,9 +792,23 @@ const INITIAL_DATA = {
     "submodule": "ORL",
     "prof": "Pr. Benmansour",
     "title": "Otites externes et otites moyennes aigues",
-    "badges": [],
+    "badges": [
+      {
+        "type": "new",
+        "text": "Nouveau cours",
+        "icon": "sparkles",
+        "bg": "bg-blue-50",
+        "textCol": "text-blue-700",
+        "border": "border-blue-200"
+      }
+    ],
     "questions": 30,
-    "weight": 1.35
+    "weight": 1.35,
+    "rawTitle": "Otites externes et otites moyennes aigues (nouveau cours)",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_053",
@@ -540,7 +818,12 @@ const INITIAL_DATA = {
     "title": "otites moyennes chroniques",
     "badges": [],
     "questions": 25,
-    "weight": 1.12
+    "weight": 1.12,
+    "rawTitle": "otites moyennes chroniques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_054",
@@ -550,7 +833,12 @@ const INITIAL_DATA = {
     "title": "paralysie faciale",
     "badges": [],
     "questions": 25,
-    "weight": 1.12
+    "weight": 1.12,
+    "rawTitle": "paralysie faciale",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_055",
@@ -558,9 +846,23 @@ const INITIAL_DATA = {
     "submodule": "ORL",
     "prof": "Pr. Ridal",
     "title": "Les sinusites",
-    "badges": [],
+    "badges": [
+      {
+        "type": "new",
+        "text": "Nouveau cours",
+        "icon": "sparkles",
+        "bg": "bg-blue-50",
+        "textCol": "text-blue-700",
+        "border": "border-blue-200"
+      }
+    ],
     "questions": 26,
-    "weight": 1.17
+    "weight": 1.17,
+    "rawTitle": "Les sinusites (nouveau cours)",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_056",
@@ -570,7 +872,12 @@ const INITIAL_DATA = {
     "title": "Les angines",
     "badges": [],
     "questions": 16,
-    "weight": 0.72
+    "weight": 0.72,
+    "rawTitle": "Les angines",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_057",
@@ -580,7 +887,12 @@ const INITIAL_DATA = {
     "title": "Nodules thyroidiens",
     "badges": [],
     "questions": 20,
-    "weight": 0.9
+    "weight": 0.9,
+    "rawTitle": "Nodules thyroidiens",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_058",
@@ -590,7 +902,12 @@ const INITIAL_DATA = {
     "title": "Les surdités",
     "badges": [],
     "questions": 22,
-    "weight": 0.99
+    "weight": 0.99,
+    "rawTitle": "Les surdités",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_059",
@@ -600,7 +917,12 @@ const INITIAL_DATA = {
     "title": "La rhinite allergique",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "La rhinite allergique",
+    "facultyStatus": "En cours",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_060",
@@ -608,9 +930,23 @@ const INITIAL_DATA = {
     "submodule": "ORL",
     "prof": "Pr. Laamarti",
     "title": "Les vertiges",
-    "badges": [],
+    "badges": [
+      {
+        "type": "changed",
+        "text": "Cours changé",
+        "icon": "alert-circle",
+        "bg": "bg-amber-50",
+        "textCol": "text-amber-800",
+        "border": "border-amber-200"
+      }
+    ],
     "questions": 41,
-    "weight": 1.84
+    "weight": 1.84,
+    "rawTitle": "Les vertiges (cours changé)",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_061",
@@ -618,9 +954,23 @@ const INITIAL_DATA = {
     "submodule": "ORL",
     "prof": "Pr. Afellah",
     "title": "SAOS",
-    "badges": [],
+    "badges": [
+      {
+        "type": "new",
+        "text": "Nouveau cours",
+        "icon": "sparkles",
+        "bg": "bg-blue-50",
+        "textCol": "text-blue-700",
+        "border": "border-blue-200"
+      }
+    ],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "SAOS (nouveau cours)",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_062",
@@ -630,7 +980,12 @@ const INITIAL_DATA = {
     "title": "Les cancers du cavum et des voies aéro-digestives sup",
     "badges": [],
     "questions": 35,
-    "weight": 1.57
+    "weight": 1.57,
+    "rawTitle": "Les cancers du cavum et des voies aéro-digestives sup",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_063",
@@ -640,7 +995,12 @@ const INITIAL_DATA = {
     "title": "Les cellulites cervico-faciales",
     "badges": [],
     "questions": 9,
-    "weight": 0.4
+    "weight": 0.4,
+    "rawTitle": "Les cellulites cervico-faciales",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_064",
@@ -650,7 +1010,12 @@ const INITIAL_DATA = {
     "title": "Les traumatismes maxillo-faciaux",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "Les traumatismes maxillo-faciaux",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_065",
@@ -660,7 +1025,12 @@ const INITIAL_DATA = {
     "title": "Epidémiologie générale",
     "badges": [],
     "questions": 20,
-    "weight": 0.9
+    "weight": 0.9,
+    "rawTitle": "Epidémiologie générale",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "21/09/2026"
   },
   {
     "id": "c_066",
@@ -670,7 +1040,12 @@ const INITIAL_DATA = {
     "title": "Les indicateurs de santé",
     "badges": [],
     "questions": 14,
-    "weight": 0.63
+    "weight": 0.63,
+    "rawTitle": "Les indicateurs de santé",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_067",
@@ -680,7 +1055,12 @@ const INITIAL_DATA = {
     "title": "Les enquêtes épidémiologiques",
     "badges": [],
     "questions": 42,
-    "weight": 1.89
+    "weight": 1.89,
+    "rawTitle": "Les enquêtes épidémiologiques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_068",
@@ -690,7 +1070,12 @@ const INITIAL_DATA = {
     "title": "les sources d'erreurs et de biais en épidémiologie",
     "badges": [],
     "questions": 9,
-    "weight": 0.4
+    "weight": 0.4,
+    "rawTitle": "les sources d'erreurs et de biais en épidémiologie",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_069",
@@ -700,7 +1085,12 @@ const INITIAL_DATA = {
     "title": "principes de la surveillance épidémioloique",
     "badges": [],
     "questions": 13,
-    "weight": 0.58
+    "weight": 0.58,
+    "rawTitle": "principes de la surveillance épidémioloique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_070",
@@ -710,7 +1100,12 @@ const INITIAL_DATA = {
     "title": "épidémiologie et prophylaxie des ISTs",
     "badges": [],
     "questions": 11,
-    "weight": 0.49
+    "weight": 0.49,
+    "rawTitle": "épidémiologie et prophylaxie des ISTs",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_071",
@@ -720,7 +1115,12 @@ const INITIAL_DATA = {
     "title": "épidémiologie et prophylaxies des hépatites virales",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "épidémiologie et prophylaxies des hépatites virales",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_072",
@@ -730,7 +1130,12 @@ const INITIAL_DATA = {
     "title": "L’assurance Maladie au Maroc",
     "badges": [],
     "questions": 11,
-    "weight": 0.49
+    "weight": 0.49,
+    "rawTitle": "L’assurance Maladie au Maroc",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_073",
@@ -740,7 +1145,12 @@ const INITIAL_DATA = {
     "title": "Introduction aux systèmes de santé",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Introduction aux systèmes de santé",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_074",
@@ -750,7 +1160,12 @@ const INITIAL_DATA = {
     "title": "Le système de santé au maroc",
     "badges": [],
     "questions": 28,
-    "weight": 1.26
+    "weight": 1.26,
+    "rawTitle": "Le système de santé au maroc",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_075",
@@ -760,7 +1175,12 @@ const INITIAL_DATA = {
     "title": "Mesure de l’état de santé:La transition epidémiologique",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Mesure de l’état de santé:La transition epidémiologique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_076",
@@ -770,7 +1190,12 @@ const INITIAL_DATA = {
     "title": "Epidémiologie et prophylaxie des cancers",
     "badges": [],
     "questions": 10,
-    "weight": 0.45
+    "weight": 0.45,
+    "rawTitle": "Epidémiologie et prophylaxie des cancers",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_077",
@@ -780,7 +1205,12 @@ const INITIAL_DATA = {
     "title": "Introduction à l'economie de santé",
     "badges": [],
     "questions": 35,
-    "weight": 1.57
+    "weight": 1.57,
+    "rawTitle": "Introduction à l'economie de santé",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_078",
@@ -790,7 +1220,12 @@ const INITIAL_DATA = {
     "title": "Epidémiologie et prévention des maladies transmissibles",
     "badges": [],
     "questions": 11,
-    "weight": 0.49
+    "weight": 0.49,
+    "rawTitle": "Epidémiologie et prévention des maladies transmissibles",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_079",
@@ -800,7 +1235,12 @@ const INITIAL_DATA = {
     "title": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
     "badges": [],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "Programmes de lutte contre les maladies transmissibles: Leishmaniose",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_080",
@@ -810,7 +1250,12 @@ const INITIAL_DATA = {
     "title": "Prophylaxie de la tuberculose au maroc",
     "badges": [],
     "questions": 5,
-    "weight": 0.22
+    "weight": 0.22,
+    "rawTitle": "Prophylaxie de la tuberculose au maroc",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_081",
@@ -820,7 +1265,12 @@ const INITIAL_DATA = {
     "title": "Investigation d'un episode epidermique",
     "badges": [],
     "questions": 5,
-    "weight": 0.22
+    "weight": 0.22,
+    "rawTitle": "Investigation d'un episode epidermique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_082",
@@ -830,7 +1280,12 @@ const INITIAL_DATA = {
     "title": "La prévention et le depistage",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "La prévention et le depistage",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_083",
@@ -840,7 +1295,12 @@ const INITIAL_DATA = {
     "title": "Epidémiologie et surveillance de la grippe",
     "badges": [],
     "questions": 0,
-    "weight": 0
+    "weight": 0,
+    "rawTitle": "Epidémiologie et surveillance de la grippe",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_084",
@@ -850,7 +1310,12 @@ const INITIAL_DATA = {
     "title": "Santé et environnement",
     "badges": [],
     "questions": 39,
-    "weight": 1.75
+    "weight": 1.75,
+    "rawTitle": "Santé et environnement",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_085",
@@ -860,7 +1325,12 @@ const INITIAL_DATA = {
     "title": "Infections associées aux soins",
     "badges": [],
     "questions": 8,
-    "weight": 0.36
+    "weight": 0.36,
+    "rawTitle": "Infections associées aux soins",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_086",
@@ -870,7 +1340,12 @@ const INITIAL_DATA = {
     "title": "Introduction à l’anesthésie",
     "badges": [],
     "questions": 7,
-    "weight": 0.31
+    "weight": 0.31,
+    "rawTitle": "Introduction à l’anesthésie",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_087",
@@ -880,7 +1355,12 @@ const INITIAL_DATA = {
     "title": "Pancréatite aiguë grave",
     "badges": [],
     "questions": 19,
-    "weight": 0.85
+    "weight": 0.85,
+    "rawTitle": "Pancréatite aiguë grave",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_088",
@@ -890,7 +1370,12 @@ const INITIAL_DATA = {
     "title": "Les états de choc: généralités",
     "badges": [],
     "questions": 3,
-    "weight": 0.13
+    "weight": 0.13,
+    "rawTitle": "Les états de choc: généralités",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_089",
@@ -900,7 +1385,12 @@ const INITIAL_DATA = {
     "title": "L’état de choc anaphylactique",
     "badges": [],
     "questions": 6,
-    "weight": 0.27
+    "weight": 0.27,
+    "rawTitle": "L’état de choc anaphylactique",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_090",
@@ -910,7 +1400,12 @@ const INITIAL_DATA = {
     "title": "L'état de choc septique",
     "badges": [],
     "questions": 12,
-    "weight": 0.54
+    "weight": 0.54,
+    "rawTitle": "L'état de choc septique",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_091",
@@ -920,7 +1415,12 @@ const INITIAL_DATA = {
     "title": "L'état de choc hémorragique",
     "badges": [],
     "questions": 9,
-    "weight": 0.4
+    "weight": 0.4,
+    "rawTitle": "L'état de choc hémorragique",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_092",
@@ -930,7 +1430,12 @@ const INITIAL_DATA = {
     "title": "L’état de choc cardiogénique",
     "badges": [],
     "questions": 3,
-    "weight": 0.13
+    "weight": 0.13,
+    "rawTitle": "L’état de choc cardiogénique",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_093",
@@ -940,7 +1445,12 @@ const INITIAL_DATA = {
     "title": "Arrêt cardiaque chez l’adulte",
     "badges": [],
     "questions": 11,
-    "weight": 0.49
+    "weight": 0.49,
+    "rawTitle": "Arrêt cardiaque chez l’adulte",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_094",
@@ -950,7 +1460,12 @@ const INITIAL_DATA = {
     "title": "Insuffisance respiratoire aiguë chez l’adulte",
     "badges": [],
     "questions": 15,
-    "weight": 0.67
+    "weight": 0.67,
+    "rawTitle": "Insuffisance respiratoire aiguë chez l’adulte",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_095",
@@ -960,7 +1475,12 @@ const INITIAL_DATA = {
     "title": "Ventilation artificielle",
     "badges": [],
     "questions": 2,
-    "weight": 0.09
+    "weight": 0.09,
+    "rawTitle": "Ventilation artificielle",
+    "facultyStatus": "Effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": "17/09/2026"
   },
   {
     "id": "c_096",
@@ -970,7 +1490,12 @@ const INITIAL_DATA = {
     "title": "Les déséquilibres acido-basiques",
     "badges": [],
     "questions": 16,
-    "weight": 0.72
+    "weight": 0.72,
+    "rawTitle": "Les déséquilibres acido-basiques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_097",
@@ -980,7 +1505,12 @@ const INITIAL_DATA = {
     "title": "Les déséquilibres glycémiques",
     "badges": [],
     "questions": 3,
-    "weight": 0.13
+    "weight": 0.13,
+    "rawTitle": "Les déséquilibres glycémiques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_098",
@@ -990,7 +1520,12 @@ const INITIAL_DATA = {
     "title": "Les dyskaliémies",
     "badges": [],
     "questions": 8,
-    "weight": 0.36
+    "weight": 0.36,
+    "rawTitle": "Les dyskaliémies",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_099",
@@ -1000,7 +1535,12 @@ const INITIAL_DATA = {
     "title": "Les dyscalcémies",
     "badges": [],
     "questions": 8,
-    "weight": 0.36
+    "weight": 0.36,
+    "rawTitle": "Les dyscalcémies",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_100",
@@ -1010,7 +1550,12 @@ const INITIAL_DATA = {
     "title": "Hémorragique en obstétrique",
     "badges": [],
     "questions": 6,
-    "weight": 0.27
+    "weight": 0.27,
+    "rawTitle": "Hémorragique en obstétrique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_101",
@@ -1020,7 +1565,12 @@ const INITIAL_DATA = {
     "title": "Les pathologies hypertensives au cours de la grossesse",
     "badges": [],
     "questions": 3,
-    "weight": 0.13
+    "weight": 0.13,
+    "rawTitle": "Les pathologies hypertensives au cours de la grossesse",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_102",
@@ -1030,7 +1580,12 @@ const INITIAL_DATA = {
     "title": "Les dysnatrémies",
     "badges": [],
     "questions": 20,
-    "weight": 0.9
+    "weight": 0.9,
+    "rawTitle": "Les dysnatrémies",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_103",
@@ -1040,7 +1595,12 @@ const INITIAL_DATA = {
     "title": "Obstruction grave des voies aériennes chez l’enfant",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "Obstruction grave des voies aériennes chez l’enfant",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_104",
@@ -1050,7 +1610,12 @@ const INITIAL_DATA = {
     "title": "CAT devant un coma non traumatique",
     "badges": [],
     "questions": 6,
-    "weight": 0.27
+    "weight": 0.27,
+    "rawTitle": "CAT devant un coma non traumatique",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_105",
@@ -1060,7 +1625,12 @@ const INITIAL_DATA = {
     "title": "La douleur",
     "badges": [],
     "questions": 2,
-    "weight": 0.09
+    "weight": 0.09,
+    "rawTitle": "La douleur",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_106",
@@ -1070,7 +1640,12 @@ const INITIAL_DATA = {
     "title": "L’intubation orotrachéale",
     "badges": [],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "L’intubation orotrachéale",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_107",
@@ -1080,7 +1655,12 @@ const INITIAL_DATA = {
     "title": "Les abords vasculaires en urgence et en réanimation",
     "badges": [],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "Les abords vasculaires en urgence et en réanimation",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_108",
@@ -1090,7 +1670,12 @@ const INITIAL_DATA = {
     "title": "Les envenimations scorpioniques",
     "badges": [],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "Les envenimations scorpioniques",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_109",
@@ -1100,7 +1685,12 @@ const INITIAL_DATA = {
     "title": "Les envenimations ophidiennes",
     "badges": [],
     "questions": 1,
-    "weight": 0.04
+    "weight": 0.04,
+    "rawTitle": "Les envenimations ophidiennes",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_110",
@@ -1110,7 +1700,12 @@ const INITIAL_DATA = {
     "title": "Intoxication aiguë",
     "badges": [],
     "questions": 22,
-    "weight": 0.99
+    "weight": 0.99,
+    "rawTitle": "Intoxication aiguë",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_111",
@@ -1120,7 +1715,12 @@ const INITIAL_DATA = {
     "title": "Intoxication au monoxyde de carbone",
     "badges": [],
     "questions": 9,
-    "weight": 0.4
+    "weight": 0.4,
+    "rawTitle": "Intoxication au monoxyde de carbone",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_112",
@@ -1130,7 +1730,12 @@ const INITIAL_DATA = {
     "title": "Intoxication aiguë aux pesticides organophosphorés",
     "badges": [],
     "questions": 6,
-    "weight": 0.27
+    "weight": 0.27,
+    "rawTitle": "Intoxication aiguë aux pesticides organophosphorés",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_113",
@@ -1140,7 +1745,12 @@ const INITIAL_DATA = {
     "title": "Intoxication au paracétamol",
     "badges": [],
     "questions": 4,
-    "weight": 0.18
+    "weight": 0.18,
+    "rawTitle": "Intoxication au paracétamol",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_114",
@@ -1150,7 +1760,12 @@ const INITIAL_DATA = {
     "title": "Intoxication par le Paraphénylène-Diamine Takaout",
     "badges": [],
     "questions": 5,
-    "weight": 0.22
+    "weight": 0.22,
+    "rawTitle": "Intoxication par le Paraphénylène-Diamine Takaout",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_115",
@@ -1160,7 +1775,12 @@ const INITIAL_DATA = {
     "title": "Accidents d'électrisation",
     "badges": [],
     "questions": 7,
-    "weight": 0.31
+    "weight": 0.31,
+    "rawTitle": "Accidents d'électrisation",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_116",
@@ -1170,7 +1790,12 @@ const INITIAL_DATA = {
     "title": "Noyades",
     "badges": [],
     "questions": 0,
-    "weight": 0
+    "weight": 0,
+    "rawTitle": "Noyades",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_117",
@@ -1180,7 +1805,12 @@ const INITIAL_DATA = {
     "title": "PEC du traumatisme crânien grave à la phase initiale",
     "badges": [],
     "questions": 15,
-    "weight": 0.67
+    "weight": 0.67,
+    "rawTitle": "PEC du traumatisme crânien grave à la phase initiale",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_118",
@@ -1190,7 +1820,12 @@ const INITIAL_DATA = {
     "title": "Prise en charge du patient polytraumatisé",
     "badges": [],
     "questions": 25,
-    "weight": 1.12
+    "weight": 1.12,
+    "rawTitle": "Prise en charge du patient polytraumatisé",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   },
   {
     "id": "c_119",
@@ -1200,7 +1835,12 @@ const INITIAL_DATA = {
     "title": "Prise en charge du brûlé grave à la phase aiguë",
     "badges": [],
     "questions": 3,
-    "weight": 0.13
+    "weight": 0.13,
+    "rawTitle": "Prise en charge du brûlé grave à la phase aiguë",
+    "facultyStatus": "Non effectué",
+    "sheetC1": false,
+    "sheetC2": false,
+    "facultyStatusDate": null
   }
 ]
 };
@@ -2224,6 +2864,21 @@ function hydrateCoursesWithWeights(courses) {
     c.questions = getCourseQuestions(c);
     c.weight = getCourseWeight(c);
   });
+}
+
+function parseFacultyDate(dStr) {
+  if (!dStr) return 0;
+  if (typeof dStr === 'number') return dStr;
+  const str = String(dStr).trim();
+  const parts = str.split(/[/.-]/);
+  if (parts.length === 3) {
+    if (parts[0].length === 4) {
+      return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])).getTime();
+    }
+    return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0])).getTime();
+  }
+  const t = Date.parse(str);
+  return isNaN(t) ? 0 : t;
 }
 
 
@@ -3312,7 +3967,18 @@ function renderCoursesView() {
 function renderSyllabusView(filteredCourses) {
   elements.coursesSyllabusView.innerHTML = '';
 
-  const modules = Object.keys(MODULES_META);
+  let modules = Object.keys(MODULES_META);
+
+  // In "À rattraper" tab: order module sections chronologically by their most recent lesson date
+  if (state.filters.tab === 'catchup') {
+    modules.sort((mA, mB) => {
+      const coursesA = filteredCourses.filter(c => c.module === mA);
+      const coursesB = filteredCourses.filter(c => c.module === mB);
+      const maxA = Math.max(...coursesA.map(c => parseFacultyDate(c.facultyStatusDate)), 0);
+      const maxB = Math.max(...coursesB.map(c => parseFacultyDate(c.facultyStatusDate)), 0);
+      return maxB - maxA;
+    });
+  }
   
   modules.forEach(modKey => {
     const meta = MODULES_META[modKey];
@@ -3406,6 +4072,35 @@ function renderSyllabusView(filteredCourses) {
 
         modCourses.forEach((course, rankIdx) => {
           if (state.filters.tab === 'catchup' && isNewUnseenCourse(course)) {
+            state.pendingSeenCatchupIds.add(course.id);
+          }
+          const row = createCourseRowElement(course);
+          rowsList.appendChild(row);
+        });
+
+        body.appendChild(rowsList);
+        section.appendChild(body);
+        elements.coursesSyllabusView.appendChild(section);
+        return;
+      }
+
+      if (state.filters.tab === 'catchup') {
+        // Direct chronological list for "À rattraper" (latest done lesson first)
+        modCourses.sort((a, b) => {
+          const timeA = parseFacultyDate(a.facultyStatusDate);
+          const timeB = parseFacultyDate(b.facultyStatusDate);
+          if (timeB !== timeA) return timeB - timeA;
+          const aUnseen = isNewUnseenCourse(a) ? 1 : 0;
+          const bUnseen = isNewUnseenCourse(b) ? 1 : 0;
+          if (bUnseen !== aUnseen) return bUnseen - aUnseen;
+          return (a.id || '').localeCompare(b.id || '');
+        });
+
+        const rowsList = document.createElement('div');
+        rowsList.className = 'space-y-2';
+
+        modCourses.forEach(course => {
+          if (isNewUnseenCourse(course)) {
             state.pendingSeenCatchupIds.add(course.id);
           }
           const row = createCourseRowElement(course);
