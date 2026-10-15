@@ -1,7 +1,7 @@
 /**
  * Recensement S9 - Bundled JavaScript
  * Single file bundle containing initialData, Storage, Sync, and App logic.
- * Generated on 2026-10-09
+ * Generated on 2026-10-15
  */
 (function() {
 /**
@@ -3882,23 +3882,17 @@ function getFilteredCourses() {
     });
   }
 
-  // When filtering "À rattraper": sort chronologically by date added (newest first)
+  // When filtering "À rattraper": sort chronologically by date added/done (latest done first)
   if (state.filters.tab === 'catchup') {
     return list.sort((a, b) => {
-      // Unseen new courses first
+      const timeA = parseFacultyDate(a.facultyStatusDate);
+      const timeB = parseFacultyDate(b.facultyStatusDate);
+      if (timeB !== timeA) return timeB - timeA;
+
+      // If dates are identical: unseen new courses first
       const aUnseen = isNewUnseenCourse(a) ? 1 : 0;
       const bUnseen = isNewUnseenCourse(b) ? 1 : 0;
       if (bUnseen !== aUnseen) return bUnseen - aUnseen;
-
-      // Parse date DD/MM/YYYY
-      const parseD = (dStr) => {
-        if (!dStr) return 0;
-        const parts = dStr.split('/');
-        return parts.length === 3 ? new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0])).getTime() : 0;
-      };
-      const timeA = parseD(a.facultyStatusDate);
-      const timeB = parseD(b.facultyStatusDate);
-      if (timeB !== timeA) return timeB - timeA;
 
       return (a.id || '').localeCompare(b.id || '');
     });
@@ -5240,7 +5234,7 @@ const S9_EXAMS_CONFIG = {
     year: 2027,
     month: 0, // Janvier
     label: 'Session Normale Janvier 2027',
-    periodStart: 8,
+    periodStart: 6,
     periodEnd: 22,
     exams: [
       {
@@ -5248,8 +5242,8 @@ const S9_EXAMS_CONFIG = {
         moduleKey: 'GYNECO-OBSTETRIQUE',
         title: 'Gynécologie - Obstétrique',
         shortTitle: 'Gynéco-Obs',
-        dayNumber: 8,
-        dayName: 'Vendredi',
+        dayNumber: 6,
+        dayName: 'Mercredi',
         startTime: '12:00',
         endTime: '13:30',
         duration: '1h30',
@@ -5266,13 +5260,13 @@ const S9_EXAMS_CONFIG = {
         moduleKey: 'ORL - OPHTALMO',
         title: 'Ophtalmologie - ORL',
         shortTitle: 'ORL - Ophtalmo',
-        dayNumber: 13,
-        dayName: 'Mercredi',
+        dayNumber: 12,
+        dayName: 'Mardi',
         startTime: '14:30',
         endTime: '16:00',
         duration: '1h30',
         periodNote: '2ème épreuve • Horaire 14h30 - 16h00',
-        revisionNote: '+ 4 jours de révision après Gynéco-Obs',
+        revisionNote: '+ 5 jours de révision après Gynéco-Obs',
         color: 'amber',
         accentBorder: 'border-amber-300',
         accentBg: 'bg-amber-50/70',
@@ -5284,13 +5278,13 @@ const S9_EXAMS_CONFIG = {
         moduleKey: 'URGENCES - RÉANIMATION',
         title: 'Urgences et Réanimation',
         shortTitle: 'Urgences - Réa',
-        dayNumber: 19,
-        dayName: 'Mardi',
+        dayNumber: 18,
+        dayName: 'Lundi',
         startTime: '12:00',
         endTime: '13:30',
         duration: '1h30',
         periodNote: '3ème épreuve de la Session',
-        revisionNote: '+ 5 jours de révision après ORL-Ophtalmo',
+        revisionNote: '+ 5 jours de révision après ORL-Ophtalmo (inclut férié 14 Janv)',
         color: 'blue',
         accentBorder: 'border-blue-300',
         accentBg: 'bg-blue-50/70',
@@ -5308,7 +5302,7 @@ const S9_EXAMS_CONFIG = {
         endTime: '13:30',
         duration: '1h30',
         periodNote: '4ème épreuve • Clôture de la Session Normale',
-        revisionNote: '+ 2 jours de révision après Urgences-Réa',
+        revisionNote: '+ 3 jours de révision après Urgences-Réa',
         color: 'emerald',
         accentBorder: 'border-emerald-300',
         accentBg: 'bg-emerald-50/70',
@@ -5410,7 +5404,7 @@ const S9_EXAMS_CONFIG = {
 
 let selectedExamYear = 2027;
 let activeExamTab = 'countdown';
-let selectedCalendarDay = 8;
+let selectedCalendarDay = 6;
 let examCountdownTimer = null;
 
 function initExamsFeature() {
@@ -6012,7 +6006,7 @@ function renderOfficialScheduleTable() {
 
   const rows = [
     {
-      date: `${config.exams[0].dayName} 08 Janvier`,
+      date: `${config.exams[0].dayName} 06 Janvier`,
       time: '12h00 à 13h30',
       module: config.exams[0].title,
       moduleKey: config.exams[0].moduleKey,
@@ -6021,16 +6015,16 @@ function renderOfficialScheduleTable() {
       isExam: true
     },
     {
-      date: `${config.exams[1].dayName} 13 Janvier`,
+      date: `${config.exams[1].dayName} 12 Janvier`,
       time: '14h30 à 16h00',
       module: config.exams[1].title,
       moduleKey: config.exams[1].moduleKey,
       duration: '1h30',
-      note: '4 jours d\'intervalle de révision (09 au 12 Janvier)',
+      note: '5 jours d\'intervalle de révision (07 au 11 Janvier • aucun week-end)',
       isExam: true
     },
     {
-      date: 'Mercredi 14 Janvier',
+      date: 'Jeudi 14 Janvier',
       time: 'Toute la journée',
       module: 'Jour férié (Nouvel An Amazigh)',
       moduleKey: '',
@@ -6039,12 +6033,12 @@ function renderOfficialScheduleTable() {
       isExam: false
     },
     {
-      date: `${config.exams[2].dayName} 19 Janvier`,
+      date: `${config.exams[2].dayName} 18 Janvier`,
       time: '12h00 à 13h30',
       module: config.exams[2].title,
       moduleKey: config.exams[2].moduleKey,
       duration: '1h30',
-      note: '5 jours d\'intervalle de révision (14 au 18 Janvier)',
+      note: '5 jours d\'intervalle de révision (13 au 17 Janvier • inclut férié 14 Janv)',
       isExam: true
     },
     {
@@ -6053,7 +6047,7 @@ function renderOfficialScheduleTable() {
       module: config.exams[3].title,
       moduleKey: config.exams[3].moduleKey,
       duration: '1h30',
-      note: '2 jours d\'intervalle de révision • Dernière épreuve S9',
+      note: '3 jours d\'intervalle de révision (19 au 21 Janvier) • Clôture Session Normale',
       isExam: true
     }
   ];
@@ -6106,10 +6100,10 @@ function renderExamTimelineStream() {
 
   const timelineItems = [
     {
-      dayNumber: 8,
-      dateFormatted: `${config.exams[0].dayName} 08 Janvier`,
+      dayNumber: 6,
+      dateFormatted: `${config.exams[0].dayName} 06 Janvier`,
       type: 'exam',
-      examId: 's9-gyneco',
+      examId: 'exam_gyneco',
       title: 'Épreuve 1 : Gynécologie - Obstétrique',
       time: '12h00 à 13h30 (Durée : 1h30)',
       moduleKey: 'GYNECO-OBSTETRIQUE',
@@ -6117,28 +6111,28 @@ function renderExamTimelineStream() {
       badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
       icon: 'baby',
       iconBg: 'bg-indigo-600 text-white',
-      desc: '1ère épreuve de la Session Normale. Épreuve majeure du semestre.',
+      desc: '1ère épreuve de la Session Normale (Mercredi 06 Janvier). Épreuve majeure du semestre.',
       actionText: 'Filtrer Gynécologie'
     },
     {
-      dayNumber: 9,
-      dateFormatted: 'Du 09 au 12 Janvier (4 jours)',
+      dayNumber: 7,
+      dateFormatted: 'Du 07 au 11 Janvier (5 jours)',
       type: 'revision',
       title: 'Intervalle de Révision : ORL - Ophtalmologie',
-      time: '4 jours de préparation',
+      time: '5 jours de préparation (aucun week-end d\'examen)',
       moduleKey: 'ORL - OPHTALMO',
       badge: 'Révision Intensive',
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
       icon: 'book-open',
       iconBg: 'bg-amber-500 text-white',
-      desc: "4 jours complets pour consolider l'ORL et l'Ophtalmologie avant la 2ème épreuve.",
+      desc: "5 jours complets pour consolider l'ORL et l'Ophtalmologie avant la 2ème épreuve.",
       actionText: 'Réviser ORL - Ophtalmo'
     },
     {
-      dayNumber: 13,
-      dateFormatted: `${config.exams[1].dayName} 13 Janvier`,
+      dayNumber: 12,
+      dateFormatted: `${config.exams[1].dayName} 12 Janvier`,
       type: 'exam',
-      examId: 's9-orl-ophtalmo',
+      examId: 'exam_orl_ophtalmo',
       title: 'Épreuve 2 : Oto-Rhino-Laryngologie & Ophtalmologie',
       time: '14h30 à 16h00 (Durée : 1h30)',
       moduleKey: 'ORL - OPHTALMO',
@@ -6146,12 +6140,26 @@ function renderExamTimelineStream() {
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
       icon: 'eye',
       iconBg: 'bg-amber-600 text-white',
-      desc: '2ème épreuve de la Session Normale (Horaire spécial en après-midi).',
+      desc: '2ème épreuve de la Session Normale (Mardi 12 Janvier • Horaire spécial 14h30-16h00).',
       actionText: 'Filtrer ORL - Ophtalmo'
     },
     {
+      dayNumber: 13,
+      dateFormatted: 'Du 13 au 17 Janvier (5 jours)',
+      type: 'revision',
+      title: 'Intervalle de Révision : Urgences - Réanimation',
+      time: '5 jours de préparation (inclut férié 14 Janv et repos week-end)',
+      moduleKey: 'URGENCES - RÉANIMATION',
+      badge: 'Révision Intensive',
+      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+      icon: 'book-open',
+      iconBg: 'bg-blue-500 text-white',
+      desc: "5 jours pour réviser la réanimation, la toxicologie et la prise en charge d'urgences.",
+      actionText: 'Réviser Urgences - Réa'
+    },
+    {
       dayNumber: 14,
-      dateFormatted: 'Mercredi 14 Janvier',
+      dateFormatted: 'Jeudi 14 Janvier',
       type: 'holiday',
       title: 'Jour Férié Officiel : Nouvel An Amazigh (Yennayer)',
       time: 'Toute la journée',
@@ -6160,28 +6168,14 @@ function renderExamTimelineStream() {
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
       icon: 'award',
       iconBg: 'bg-rose-500 text-white',
-      desc: 'Jour férié officiel mentionné sur la note de service du doyen. Aucun examen programmé.',
+      desc: 'Jour férié officiel mentionné sur la programmation de la faculté. Aucun examen ce jour.',
       actionText: null
     },
     {
-      dayNumber: 15,
-      dateFormatted: 'Du 15 au 18 Janvier (4 jours)',
-      type: 'revision',
-      title: 'Intervalle de Révision : Urgences - Réanimation',
-      time: '4 jours de préparation',
-      moduleKey: 'URGENCES - RÉANIMATION',
-      badge: 'Révision Intensive',
-      badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
-      icon: 'book-open',
-      iconBg: 'bg-blue-500 text-white',
-      desc: "4 jours pour réviser la réanimation, la toxicologie et la prise en charge d'urgences.",
-      actionText: 'Réviser Urgences - Réa'
-    },
-    {
-      dayNumber: 19,
-      dateFormatted: `${config.exams[2].dayName} 19 Janvier`,
+      dayNumber: 18,
+      dateFormatted: `${config.exams[2].dayName} 18 Janvier`,
       type: 'exam',
-      examId: 's9-urgences-rea',
+      examId: 'exam_urgences_rea',
       title: 'Épreuve 3 : Urgences - Réanimation & Toxicologie',
       time: '12h00 à 13h30 (Durée : 1h30)',
       moduleKey: 'URGENCES - RÉANIMATION',
@@ -6189,28 +6183,28 @@ function renderExamTimelineStream() {
       badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
       icon: 'siren',
       iconBg: 'bg-blue-600 text-white',
-      desc: '3ème épreuve de la Session Normale.',
+      desc: '3ème épreuve de la Session Normale (Lundi 18 Janvier).',
       actionText: 'Filtrer Urgences - Réa'
     },
     {
-      dayNumber: 20,
-      dateFormatted: 'Du 20 au 21 Janvier (2 jours)',
+      dayNumber: 19,
+      dateFormatted: 'Du 19 au 21 Janvier (3 jours)',
       type: 'revision',
       title: 'Intervalle de Révision : Santé Publique & Médecine Légale',
-      time: '2 jours de préparation',
+      time: '3 jours de préparation',
       moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
       badge: 'Dernière Ligne Droite',
       badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
       icon: 'book-open',
       iconBg: 'bg-emerald-500 text-white',
-      desc: "2 jours pour mémoriser les notions clés de santé publique, épidémiologie et médecine légale.",
+      desc: "3 jours pour mémoriser les notions clés de santé publique, épidémiologie et économie de santé.",
       actionText: 'Réviser Santé Publique'
     },
     {
       dayNumber: 22,
       dateFormatted: `${config.exams[3].dayName} 22 Janvier`,
       type: 'exam',
-      examId: 's9-sante-publique',
+      examId: 'exam_sante_publique',
       title: 'Épreuve 4 : Santé Publique & Médecine Légale',
       time: '12h00 à 13h30 (Durée : 1h30)',
       moduleKey: 'MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ',
@@ -6218,7 +6212,7 @@ function renderExamTimelineStream() {
       badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
       icon: 'activity',
       iconBg: 'bg-emerald-600 text-white',
-      desc: '4ème et dernière épreuve de la Session Normale S9 !',
+      desc: '4ème et dernière épreuve de la Session Normale S9 (Vendredi 22 Janvier) !',
       actionText: 'Filtrer Santé Publique'
     }
   ];
