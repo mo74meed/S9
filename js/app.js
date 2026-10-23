@@ -27,7 +27,7 @@ const COURSE_WEIGHTS_DATA = {
   'c_024': { questions: 13 },
   'c_025': { questions: 6 },
   'c_026': { questions: 13 },
-  'c_027': { questions: 15 },
+  'c_027': { questions: 12 },
   'c_028': { questions: 9 },
   'c_029': { questions: 21 },
   'c_030': { questions: 27 },
@@ -69,7 +69,7 @@ const COURSE_WEIGHTS_DATA = {
   // MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ
   'c_065': { questions: 20 },
   'c_066': { questions: 14 },
-  'c_067': { questions: 42 },
+  'c_067': { questions: 39 },
   'c_068': { questions: 9 },
   'c_069': { questions: 13 },
   'c_070': { questions: 11 },
@@ -77,13 +77,13 @@ const COURSE_WEIGHTS_DATA = {
   'c_072': { questions: 11 },
   'c_073': { questions: 19 },
   'c_074': { questions: 28 },
-  'c_075': { questions: 19 },
+  'c_075': { questions: 33 },
   'c_076': { questions: 10 },
   'c_077': { questions: 35 },
   'c_078': { questions: 11 },
   'c_079': { questions: 1 },
   'c_080': { questions: 5 },
-  'c_081': { questions: 5 },
+  'c_081': { questions: 3 },
   'c_082': { questions: 19 },
   'c_083': { questions: 0 },
   'c_084': { questions: 39 },
@@ -126,12 +126,12 @@ const COURSE_WEIGHTS_DATA = {
 };
 const TOTAL_CORPUS_QUESTIONS = 2227;
 export function getCourseQuestions(course) {
-  if (course && typeof course.questions === 'number' && !isNaN(course.questions)) {
-    return course.questions;
-  }
   const fromDict = COURSE_WEIGHTS_DATA[course?.id];
   if (fromDict && typeof fromDict.questions === 'number') {
     return fromDict.questions;
+  }
+  if (course && typeof course.questions === 'number' && !isNaN(course.questions)) {
+    return course.questions;
   }
   if (typeof INITIAL_DATA !== 'undefined' && Array.isArray(INITIAL_DATA?.courses)) {
     const initC = INITIAL_DATA.courses.find(c => c.id === course?.id);
@@ -141,9 +141,6 @@ export function getCourseQuestions(course) {
 }
 
 export function getCourseWeight(course) {
-  if (course && typeof course.weight === 'number' && !isNaN(course.weight)) {
-    return course.weight;
-  }
   const q = getCourseQuestions(course);
   return Number(((q / TOTAL_CORPUS_QUESTIONS) * 100).toFixed(2));
 }
@@ -833,7 +830,7 @@ function updateWeightSortButtonUI() {
   } else {
     elements.btnToggleWeightSort.classList.remove('is-active');
     if (elements.weightFilterIndicator) {
-      elements.weightFilterIndicator.textContent = '2242 Qs';
+      elements.weightFilterIndicator.textContent = '2227 Qs';
       elements.weightFilterIndicator.className = 'text-[10px] px-1.5 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-extrabold border border-amber-200 dark:border-amber-800';
     }
   }
