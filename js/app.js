@@ -4,19 +4,19 @@ const COURSE_WEIGHTS_DATA = {
   'c_001': { questions: 11 },
   'c_002': { questions: 18 },
   'c_003': { questions: 36 },
-  'c_004': { questions: 8 },
-  'c_005': { questions: 26 },
-  'c_006': { questions: 17 },
-  'c_007': { questions: 7 },
+  'c_004': { questions: 17 },
+  'c_005': { questions: 7 },
+  'c_006': { questions: 23 },
+  'c_007': { questions: 26 },
   'c_008': { questions: 4 },
-  'c_009': { questions: 23 },
-  'c_010': { questions: 47 },
-  'c_011': { questions: 19 },
+  'c_009': { questions: 8 },
+  'c_010': { questions: 13 },
+  'c_011': { questions: 24 },
   'c_012': { questions: 25 },
   'c_013': { questions: 31 },
   'c_014': { questions: 8 },
-  'c_015': { questions: 13 },
-  'c_016': { questions: 24 },
+  'c_015': { questions: 47 },
+  'c_016': { questions: 19 },
   'c_017': { questions: 21 },
   'c_018': { questions: 29 },
   'c_019': { questions: 25 },
@@ -41,22 +41,22 @@ const COURSE_WEIGHTS_DATA = {
   'c_037': { questions: 19 },
   'c_038': { questions: 10 },
   'c_039': { questions: 5 },
-  'c_040': { questions: 67 },
-  'c_041': { questions: 19 },
-  'c_042': { questions: 24 },
-  'c_043': { questions: 21 },
+  'c_040': { questions: 21 },
+  'c_041': { questions: 67 },
+  'c_042': { questions: 19 },
+  'c_043': { questions: 24 },
   'c_044': { questions: 19 },
-  'c_045': { questions: 0 },
-  'c_046': { questions: 17 },
-  'c_047': { questions: 26 },
-  'c_048': { questions: 30 },
-  'c_049': { questions: 22 },
-  'c_050': { questions: 32 },
-  'c_051': { questions: 30 },
+  'c_045': { questions: 30 },
+  'c_046': { questions: 0 },
+  'c_047': { questions: 17 },
+  'c_048': { questions: 26 },
+  'c_049': { questions: 30 },
+  'c_050': { questions: 22 },
+  'c_051': { questions: 32 },
   'c_052': { questions: 30 },
   'c_053': { questions: 25 },
-  'c_054': { questions: 25 },
-  'c_055': { questions: 26 },
+  'c_054': { questions: 26 },
+  'c_055': { questions: 25 },
   'c_056': { questions: 16 },
   'c_057': { questions: 20 },
   'c_058': { questions: 22 },
@@ -90,13 +90,13 @@ const COURSE_WEIGHTS_DATA = {
   // URGENCES - RÉANIMATION
   'c_085': { questions: 8 },
   'c_086': { questions: 7 },
-  'c_087': { questions: 19 },
-  'c_088': { questions: 3 },
-  'c_089': { questions: 6 },
-  'c_090': { questions: 12 },
-  'c_091': { questions: 9 },
-  'c_092': { questions: 3 },
-  'c_093': { questions: 11 },
+  'c_087': { questions: 11 },
+  'c_088': { questions: 19 },
+  'c_089': { questions: 3 },
+  'c_090': { questions: 6 },
+  'c_091': { questions: 12 },
+  'c_092': { questions: 9 },
+  'c_093': { questions: 3 },
   'c_094': { questions: 15 },
   'c_095': { questions: 2 },
   'c_096': { questions: 16 },
@@ -122,20 +122,50 @@ const COURSE_WEIGHTS_DATA = {
   'c_116': { questions: 0 },
   'c_117': { questions: 15 },
   'c_118': { questions: 25 },
-  'c_119': { questions: 3 }
+  'c_119': { questions: 3 },
 };
 const TOTAL_CORPUS_QUESTIONS = 2227;
+export function normalizeCanonicalTitle(t) {
+  if (!t || typeof t !== 'string') return '';
+  return t
+    .replace(/\s*\([^)]*\)/g, '')
+    .replace(/\s*>.*$/g, '')
+    .toLowerCase()
+    .replace(/’/g, "'")
+    .replace(/[éèêë]/g, 'e')
+    .replace(/[àâ]/g, 'a')
+    .replace(/[îï]/g, 'i')
+    .replace(/[ôö]/g, 'o')
+    .replace(/[ûùü]/g, 'u')
+    .replace(/ç/g, 'c')
+    .replace(/^(les\s+|la\s+|le\s+|l'|d'|des\s+|du\s+)/, '')
+    .trim();
+}
+
 export function getCourseQuestions(course) {
+  if (!course) return 0;
+
+  // 1. Title-first match in INITIAL_DATA for absolute immunity against ID misalignment
+  const targetTitle = normalizeCanonicalTitle(course.title || course.rawTitle);
+  if (targetTitle && typeof INITIAL_DATA !== 'undefined' && Array.isArray(INITIAL_DATA?.courses)) {
+    const match = INITIAL_DATA.courses.find(ic => {
+      const initNorm = normalizeCanonicalTitle(ic.title || ic.rawTitle);
+      return initNorm === targetTitle || initNorm.includes(targetTitle) || targetTitle.includes(initNorm);
+    });
+    if (match && typeof match.questions === 'number') {
+      return match.questions;
+    }
+  }
+
+  // 2. Direct ID dictionary lookup
   const fromDict = COURSE_WEIGHTS_DATA[course?.id];
   if (fromDict && typeof fromDict.questions === 'number') {
     return fromDict.questions;
   }
-  if (course && typeof course.questions === 'number' && !isNaN(course.questions)) {
+
+  // 3. Fallback to existing questions property
+  if (typeof course.questions === 'number' && !isNaN(course.questions) && course.questions > 0) {
     return course.questions;
-  }
-  if (typeof INITIAL_DATA !== 'undefined' && Array.isArray(INITIAL_DATA?.courses)) {
-    const initC = INITIAL_DATA.courses.find(c => c.id === course?.id);
-    if (initC && typeof initC.questions === 'number') return initC.questions;
   }
   return 0;
 }
@@ -2033,6 +2063,7 @@ async function triggerSync(isScheduled = false) {
         else if (m.includes('URGENCES') || s.includes('URGENCES')) rc.submodule = 'Urgences - Réanimation';
       });
 
+      hydrateCoursesWithWeights(remoteCourses);
       state.courses = remoteCourses;
       state.sheetDate = result.data.sheetUpdateDate;
 

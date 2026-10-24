@@ -52,6 +52,32 @@ export const Sync = {
     return { sheetId, gid, csvExportUrl };
   },
 
+  matchInitialCourse(title, rawTitle, id) {
+    if (typeof INITIAL_DATA === 'undefined' || !Array.isArray(INITIAL_DATA?.courses)) return null;
+    const norm = (t) => (t || '')
+      .replace(/\s*\([^)]*\)/g, '')
+      .replace(/\s*>.*$/g, '')
+      .toLowerCase()
+      .replace(/’/g, "'")
+      .replace(/[éèêë]/g, 'e')
+      .replace(/[àâ]/g, 'a')
+      .replace(/[îï]/g, 'i')
+      .replace(/[ôö]/g, 'o')
+      .replace(/[ûùü]/g, 'u')
+      .replace(/ç/g, 'c')
+      .replace(/^(les\s+|la\s+|le\s+|l'|d'|des\s+|du\s+)/, '')
+      .trim();
+    const tNorm = norm(title || rawTitle);
+    if (tNorm) {
+      const byTitle = INITIAL_DATA.courses.find(ic => {
+        const icNorm = norm(ic.title || ic.rawTitle);
+        return icNorm === tNorm || icNorm.includes(tNorm) || tNorm.includes(icNorm);
+      });
+      if (byTitle) return byTitle;
+    }
+    return INITIAL_DATA.courses.find(ic => ic.id === id) || null;
+  },
+
   /**
    * Parse course title and isolate annotations into badges
    */
@@ -249,13 +275,11 @@ export const Sync = {
 
       let questions = 0;
       let weight = 0;
-      if (typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
-        const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
-        if (initCourse) {
-          if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
-          questions = initCourse.questions || 0;
-          weight = initCourse.weight || 0;
-        }
+      const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
+      if (initCourse) {
+        if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
+        questions = initCourse.questions || 0;
+        weight = initCourse.weight || 0;
       }
 
       courses.push({
@@ -423,13 +447,11 @@ export const Sync = {
 
       let questions = 0;
       let weight = 0;
-      if (typeof INITIAL_DATA !== 'undefined' && INITIAL_DATA.courses) {
-        const initCourse = INITIAL_DATA.courses.find(ic => ic.id === id);
-        if (initCourse) {
-          if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
-          questions = initCourse.questions || 0;
-          weight = initCourse.weight || 0;
-        }
+      const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
+      if (initCourse) {
+        if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
+        questions = initCourse.questions || 0;
+        weight = initCourse.weight || 0;
       }
 
       courses.push({
