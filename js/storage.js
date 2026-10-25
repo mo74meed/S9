@@ -7,7 +7,7 @@ const STORAGE_KEYS = {
   PERSONAL_PROGRESS: 'recensement_personal_progress_v1',
   SETTINGS: 'recensement_settings_v1',
   SYNC_META: 'recensement_sync_meta_v1',
-  CACHED_COURSES: 'recensement_cached_courses_v1',
+  CACHED_COURSES: 'recensement_cached_courses_v3',
   FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1',
   FACULTY_DATES: 'recensement_faculty_dates_v1',
   SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1',
@@ -138,6 +138,9 @@ export const Storage = {
 
   getCachedCourses() {
     try {
+      localStorage.removeItem('recensement_cached_courses_v1');
+      localStorage.removeItem('recensement_cached_courses_v2');
+      localStorage.removeItem('recensement_s9_courses');
       const raw = localStorage.getItem(STORAGE_KEYS.CACHED_COURSES);
       return raw ? JSON.parse(raw) : null;
     } catch (e) {

@@ -1,173 +1,17 @@
-// Course Weights Dictionary (Total: 2242 questions across S9 corpus)
-const COURSE_WEIGHTS_DATA = {
-  // GYNECO-OBSTETRIQUE
-  'c_001': { questions: 11 },
-  'c_002': { questions: 18 },
-  'c_003': { questions: 36 },
-  'c_004': { questions: 17 },
-  'c_005': { questions: 7 },
-  'c_006': { questions: 23 },
-  'c_007': { questions: 26 },
-  'c_008': { questions: 4 },
-  'c_009': { questions: 8 },
-  'c_010': { questions: 13 },
-  'c_011': { questions: 24 },
-  'c_012': { questions: 25 },
-  'c_013': { questions: 31 },
-  'c_014': { questions: 8 },
-  'c_015': { questions: 47 },
-  'c_016': { questions: 19 },
-  'c_017': { questions: 21 },
-  'c_018': { questions: 29 },
-  'c_019': { questions: 25 },
-  'c_020': { questions: 24 },
-  'c_021': { questions: 21 },
-  'c_022': { questions: 18 },
-  'c_023': { questions: 16 },
-  'c_024': { questions: 13 },
-  'c_025': { questions: 6 },
-  'c_026': { questions: 13 },
-  'c_027': { questions: 12 },
-  'c_028': { questions: 9 },
-  'c_029': { questions: 21 },
-  'c_030': { questions: 27 },
-  'c_031': { questions: 13 },
-  'c_032': { questions: 2 },
-  'c_033': { questions: 4 },
-  // ORL - OPHTALMO
-  'c_034': { questions: 10 },
-  'c_035': { questions: 22 },
-  'c_036': { questions: 19 },
-  'c_037': { questions: 19 },
-  'c_038': { questions: 10 },
-  'c_039': { questions: 5 },
-  'c_040': { questions: 21 },
-  'c_041': { questions: 67 },
-  'c_042': { questions: 19 },
-  'c_043': { questions: 24 },
-  'c_044': { questions: 19 },
-  'c_045': { questions: 30 },
-  'c_046': { questions: 0 },
-  'c_047': { questions: 17 },
-  'c_048': { questions: 26 },
-  'c_049': { questions: 30 },
-  'c_050': { questions: 22 },
-  'c_051': { questions: 32 },
-  'c_052': { questions: 30 },
-  'c_053': { questions: 25 },
-  'c_054': { questions: 26 },
-  'c_055': { questions: 25 },
-  'c_056': { questions: 16 },
-  'c_057': { questions: 20 },
-  'c_058': { questions: 22 },
-  'c_059': { questions: 13 },
-  'c_060': { questions: 41 },
-  'c_061': { questions: 1 },
-  'c_062': { questions: 35 },
-  'c_063': { questions: 9 },
-  'c_064': { questions: 4 },
-  // MÉDECINE SOCIALE ET SANTÉ PUBLIQUE - ECONOMIE DE SANTÉ
-  'c_065': { questions: 20 },
-  'c_066': { questions: 14 },
-  'c_067': { questions: 39 },
-  'c_068': { questions: 9 },
-  'c_069': { questions: 13 },
-  'c_070': { questions: 11 },
-  'c_071': { questions: 4 },
-  'c_072': { questions: 11 },
-  'c_073': { questions: 19 },
-  'c_074': { questions: 28 },
-  'c_075': { questions: 33 },
-  'c_076': { questions: 10 },
-  'c_077': { questions: 35 },
-  'c_078': { questions: 11 },
-  'c_079': { questions: 1 },
-  'c_080': { questions: 5 },
-  'c_081': { questions: 3 },
-  'c_082': { questions: 19 },
-  'c_083': { questions: 0 },
-  'c_084': { questions: 39 },
-  // URGENCES - RÉANIMATION
-  'c_085': { questions: 8 },
-  'c_086': { questions: 7 },
-  'c_087': { questions: 11 },
-  'c_088': { questions: 19 },
-  'c_089': { questions: 3 },
-  'c_090': { questions: 6 },
-  'c_091': { questions: 12 },
-  'c_092': { questions: 9 },
-  'c_093': { questions: 3 },
-  'c_094': { questions: 15 },
-  'c_095': { questions: 2 },
-  'c_096': { questions: 16 },
-  'c_097': { questions: 3 },
-  'c_098': { questions: 8 },
-  'c_099': { questions: 8 },
-  'c_100': { questions: 6 },
-  'c_101': { questions: 3 },
-  'c_102': { questions: 20 },
-  'c_103': { questions: 4 },
-  'c_104': { questions: 6 },
-  'c_105': { questions: 2 },
-  'c_106': { questions: 1 },
-  'c_107': { questions: 1 },
-  'c_108': { questions: 1 },
-  'c_109': { questions: 1 },
-  'c_110': { questions: 22 },
-  'c_111': { questions: 9 },
-  'c_112': { questions: 6 },
-  'c_113': { questions: 4 },
-  'c_114': { questions: 5 },
-  'c_115': { questions: 7 },
-  'c_116': { questions: 0 },
-  'c_117': { questions: 15 },
-  'c_118': { questions: 25 },
-  'c_119': { questions: 3 },
-};
-const TOTAL_CORPUS_QUESTIONS = 2227;
-export function normalizeCanonicalTitle(t) {
-  if (!t || typeof t !== 'string') return '';
-  return t
-    .replace(/\s*\([^)]*\)/g, '')
-    .replace(/\s*>.*$/g, '')
-    .toLowerCase()
-    .replace(/’/g, "'")
-    .replace(/[éèêë]/g, 'e')
-    .replace(/[àâ]/g, 'a')
-    .replace(/[îï]/g, 'i')
-    .replace(/[ôö]/g, 'o')
-    .replace(/[ûùü]/g, 'u')
-    .replace(/ç/g, 'c')
-    .replace(/^(les\s+|la\s+|le\s+|l'|d'|des\s+|du\s+)/, '')
-    .trim();
-}
+/**
+ * Main Application Controller for Recensement S9 Dashboard
+ * 100% Clean Light Medical Theme, Hierarchical Syllabus View by default.
+ * All course weights and question counts resolved from canonical PDF catalog.
+ */
+
+import { INITIAL_DATA, TOTAL_CORPUS_QUESTIONS, resolveCourseQuestions, reindexAllCourses, normalizeCanonicalTitle } from './initialData.js';
+import { Storage } from './storage.js';
+import { Sync } from './sync.js';
+
+export { normalizeCanonicalTitle };
 
 export function getCourseQuestions(course) {
-  if (!course) return 0;
-
-  // 1. Title-first match in INITIAL_DATA for absolute immunity against ID misalignment
-  const targetTitle = normalizeCanonicalTitle(course.title || course.rawTitle);
-  if (targetTitle && typeof INITIAL_DATA !== 'undefined' && Array.isArray(INITIAL_DATA?.courses)) {
-    const match = INITIAL_DATA.courses.find(ic => {
-      const initNorm = normalizeCanonicalTitle(ic.title || ic.rawTitle);
-      return initNorm === targetTitle || initNorm.includes(targetTitle) || targetTitle.includes(initNorm);
-    });
-    if (match && typeof match.questions === 'number') {
-      return match.questions;
-    }
-  }
-
-  // 2. Direct ID dictionary lookup
-  const fromDict = COURSE_WEIGHTS_DATA[course?.id];
-  if (fromDict && typeof fromDict.questions === 'number') {
-    return fromDict.questions;
-  }
-
-  // 3. Fallback to existing questions property
-  if (typeof course.questions === 'number' && !isNaN(course.questions) && course.questions > 0) {
-    return course.questions;
-  }
-  return 0;
+  return resolveCourseQuestions(course);
 }
 
 export function getCourseWeight(course) {
@@ -176,11 +20,7 @@ export function getCourseWeight(course) {
 }
 
 export function hydrateCoursesWithWeights(courses) {
-  if (!Array.isArray(courses)) return;
-  courses.forEach(c => {
-    c.questions = getCourseQuestions(c);
-    c.weight = getCourseWeight(c);
-  });
+  reindexAllCourses(courses);
 }
 
 export function parseFacultyDate(dStr) {
@@ -197,17 +37,6 @@ export function parseFacultyDate(dStr) {
   const t = Date.parse(str);
   return isNaN(t) ? 0 : t;
 }
-
-
-
-/**
- * Main Application Controller for Recensement S9 Dashboard
- * 100% Clean Light Medical Theme, Hierarchical Syllabus View by default.
- */
-
-import { INITIAL_DATA } from './initialData.js';
-import { Storage } from './storage.js';
-import { Sync } from './sync.js';
 
 let activePopoverCourseId = null;
 

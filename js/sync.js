@@ -2,27 +2,14 @@
  * Sync Manager for Recensement S9
  * Connects to Google Sheets with zero CORS errors using Google Visualization JSONP,
  * with fallbacks for direct CSV and proxy, and schedules daily 20:00 synchronization.
+ * Dynamically supports the new "Observation" column and shifted status/layer columns.
  */
 
 import { Storage } from './storage.js';
-import { INITIAL_DATA } from './initialData.js';
+import { INITIAL_DATA, resolveCourseQuestions, normalizeCanonicalTitle } from './initialData.js';
 
 export const Sync = {
   syncTimeoutId: null,
-
-  /**
-   * Normalize Submodule name to canonical format
-   */
-  normalizeSubmodule(rawSub, module) {
-    const s = (rawSub || '').trim().toUpperCase();
-    const m = (module || '').trim().toUpperCase();
-    if (s.includes('OPHTALMO')) return 'Ophtalmologie';
-    if (s.includes('ORL')) return 'ORL';
-    if (m.includes('GYNECO') || s.includes('GYNECO')) return 'Gynécologie - Obstétrique';
-    if (m.includes('SANTÉ') || m.includes('SANTE') || s.includes('SANTÉ') || s.includes('SANTE')) return 'Santé Publique';
-    if (m.includes('URGENCES') || s.includes('URGENCES')) return 'Urgences - Réanimation';
-    return rawSub || '';
-  },
 
   /**
    * Normalize Submodule name to canonical format
@@ -54,28 +41,107 @@ export const Sync = {
 
   matchInitialCourse(title, rawTitle, id) {
     if (typeof INITIAL_DATA === 'undefined' || !Array.isArray(INITIAL_DATA?.courses)) return null;
-    const norm = (t) => (t || '')
-      .replace(/\s*\([^)]*\)/g, '')
-      .replace(/\s*>.*$/g, '')
-      .toLowerCase()
-      .replace(/’/g, "'")
-      .replace(/[éèêë]/g, 'e')
-      .replace(/[àâ]/g, 'a')
-      .replace(/[îï]/g, 'i')
-      .replace(/[ôö]/g, 'o')
-      .replace(/[ûùü]/g, 'u')
-      .replace(/ç/g, 'c')
-      .replace(/^(les\s+|la\s+|le\s+|l'|d'|des\s+|du\s+)/, '')
-      .trim();
-    const tNorm = norm(title || rawTitle);
+    const tNorm = normalizeCanonicalTitle(title || rawTitle);
     if (tNorm) {
       const byTitle = INITIAL_DATA.courses.find(ic => {
-        const icNorm = norm(ic.title || ic.rawTitle);
+        const icNorm = normalizeCanonicalTitle(ic.title || ic.rawTitle);
         return icNorm === tNorm || icNorm.includes(tNorm) || tNorm.includes(icNorm);
       });
       if (byTitle) return byTitle;
     }
     return INITIAL_DATA.courses.find(ic => ic.id === id) || null;
+  },
+
+  /**
+   * Parse course observation into badge descriptors
+   */
+  parseObservationBadges(rawObs) {
+    if (!rawObs || typeof rawObs !== 'string') return [];
+    const obs = rawObs.trim();
+    if (!obs) return [];
+
+    const badges = [];
+    const obsLower = obs.toLowerCase();
+
+    // 1. Drive promo
+    if (obsLower.includes('drive promo') || obsLower.includes('dispo drive')) {
+      badges.push({
+        type: 'drive',
+        text: 'Drive Promo',
+        icon: 'hard-drive',
+        bg: 'bg-indigo-50 dark:bg-indigo-950/40',
+        textCol: 'text-indigo-700 dark:text-indigo-300',
+        border: 'border-indigo-200 dark:border-indigo-800'
+      });
+    }
+
+    // 2. Nouveau cours
+    if (obsLower.includes('nouveau cours')) {
+      badges.push({
+        type: 'new_course',
+        text: 'Nouveau cours',
+        icon: 'sparkles',
+        bg: 'bg-blue-50 dark:bg-blue-950/40',
+        textCol: 'text-blue-700 dark:text-blue-300',
+        border: 'border-blue-200 dark:border-blue-800'
+      });
+    }
+
+    // 3. Cours changé / Schémas / Modifications
+    if (obsLower.includes('cours changé') || obsLower.includes('cours change') || obsLower.includes('modifications')) {
+      badges.push({
+        type: 'changed_course',
+        text: obsLower.includes('schémas') || obsLower.includes('schemas') ? 'Schémas ajoutés' : 'Cours modifié',
+        icon: 'file-edit',
+        bg: 'bg-amber-50 dark:bg-amber-950/40',
+        textCol: 'text-amber-700 dark:text-amber-300',
+        border: 'border-amber-200 dark:border-amber-800'
+      });
+    }
+
+    // 4. Cours inchangé
+    if (obsLower.includes('inchangé') || obsLower.includes('inchange')) {
+      badges.push({
+        type: 'unchanged',
+        text: 'Cours inchangé',
+        icon: 'check-circle-2',
+        bg: 'bg-emerald-50 dark:bg-emerald-950/40',
+        textCol: 'text-emerald-700 dark:text-emerald-300',
+        border: 'border-emerald-200 dark:border-emerald-800'
+      });
+    }
+
+    // 5. Prof change
+    if (obsLower.includes('nouvelle prof') || obsLower.includes('nouveau prof') || obsLower.includes('enseigné l\'année dernière par')) {
+      let profText = 'Nouveau Pr';
+      const prMatch = obs.match(/Pr\s+([A-Za-zÀ-ÿ]+)/i);
+      if (prMatch) {
+        profText = `Ex-${prMatch[0]}`;
+      }
+      badges.push({
+        type: 'prof_change',
+        text: profText,
+        icon: 'user-check',
+        bg: 'bg-purple-50 dark:bg-purple-950/40',
+        textCol: 'text-purple-700 dark:text-purple-300',
+        border: 'border-purple-200 dark:border-purple-800'
+      });
+    }
+
+    // If none of the specific patterns matched, provide raw observation
+    if (badges.length === 0) {
+      badges.push({
+        type: 'note',
+        text: obs.length > 30 ? obs.substring(0, 27) + '...' : obs,
+        title: obs,
+        icon: 'info',
+        bg: 'bg-slate-100 dark:bg-slate-800',
+        textCol: 'text-slate-700 dark:text-slate-300',
+        border: 'border-slate-200 dark:border-slate-700'
+      });
+    }
+
+    return badges;
   },
 
   /**
@@ -159,16 +225,18 @@ export const Sync = {
       function cleanup() {
         clearTimeout(timeout);
         try {
-          delete window[callbackName]; delete globalThis[callbackName];
+          if (typeof window !== 'undefined') delete window[callbackName];
+          if (typeof globalThis !== 'undefined') delete globalThis[callbackName];
         } catch (e) {
-          window[callbackName] = undefined;
+          if (typeof window !== 'undefined') window[callbackName] = undefined;
+          if (typeof globalThis !== 'undefined') globalThis[callbackName] = undefined;
         }
         if (script && script.parentNode) {
           script.parentNode.removeChild(script);
         }
       }
 
-      window[callbackName] = globalThis[callbackName] = (data) => {
+      const responseHandler = (data) => {
         cleanup();
         try {
           const parsed = this.processGvizResponse(data);
@@ -177,6 +245,9 @@ export const Sync = {
           reject(err);
         }
       };
+
+      if (typeof window !== 'undefined') window[callbackName] = responseHandler;
+      if (typeof globalThis !== 'undefined') globalThis[callbackName] = responseHandler;
 
       script = document.createElement('script');
       script.src = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=responseHandler:${callbackName}&gid=${gid}&_t=${Date.now()}`;
@@ -200,9 +271,43 @@ export const Sync = {
     const rows = data.table.rows;
     let sheetUpdateDate = 'N/A';
 
-    // Check Row 0 for update date
-    if (rows[0] && rows[0].c && rows[0].c[5] && rows[0].c[5].v) {
-      sheetUpdateDate = String(rows[0].c[5].v).trim();
+    // Dynamically look for date in Row 0
+    if (rows[0] && rows[0].c) {
+      for (const cell of rows[0].c) {
+        if (cell && cell.v) {
+          const m = String(cell.v).match(/\d{1,2}\/\d{1,2}\/\d{4}/);
+          if (m) {
+            sheetUpdateDate = m[0];
+            break;
+          }
+        }
+      }
+    }
+
+    // Dynamic column detection in Row 1
+    let colModule = 0;
+    let colSub = 1;
+    let colProf = 3;
+    let colCourse = 4;
+    let colObs = -1;
+    let colStatus = 5;
+    let colC1 = 6;
+    let colC2 = 7;
+
+    if (rows[1] && rows[1].c) {
+      rows[1].c.forEach((cell, idx) => {
+        if (!cell || !cell.v) return;
+        const val = String(cell.v).trim().toLowerCase();
+        if (val.includes('prof')) colProf = idx;
+        if (val.includes('cours')) colCourse = idx;
+        if (val.includes('observation')) colObs = idx;
+        if (val === 'cm' || val.includes('statut') || val.includes('status')) colStatus = idx;
+      });
+      if (colObs !== -1) {
+        colStatus = colObs + 1;
+        colC1 = colStatus + 1;
+        colC2 = colC1 + 1;
+      }
     }
 
     const courses = [];
@@ -218,8 +323,8 @@ export const Sync = {
       const c = row.c;
 
       // Module in Col 0
-      if (c[0] && c[0].v) {
-        const val0 = String(c[0].v).trim();
+      if (c[colModule] && c[colModule].v) {
+        const val0 = String(c[colModule].v).trim();
         if (val0 && val0 !== currentModule) {
           currentModule = val0;
           currentSubModule = '';
@@ -228,37 +333,42 @@ export const Sync = {
 
       // Submodule in Col 1
       let subModule = '';
-      if (c[1] && c[1].v) {
-        subModule = String(c[1].v).trim();
+      if (c[colSub] && c[colSub].v) {
+        subModule = String(c[colSub].v).trim();
         if (subModule) currentSubModule = subModule;
       }
       if (!subModule && currentSubModule) {
         subModule = currentSubModule;
       }
 
-      // Prof in Col 3
-      if (c[3] && c[3].v) {
-        const val3 = String(c[3].v).trim();
+      // Prof in colProf
+      if (c[colProf] && c[colProf].v) {
+        const val3 = String(c[colProf].v).trim();
         if (val3) currentProf = val3;
       }
 
-      // Course title in Col 4
-      const rawTitle = (c[4] && c[4].v) ? String(c[4].v).trim() : '';
+      // Course title in colCourse
+      const rawTitle = (c[colCourse] && c[colCourse].v) ? String(c[colCourse].v).trim() : '';
       if (!rawTitle || rawTitle === '...' || rawTitle.toLowerCase() === 'cours') {
         continue;
       }
 
-      // Faculty status in Col 5
-      const rawStatus = (c[5] && c[5].v) ? String(c[5].v).trim() : '';
+      // Observation in colObs
+      const rawObs = (colObs !== -1 && c[colObs] && c[colObs].v) ? String(c[colObs].v).trim() : '';
+
+      // Faculty status in colStatus
+      const rawStatus = (c[colStatus] && c[colStatus].v) ? String(c[colStatus].v).trim() : '';
 
       // C1 & C2
-      const c1Val = c[6] ? c[6].v : false;
+      const c1Val = c[colC1] ? c[colC1].v : false;
       const c1 = String(c1Val).toUpperCase() === 'TRUE' || c1Val === true;
 
-      const c2Val = c[7] ? c[7].v : false;
+      const c2Val = c[colC2] ? c[colC2].v : false;
       const c2 = String(c2Val).toUpperCase() === 'TRUE' || c2Val === true;
 
-      const { cleanTitle, badges } = this.parseCourseTitle(rawTitle);
+      const { cleanTitle, badges: titleBadges } = this.parseCourseTitle(rawTitle);
+      const obsBadges = this.parseObservationBadges(rawObs);
+      const badges = [...titleBadges, ...obsBadges];
 
       let facultyStatus = 'Non effectué';
       const sLower = rawStatus.toLowerCase();
@@ -273,13 +383,14 @@ export const Sync = {
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
 
-      let questions = 0;
-      let weight = 0;
+      // Canonical question resolver
+      const questions = resolveCourseQuestions({ title: cleanTitle, rawTitle });
+      const weight = Number(((questions / 2227) * 100).toFixed(2));
+
+      // Inherit submodule from initialData if missing
       const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
-      if (initCourse) {
-        if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
-        questions = initCourse.questions || 0;
-        weight = initCourse.weight || 0;
+      if (initCourse && !subModule && initCourse.submodule) {
+        subModule = initCourse.submodule;
       }
 
       courses.push({
@@ -289,6 +400,7 @@ export const Sync = {
         prof: currentProf,
         rawTitle,
         title: cleanTitle,
+        observation: rawObs,
         badges,
         facultyStatus,
         questions,
@@ -387,8 +499,39 @@ export const Sync = {
     }
 
     let sheetUpdateDate = 'N/A';
-    if (rows[0] && rows[0].length > 5 && rows[0][5]) {
-      sheetUpdateDate = rows[0][5];
+    if (rows[0]) {
+      for (const cell of rows[0]) {
+        const m = cell.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
+        if (m) {
+          sheetUpdateDate = m[0];
+          break;
+        }
+      }
+    }
+
+    // Dynamic column detection in Row 1
+    let colModule = 0;
+    let colSub = 1;
+    let colProf = 3;
+    let colCourse = 4;
+    let colObs = -1;
+    let colStatus = 5;
+    let colC1 = 6;
+    let colC2 = 7;
+
+    if (rows[1]) {
+      rows[1].forEach((h, idx) => {
+        const hl = h.toLowerCase();
+        if (hl.includes('prof')) colProf = idx;
+        if (hl.includes('cours')) colCourse = idx;
+        if (hl.includes('observation')) colObs = idx;
+        if (hl === 'cm' || hl.includes('statut') || hl.includes('status')) colStatus = idx;
+      });
+      if (colObs !== -1) {
+        colStatus = colObs + 1;
+        colC1 = colStatus + 1;
+        colC2 = colC1 + 1;
+      }
     }
 
     const courses = [];
@@ -401,36 +544,39 @@ export const Sync = {
       const row = rows[r];
       if (!row) continue;
 
-      if (row[0] && row[0].trim()) {
-        const val0 = row[0].trim();
+      if (row[colModule] && row[colModule].trim()) {
+        const val0 = row[colModule].trim();
         if (val0 && val0 !== currentModule) {
           currentModule = val0;
           currentSubModule = '';
         }
       }
 
-      let subModule = (row[1] || '').trim();
+      let subModule = (row[colSub] || '').trim();
       if (subModule) {
         currentSubModule = subModule;
       } else if (currentSubModule) {
         subModule = currentSubModule;
       }
 
-      if (row[3] && row[3].trim()) {
-        currentProf = row[3].trim();
+      if (row[colProf] && row[colProf].trim()) {
+        currentProf = row[colProf].trim();
       }
 
-      const rawTitle = (row[4] || '').trim();
-      const rawStatus = (row[5] || '').trim();
-
+      const rawTitle = (row[colCourse] || '').trim();
       if (!rawTitle || rawTitle === '...' || rawTitle.toLowerCase() === 'cours') {
         continue;
       }
 
-      const c1 = (row[6] || '').trim().toUpperCase() === 'TRUE';
-      const c2 = (row[7] || '').trim().toUpperCase() === 'TRUE';
+      const rawObs = colObs !== -1 ? (row[colObs] || '').trim() : '';
+      const rawStatus = (row[colStatus] || '').trim();
 
-      const { cleanTitle, badges } = this.parseCourseTitle(rawTitle);
+      const c1 = (row[colC1] || '').trim().toUpperCase() === 'TRUE';
+      const c2 = (row[colC2] || '').trim().toUpperCase() === 'TRUE';
+
+      const { cleanTitle, badges: titleBadges } = this.parseCourseTitle(rawTitle);
+      const obsBadges = this.parseObservationBadges(rawObs);
+      const badges = [...titleBadges, ...obsBadges];
 
       let facultyStatus = 'Non effectué';
       const sLower = rawStatus.toLowerCase();
@@ -445,13 +591,14 @@ export const Sync = {
       const id = `c_${counter.toString().padStart(3, '0')}`;
       counter++;
 
-      let questions = 0;
-      let weight = 0;
+      // Canonical question resolver
+      const questions = resolveCourseQuestions({ title: cleanTitle, rawTitle });
+      const weight = Number(((questions / 2227) * 100).toFixed(2));
+
+      // Inherit submodule from initialData if missing
       const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
-      if (initCourse) {
-        if (!subModule && initCourse.submodule) subModule = initCourse.submodule;
-        questions = initCourse.questions || 0;
-        weight = initCourse.weight || 0;
+      if (initCourse && !subModule && initCourse.submodule) {
+        subModule = initCourse.submodule;
       }
 
       courses.push({
@@ -461,6 +608,7 @@ export const Sync = {
         prof: currentProf,
         rawTitle,
         title: cleanTitle,
+        observation: rawObs,
         badges,
         facultyStatus,
         questions,
