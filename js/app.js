@@ -322,6 +322,7 @@ const elements = {
   filterModule: document.getElementById('filterModule'),
   filterFacStatus: document.getElementById('filterFacStatus'),
   filterProf: document.getElementById('filterProf'),
+  filterObservation: document.getElementById('filterObservation'),
   btnResetFilters: document.getElementById('btnResetFilters'),
   btnToggleWeightSort: document.getElementById('btnToggleWeightSort'),
   weightFilterIndicator: document.getElementById('weightFilterIndicator'),
@@ -1003,6 +1004,17 @@ function getFilteredCourses() {
     }
     if (state.filters.facStatus && course.facultyStatus !== state.filters.facStatus) return false;
     if (state.filters.prof && course.prof !== state.filters.prof) return false;
+    if (state.filters.observation) {
+      const oType = state.filters.observation;
+      const oLower = (course.observation || '').toLowerCase();
+      let match = false;
+      if (oType === 'drive' && (oLower.includes('drive promo') || oLower.includes('dispo drive'))) match = true;
+      else if (oType === 'new' && oLower.includes('nouveau cours')) match = true;
+      else if (oType === 'unchanged' && (oLower.includes('inchang') || oLower.includes('inchange'))) match = true;
+      else if (oType === 'changed' && ((oLower.includes('chang') && !oLower.includes('inchang')) || oLower.includes('modifications'))) match = true;
+      else if (oType === 'prof' && (oLower.includes('prof') || oLower.includes('enseigné l\'année dernière'))) match = true;
+      if (!match) return false;
+    }
 
     if (state.filters.search) {
       const q = state.filters.search.toLowerCase();
@@ -1012,9 +1024,10 @@ function getFilteredCourses() {
       const matchModule = (course.module || '').toLowerCase().includes(q);
       const matchSub = (course.submodule || '').toLowerCase().includes(q);
       const matchNote = (progress.note || '').toLowerCase().includes(q);
-      const matchBadge = (course.badges || []).some(b => b.text.toLowerCase().includes(q));
+      const matchBadge = (course.badges || []).some(b => b.text.toLowerCase().includes(q) || (b.tooltip && b.tooltip.toLowerCase().includes(q)));
+      const matchObs = (course.observation || '').toLowerCase().includes(q);
 
-      if (!matchTitle && !matchRaw && !matchProf && !matchModule && !matchSub && !matchNote && !matchBadge) {
+      if (!matchTitle && !matchRaw && !matchProf && !matchModule && !matchSub && !matchNote && !matchBadge && !matchObs) {
         return false;
       }
     }
@@ -1425,6 +1438,12 @@ function createCourseRowElement(course) {
         <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
           ${getSubmoduleBadge(course.submodule, course.module)}
           <span class="font-medium text-slate-700 dark:text-slate-300">${course.prof || 'Enseignant non spécifié'}</span>
+          ${course.observation ? `
+            <span class="course-obs-note inline-flex items-center gap-1 font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/90 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700" title="Observation officielle de la feuille faculté">
+              <i data-lucide="info" class="w-3 h-3 text-indigo-500 dark:text-indigo-400 flex-shrink-0"></i>
+              <span>${course.observation}</span>
+            </span>
+          ` : ''}
           ${progress.note ? `
             <span class="text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.2 rounded text-[10px] flex items-center gap-1 font-semibold border border-amber-200 dark:border-amber-800">
               <i data-lucide="file-text" class="w-3 h-3"></i> Note perso
@@ -2243,6 +2262,8 @@ function resetAllFilters() {
   elements.btnClearSearch.classList.add('hidden');
   elements.filterModule.value = '';
   elements.filterFacStatus.value = '';
+  state.filters.observation = '';
+  if (elements.filterObservation) elements.filterObservation.value = '';
   elements.filterProf.value = '';
 
   document.querySelectorAll('.quick-tab-btn').forEach(b => {

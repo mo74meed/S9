@@ -67,8 +67,11 @@ export const Sync = {
     if (obsLower.includes('drive promo') || obsLower.includes('dispo drive')) {
       badges.push({
         type: 'drive',
+        category: 'drive',
         text: 'Drive Promo',
         icon: 'hard-drive',
+        tooltip: 'Support disponible sur le Drive Promo',
+        cssClass: 'obs-badge obs-badge-drive',
         bg: 'bg-indigo-50 dark:bg-indigo-950/40',
         textCol: 'text-indigo-700 dark:text-indigo-300',
         border: 'border-indigo-200 dark:border-indigo-800'
@@ -77,10 +80,14 @@ export const Sync = {
 
     // 2. Nouveau cours
     if (obsLower.includes('nouveau cours')) {
+      const isNeverTaught = obsLower.includes('jamais enseigné') || obsLower.includes('inédit');
       badges.push({
         type: 'new_course',
-        text: 'Nouveau cours',
+        category: 'new',
+        text: isNeverTaught ? 'Nouveau cours (inédit)' : 'Nouveau cours',
         icon: 'sparkles',
+        tooltip: obs,
+        cssClass: 'obs-badge obs-badge-new',
         bg: 'bg-blue-50 dark:bg-blue-950/40',
         textCol: 'text-blue-700 dark:text-blue-300',
         border: 'border-blue-200 dark:border-blue-800'
@@ -89,10 +96,15 @@ export const Sync = {
 
     // 3. Cours changé / Schémas / Modifications
     if (obsLower.includes('cours changé') || obsLower.includes('cours change') || obsLower.includes('modifications')) {
+      const hasSchemas = obsLower.includes('schémas') || obsLower.includes('schemas');
+      const isMinor = obsLower.includes('légères') || obsLower.includes('anciens diapos');
       badges.push({
         type: 'changed_course',
-        text: obsLower.includes('schémas') || obsLower.includes('schemas') ? 'Schémas ajoutés' : 'Cours modifié',
+        category: 'changed',
+        text: hasSchemas ? 'Schémas ajoutés' : (isMinor ? 'Modif. mineures' : 'Cours modifié'),
         icon: 'file-edit',
+        tooltip: obs,
+        cssClass: 'obs-badge obs-badge-changed',
         bg: 'bg-amber-50 dark:bg-amber-950/40',
         textCol: 'text-amber-700 dark:text-amber-300',
         border: 'border-amber-200 dark:border-amber-800'
@@ -103,8 +115,11 @@ export const Sync = {
     if (obsLower.includes('inchangé') || obsLower.includes('inchange')) {
       badges.push({
         type: 'unchanged',
+        category: 'unchanged',
         text: 'Cours inchangé',
         icon: 'check-circle-2',
+        tooltip: 'Support identique aux années précédentes',
+        cssClass: 'obs-badge obs-badge-unchanged',
         bg: 'bg-emerald-50 dark:bg-emerald-950/40',
         textCol: 'text-emerald-700 dark:text-emerald-300',
         border: 'border-emerald-200 dark:border-emerald-800'
@@ -120,8 +135,11 @@ export const Sync = {
       }
       badges.push({
         type: 'prof_change',
+        category: 'prof',
         text: profText,
         icon: 'user-check',
+        tooltip: obs,
+        cssClass: 'obs-badge obs-badge-prof',
         bg: 'bg-purple-50 dark:bg-purple-950/40',
         textCol: 'text-purple-700 dark:text-purple-300',
         border: 'border-purple-200 dark:border-purple-800'
@@ -132,9 +150,11 @@ export const Sync = {
     if (badges.length === 0) {
       badges.push({
         type: 'note',
-        text: obs.length > 30 ? obs.substring(0, 27) + '...' : obs,
-        title: obs,
+        category: 'note',
+        text: obs.length > 28 ? obs.substring(0, 25) + '...' : obs,
+        tooltip: obs,
         icon: 'info',
+        cssClass: 'obs-badge',
         bg: 'bg-slate-100 dark:bg-slate-800',
         textCol: 'text-slate-700 dark:text-slate-300',
         border: 'border-slate-200 dark:border-slate-700'
