@@ -1,8 +1,11 @@
 /**
- * Sync Manager for Recensement S9
- * Connects to Google Sheets with zero CORS errors using Google Visualization JSONP,
- * with fallbacks for direct CSV and proxy, and schedules daily 20:00 synchronization.
- * Dynamically supports the new "Observation" column and shifted status/layer columns.
+ * Sync Manager for Recensement S9 - Enhanced Resilient Edition
+ * 
+ * Heuristic-driven synchronizer for Google Sheets & CSV:
+ * 1. Multi-row Header Scanner (automatically detects wherever the header is placed).
+ * 2. Content Profiling Fallback (identifies columns by their values: "Effectué", "Pr.", "TRUE/FALSE").
+ * 3. Stable Title-based Course ID mapping (prevents personal notes/checkboxes from shifting).
+ * 4. Zero CORS JSONP with multi-tier fallback (CSV direct, Proxy, Cache).
  */
 
 import { Storage } from './storage.js';
@@ -10,6 +13,23 @@ import { INITIAL_DATA, resolveCourseQuestions, normalizeCanonicalTitle } from '.
 
 export const Sync = {
   syncTimeoutId: null,
+
+  /**
+   * Universal cell value reader (works identically for Google Viz Objects and raw CSV strings)
+   */
+  getCellValue(cell) {
+    if (cell === null || cell === undefined) return '';
+    if (typeof cell === 'object') {
+      if ('v' in cell && cell.v !== null && cell.v !== undefined) {
+        return String(cell.v).trim();
+      }
+      if ('f' in cell && cell.f !== null && cell.f !== undefined) {
+        return String(cell.f).trim();
+      }
+      return '';
+    }
+    return String(cell).trim();
+  },
 
   /**
    * Normalize Submodule name to canonical format
@@ -26,6 +46,29 @@ export const Sync = {
   },
 
   /**
+   * Resilient Faculty Status Normalizer (Insensitive to accents, spaces, and case variations)
+   */
+  normalizeFacultyStatus(rawStatus) {
+    if (!rawStatus) return 'Non effectué';
+    const s = String(rawStatus)
+      .toLowerCase()
+      .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, ''); // Removes accents: "effectué" -> "effectue"
+
+    if (/effectu|fait|valide|termine|dispense/.test(s)) {
+      return 'Effectué';
+    }
+    if (/en\s*cours|progression|partiel/.test(s)) {
+      return 'En cours';
+    }
+    if (/hors|annule|supprime/.test(s)) {
+      return 'Hors programme';
+    }
+    return 'Non effectué';
+  },
+
+  /**
    * Extract Google Spreadsheet ID and GID from URL
    */
   extractSheetInfo(url) {
@@ -39,7 +82,10 @@ export const Sync = {
     return { sheetId, gid, csvExportUrl };
   },
 
-  matchInitialCourse(title, rawTitle, id) {
+  /**
+   * Match course against baseline catalog by canonical normalized title
+   */
+  matchInitialCourse(title, rawTitle, id = null) {
     if (typeof INITIAL_DATA === 'undefined' || !Array.isArray(INITIAL_DATA?.courses)) return null;
     const tNorm = normalizeCanonicalTitle(title || rawTitle);
     if (tNorm) {
@@ -49,7 +95,10 @@ export const Sync = {
       });
       if (byTitle) return byTitle;
     }
-    return INITIAL_DATA.courses.find(ic => ic.id === id) || null;
+    if (id) {
+      return INITIAL_DATA.courses.find(ic => ic.id === id) || null;
+    }
+    return null;
   },
 
   /**
@@ -61,7 +110,7 @@ export const Sync = {
     if (!obs) return [];
 
     const badges = [];
-    const obsLower = obs.toLowerCase();
+    const obsLower = obs.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     // 1. Drive promo
     if (obsLower.includes('drive promo') || obsLower.includes('dispo drive')) {
@@ -80,7 +129,7 @@ export const Sync = {
 
     // 2. Nouveau cours
     if (obsLower.includes('nouveau cours')) {
-      const isNeverTaught = obsLower.includes('jamais enseigné') || obsLower.includes('inédit');
+      const isNeverTaught = obsLower.includes('jamais enseigne') || obsLower.includes('inedit');
       badges.push({
         type: 'new_course',
         category: 'new',
@@ -95,9 +144,9 @@ export const Sync = {
     }
 
     // 3. Cours changé / Schémas / Modifications
-    if (obsLower.includes('cours changé') || obsLower.includes('cours change') || obsLower.includes('modifications')) {
-      const hasSchemas = obsLower.includes('schémas') || obsLower.includes('schemas');
-      const isMinor = obsLower.includes('légères') || obsLower.includes('anciens diapos');
+    if (obsLower.includes('cours change') || obsLower.includes('modifications') || obsLower.includes('modifie')) {
+      const hasSchemas = obsLower.includes('schemas');
+      const isMinor = obsLower.includes('legeres') || obsLower.includes('anciens diapos');
       badges.push({
         type: 'changed_course',
         category: 'changed',
@@ -112,7 +161,7 @@ export const Sync = {
     }
 
     // 4. Cours inchangé
-    if (obsLower.includes('inchangé') || obsLower.includes('inchange')) {
+    if (obsLower.includes('inchange')) {
       badges.push({
         type: 'unchanged',
         category: 'unchanged',
@@ -127,7 +176,7 @@ export const Sync = {
     }
 
     // 5. Prof change
-    if (obsLower.includes('nouvelle prof') || obsLower.includes('nouveau prof') || obsLower.includes('enseigné l\'année dernière par')) {
+    if (obsLower.includes('nouvelle prof') || obsLower.includes('nouveau prof') || obsLower.includes('enseigne l\'annee derniere par')) {
       let profText = 'Nouveau Pr';
       const prMatch = obs.match(/Pr\s+([A-Za-zÀ-ÿ]+)/i);
       if (prMatch) {
@@ -146,7 +195,7 @@ export const Sync = {
       });
     }
 
-    // If none of the specific patterns matched, provide raw observation
+    // Fallback badge if no specific descriptors matched
     if (badges.length === 0) {
       badges.push({
         type: 'note',
@@ -165,7 +214,7 @@ export const Sync = {
   },
 
   /**
-   * Parse course title and isolate annotations into badges
+   * Parse course title and isolate parenthetical annotations into badges
    */
   parseCourseTitle(rawTitle) {
     let cleanTitle = (rawTitle || '').trim();
@@ -230,6 +279,244 @@ export const Sync = {
   },
 
   /**
+   * INTELLIGENT TWO-PASS COLUMN DETECTION & PROFILING
+   * Detects columns regardless of column shifts, insertions, or header renamings.
+   */
+  detectColumnMapping(rows) {
+    const mapping = {
+      colModule: 0,
+      colSub: 1,
+      colProf: -1,
+      colCourse: -1,
+      colStatus: -1,
+      colObs: -1,
+      colC1: -1,
+      colC2: -1,
+      dataStartRow: 3,
+      sheetUpdateDate: 'N/A'
+    };
+
+    if (!rows || rows.length === 0) return mapping;
+
+    // Scan the first 4 rows to extract any update date
+    for (let r = 0; r < Math.min(4, rows.length); r++) {
+      const row = rows[r];
+      const cells = Array.isArray(row) ? row : (row?.c || []);
+      for (let c = 0; c < cells.length; c++) {
+        const val = this.getCellValue(cells[c]);
+        const m = val.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
+        if (m) {
+          mapping.sheetUpdateDate = m[0];
+          break;
+        }
+      }
+      if (mapping.sheetUpdateDate !== 'N/A') break;
+    }
+
+    // PASS 1: Score the first 5 rows to locate the primary header row
+    let bestHeaderRow = 1;
+    let highestScore = -1;
+
+    for (let r = 0; r < Math.min(5, rows.length); r++) {
+      const row = rows[r];
+      if (!row) continue;
+      const cells = Array.isArray(row) ? row : (row?.c || []);
+      let score = 0;
+
+      cells.forEach(cell => {
+        const val = this.getCellValue(cell).toLowerCase();
+        if (!val) return;
+        if (/prof|enseignant|pr\b/.test(val)) score += 3;
+        if (/^cours\b|intitul|titre|le[çc]on/.test(val)) score += 3;
+        if (/^cm\b|statut|status|etat|dispens/.test(val)) score += 3;
+        if (/obs|remarque|note/.test(val)) score += 2;
+        if (/couche|c1|c2/.test(val)) score += 2;
+        if (/module/.test(val)) score += 1;
+      });
+
+      if (score > highestScore) {
+        highestScore = score;
+        bestHeaderRow = r;
+      }
+    }
+
+    // Inspect the best header row (and immediate row below for split sub-headers like C1/C2)
+    const headerRow = rows[bestHeaderRow];
+    const subHeaderRow = rows[bestHeaderRow + 1] || null;
+    const headerCells = Array.isArray(headerRow) ? headerRow : (headerRow?.c || []);
+
+    headerCells.forEach((cell, idx) => {
+      const val = this.getCellValue(cell).toLowerCase();
+      if (!val) return;
+
+      if (/prof|enseignant|intervenant/.test(val)) {
+        mapping.colProf = idx;
+      } else if (/^cours\b|intitul|sujet|le[çc]on/.test(val) && !/couche/.test(val)) {
+        mapping.colCourse = idx;
+      } else if (/^cm\b|statut|status|etat|dispens/.test(val)) {
+        mapping.colStatus = idx;
+      } else if (/observation|remarque|commentaire/.test(val)) {
+        mapping.colObs = idx;
+      } else if (/^c1\b/.test(val)) {
+        mapping.colC1 = idx;
+      } else if (/^c2\b/.test(val)) {
+        mapping.colC2 = idx;
+      }
+    });
+
+    // Check secondary sub-header row for C1, C2 if missing
+    if (subHeaderRow && (mapping.colC1 === -1 || mapping.colC2 === -1)) {
+      const subCells = Array.isArray(subHeaderRow) ? subHeaderRow : (subHeaderRow?.c || []);
+      subCells.forEach((cell, idx) => {
+        const val = this.getCellValue(cell).toLowerCase();
+        if (/^c1\b/.test(val) && mapping.colC1 === -1) mapping.colC1 = idx;
+        if (/^c2\b/.test(val) && mapping.colC2 === -1) mapping.colC2 = idx;
+      });
+    }
+
+    // Determine where actual course data begins
+    mapping.dataStartRow = bestHeaderRow + 1;
+    if (rows[mapping.dataStartRow]) {
+      const nextCells = Array.isArray(rows[mapping.dataStartRow]) ? rows[mapping.dataStartRow] : (rows[mapping.dataStartRow]?.c || []);
+      const isSubHeader = nextCells.some(c => /c1|c2|coeff/i.test(this.getCellValue(c)));
+      if (isSubHeader) mapping.dataStartRow++;
+    }
+
+    // PASS 2: Content Profiling Heuristic Fallback
+    // If any key column is still undetermined, analyze sample data cells across the first 25 rows
+    const sampleRows = rows.slice(mapping.dataStartRow, mapping.dataStartRow + 25);
+    const maxCols = Math.max(...sampleRows.map(r => Array.isArray(r) ? r.length : (r?.c?.length || 0)), 8);
+
+    for (let c = 0; c < maxCols; c++) {
+      const colValues = sampleRows.map(r => {
+        const cell = Array.isArray(r) ? r[c] : (r?.c ? r.c[c] : null);
+        return this.getCellValue(cell);
+      }).filter(Boolean);
+
+      // Detect Status column by its characteristic faculty values
+      if (mapping.colStatus === -1) {
+        const hasStatusTokens = colValues.some(v => /effectu|hors\s*programme|en\s*cours/i.test(v));
+        if (hasStatusTokens && c !== mapping.colCourse && c !== mapping.colProf) {
+          mapping.colStatus = c;
+        }
+      }
+
+      // Detect Professor column by titles or common prefixes
+      if (mapping.colProf === -1) {
+        const profPrefixes = colValues.filter(v => /^pr\b/i.test(v)).length;
+        if (profPrefixes >= 2 && c !== mapping.colCourse) {
+          mapping.colProf = c;
+        }
+      }
+
+      // Detect Couche C1 & C2 by boolean TRUE/FALSE presence
+      const boolHits = colValues.filter(v => /^(true|false)$/i.test(v)).length;
+      if (boolHits >= 3) {
+        if (mapping.colC1 === -1) {
+          mapping.colC1 = c;
+        } else if (mapping.colC2 === -1 && c > mapping.colC1) {
+          mapping.colC2 = c;
+        }
+      }
+    }
+
+    // Final structural defaults if ever missing
+    if (mapping.colProf === -1) mapping.colProf = 3;
+    if (mapping.colCourse === -1) mapping.colCourse = 4;
+    if (mapping.colStatus === -1) mapping.colStatus = 5;
+    if (mapping.colObs === -1) mapping.colObs = 6;
+    if (mapping.colC1 === -1) mapping.colC1 = 7;
+    if (mapping.colC2 === -1) mapping.colC2 = 8;
+
+    return mapping;
+  },
+
+  /**
+   * Unified Row Extractor for both GViz and CSV rows
+   */
+  extractCourseFromRow(row, mapping, currentModule, currentSubModule, currentProf, counter) {
+    const cells = Array.isArray(row) ? row : (row?.c || []);
+
+    // Module in colModule
+    let moduleVal = this.getCellValue(cells[mapping.colModule]);
+    if (moduleVal && moduleVal !== currentModule) {
+      currentModule = moduleVal;
+      currentSubModule = '';
+    }
+
+    // Submodule in colSub
+    let subVal = this.getCellValue(cells[mapping.colSub]);
+    if (subVal) {
+      currentSubModule = subVal;
+    } else if (currentSubModule) {
+      subVal = currentSubModule;
+    }
+
+    // Prof in colProf
+    let profVal = this.getCellValue(cells[mapping.colProf]);
+    if (profVal) {
+      currentProf = profVal;
+    }
+
+    // Course raw title
+    const rawTitle = this.getCellValue(cells[mapping.colCourse]);
+    if (!rawTitle || rawTitle === '...' || /^cours$/i.test(rawTitle)) {
+      return { course: null, currentModule, currentSubModule, currentProf };
+    }
+
+    // Observation
+    const rawObs = mapping.colObs !== -1 ? this.getCellValue(cells[mapping.colObs]) : '';
+
+    // Faculty Status
+    const rawStatus = mapping.colStatus !== -1 ? this.getCellValue(cells[mapping.colStatus]) : '';
+    const facultyStatus = this.normalizeFacultyStatus(rawStatus);
+
+    // C1 & C2 Layers
+    const c1Val = mapping.colC1 !== -1 ? this.getCellValue(cells[mapping.colC1]) : '';
+    const c2Val = mapping.colC2 !== -1 ? this.getCellValue(cells[mapping.colC2]) : '';
+    const sheetC1 = String(c1Val).toUpperCase() === 'TRUE';
+    const sheetC2 = String(c2Val).toUpperCase() === 'TRUE';
+
+    // Parse badges from title and observations
+    const { cleanTitle, badges: titleBadges } = this.parseCourseTitle(rawTitle);
+    const obsBadges = this.parseObservationBadges(rawObs);
+    const badges = [...titleBadges, ...obsBadges];
+
+    // STABLE COURSE ID RESOLUTION:
+    // Match against initial canonical course first to guarantee IDs never shift when rows are added
+    const matchedInitial = this.matchInitialCourse(cleanTitle, rawTitle);
+    const id = matchedInitial ? matchedInitial.id : `c_${counter.toString().padStart(3, '0')}`;
+
+    // Questions count and exam weight
+    const questions = resolveCourseQuestions({ title: cleanTitle, rawTitle });
+    const weight = Number(((questions / 2227) * 100).toFixed(2));
+
+    // Inherit submodule from canonical data if empty
+    let finalSubmodule = subVal;
+    if (!finalSubmodule && matchedInitial?.submodule) {
+      finalSubmodule = matchedInitial.submodule;
+    }
+
+    const course = {
+      id,
+      module: currentModule,
+      submodule: this.normalizeSubmodule(finalSubmodule, currentModule),
+      prof: currentProf,
+      rawTitle,
+      title: cleanTitle,
+      observation: rawObs,
+      badges,
+      facultyStatus,
+      questions,
+      weight,
+      sheetC1,
+      sheetC2
+    };
+
+    return { course, currentModule, currentSubModule, currentProf };
+  },
+
+  /**
    * Primary fetch method: JSONP via script tag (Works on file:// and http:// with NO CORS ERRORS!)
    */
   fetchViaGvizJsonp(sheetId, gid = '0') {
@@ -289,46 +576,7 @@ export const Sync = {
     }
 
     const rows = data.table.rows;
-    let sheetUpdateDate = 'N/A';
-
-    // Dynamically look for date in Row 0
-    if (rows[0] && rows[0].c) {
-      for (const cell of rows[0].c) {
-        if (cell && cell.v) {
-          const m = String(cell.v).match(/\d{1,2}\/\d{1,2}\/\d{4}/);
-          if (m) {
-            sheetUpdateDate = m[0];
-            break;
-          }
-        }
-      }
-    }
-
-    // Dynamic column detection in Row 1
-    let colModule = 0;
-    let colSub = 1;
-    let colProf = 3;
-    let colCourse = 4;
-    let colObs = -1;
-    let colStatus = 5;
-    let colC1 = 6;
-    let colC2 = 7;
-
-    if (rows[1] && rows[1].c) {
-      rows[1].c.forEach((cell, idx) => {
-        if (!cell || !cell.v) return;
-        const val = String(cell.v).trim().toLowerCase();
-        if (val.includes('prof')) colProf = idx;
-        if (val.includes('cours')) colCourse = idx;
-        if (val.includes('observation')) colObs = idx;
-        if (val === 'cm' || val.includes('statut') || val.includes('status')) colStatus = idx;
-      });
-      if (colObs !== -1) {
-        colStatus = colObs + 1;
-        colC1 = colStatus + 1;
-        colC2 = colC1 + 1;
-      }
-    }
+    const mapping = this.detectColumnMapping(rows);
 
     const courses = [];
     let currentModule = '';
@@ -336,103 +584,24 @@ export const Sync = {
     let currentProf = '';
     let counter = 1;
 
-    for (let r = 3; r < rows.length; r++) {
+    for (let r = mapping.dataStartRow; r < rows.length; r++) {
       const row = rows[r];
       if (!row || !row.c) continue;
 
-      const c = row.c;
+      const res = this.extractCourseFromRow(row, mapping, currentModule, currentSubModule, currentProf, counter);
+      currentModule = res.currentModule;
+      currentSubModule = res.currentSubModule;
+      currentProf = res.currentProf;
 
-      // Module in Col 0
-      if (c[colModule] && c[colModule].v) {
-        const val0 = String(c[colModule].v).trim();
-        if (val0 && val0 !== currentModule) {
-          currentModule = val0;
-          currentSubModule = '';
-        }
+      if (res.course) {
+        courses.push(res.course);
+        counter++;
       }
-
-      // Submodule in Col 1
-      let subModule = '';
-      if (c[colSub] && c[colSub].v) {
-        subModule = String(c[colSub].v).trim();
-        if (subModule) currentSubModule = subModule;
-      }
-      if (!subModule && currentSubModule) {
-        subModule = currentSubModule;
-      }
-
-      // Prof in colProf
-      if (c[colProf] && c[colProf].v) {
-        const val3 = String(c[colProf].v).trim();
-        if (val3) currentProf = val3;
-      }
-
-      // Course title in colCourse
-      const rawTitle = (c[colCourse] && c[colCourse].v) ? String(c[colCourse].v).trim() : '';
-      if (!rawTitle || rawTitle === '...' || rawTitle.toLowerCase() === 'cours') {
-        continue;
-      }
-
-      // Observation in colObs
-      const rawObs = (colObs !== -1 && c[colObs] && c[colObs].v) ? String(c[colObs].v).trim() : '';
-
-      // Faculty status in colStatus
-      const rawStatus = (c[colStatus] && c[colStatus].v) ? String(c[colStatus].v).trim() : '';
-
-      // C1 & C2
-      const c1Val = c[colC1] ? c[colC1].v : false;
-      const c1 = String(c1Val).toUpperCase() === 'TRUE' || c1Val === true;
-
-      const c2Val = c[colC2] ? c[colC2].v : false;
-      const c2 = String(c2Val).toUpperCase() === 'TRUE' || c2Val === true;
-
-      const { cleanTitle, badges: titleBadges } = this.parseCourseTitle(rawTitle);
-      const obsBadges = this.parseObservationBadges(rawObs);
-      const badges = [...titleBadges, ...obsBadges];
-
-      let facultyStatus = 'Non effectué';
-      const sLower = rawStatus.toLowerCase();
-      if (sLower.includes('effectu')) {
-        facultyStatus = 'Effectué';
-      } else if (sLower.includes('cours')) {
-        facultyStatus = 'En cours';
-      } else if (sLower.includes('hors')) {
-        facultyStatus = 'Hors programme';
-      }
-
-      const id = `c_${counter.toString().padStart(3, '0')}`;
-      counter++;
-
-      // Canonical question resolver
-      const questions = resolveCourseQuestions({ title: cleanTitle, rawTitle });
-      const weight = Number(((questions / 2227) * 100).toFixed(2));
-
-      // Inherit submodule from initialData if missing
-      const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
-      if (initCourse && !subModule && initCourse.submodule) {
-        subModule = initCourse.submodule;
-      }
-
-      courses.push({
-        id,
-        module: currentModule,
-        submodule: this.normalizeSubmodule(subModule, currentModule),
-        prof: currentProf,
-        rawTitle,
-        title: cleanTitle,
-        observation: rawObs,
-        badges,
-        facultyStatus,
-        questions,
-        weight,
-        sheetC1: c1,
-        sheetC2: c2
-      });
     }
 
     return {
       courses,
-      sheetUpdateDate,
+      sheetUpdateDate: mapping.sheetUpdateDate,
       syncedAt: new Date().toISOString()
     };
   },
@@ -467,6 +636,9 @@ export const Sync = {
     return this.processSheetCSV(csvText);
   },
 
+  /**
+   * Robust CSV Parser with full multi-line cell support
+   */
   parseCSV(text) {
     const rows = [];
     let currentRow = [];
@@ -512,47 +684,16 @@ export const Sync = {
     return rows;
   },
 
+  /**
+   * Process raw CSV table with identical heuristic mapping
+   */
   processSheetCSV(csvText) {
     const rows = this.parseCSV(csvText);
     if (!rows || rows.length < 3) {
-      throw new Error('Feuille vide');
+      throw new Error('Feuille CSV vide ou invalide');
     }
 
-    let sheetUpdateDate = 'N/A';
-    if (rows[0]) {
-      for (const cell of rows[0]) {
-        const m = cell.match(/\d{1,2}\/\d{1,2}\/\d{4}/);
-        if (m) {
-          sheetUpdateDate = m[0];
-          break;
-        }
-      }
-    }
-
-    // Dynamic column detection in Row 1
-    let colModule = 0;
-    let colSub = 1;
-    let colProf = 3;
-    let colCourse = 4;
-    let colObs = -1;
-    let colStatus = 5;
-    let colC1 = 6;
-    let colC2 = 7;
-
-    if (rows[1]) {
-      rows[1].forEach((h, idx) => {
-        const hl = h.toLowerCase();
-        if (hl.includes('prof')) colProf = idx;
-        if (hl.includes('cours')) colCourse = idx;
-        if (hl.includes('observation')) colObs = idx;
-        if (hl === 'cm' || hl.includes('statut') || hl.includes('status')) colStatus = idx;
-      });
-      if (colObs !== -1) {
-        colStatus = colObs + 1;
-        colC1 = colStatus + 1;
-        colC2 = colC1 + 1;
-      }
-    }
+    const mapping = this.detectColumnMapping(rows);
 
     const courses = [];
     let currentModule = '';
@@ -560,87 +701,24 @@ export const Sync = {
     let currentProf = '';
     let counter = 1;
 
-    for (let r = 3; r < rows.length; r++) {
+    for (let r = mapping.dataStartRow; r < rows.length; r++) {
       const row = rows[r];
       if (!row) continue;
 
-      if (row[colModule] && row[colModule].trim()) {
-        const val0 = row[colModule].trim();
-        if (val0 && val0 !== currentModule) {
-          currentModule = val0;
-          currentSubModule = '';
-        }
+      const res = this.extractCourseFromRow(row, mapping, currentModule, currentSubModule, currentProf, counter);
+      currentModule = res.currentModule;
+      currentSubModule = res.currentSubModule;
+      currentProf = res.currentProf;
+
+      if (res.course) {
+        courses.push(res.course);
+        counter++;
       }
-
-      let subModule = (row[colSub] || '').trim();
-      if (subModule) {
-        currentSubModule = subModule;
-      } else if (currentSubModule) {
-        subModule = currentSubModule;
-      }
-
-      if (row[colProf] && row[colProf].trim()) {
-        currentProf = row[colProf].trim();
-      }
-
-      const rawTitle = (row[colCourse] || '').trim();
-      if (!rawTitle || rawTitle === '...' || rawTitle.toLowerCase() === 'cours') {
-        continue;
-      }
-
-      const rawObs = colObs !== -1 ? (row[colObs] || '').trim() : '';
-      const rawStatus = (row[colStatus] || '').trim();
-
-      const c1 = (row[colC1] || '').trim().toUpperCase() === 'TRUE';
-      const c2 = (row[colC2] || '').trim().toUpperCase() === 'TRUE';
-
-      const { cleanTitle, badges: titleBadges } = this.parseCourseTitle(rawTitle);
-      const obsBadges = this.parseObservationBadges(rawObs);
-      const badges = [...titleBadges, ...obsBadges];
-
-      let facultyStatus = 'Non effectué';
-      const sLower = rawStatus.toLowerCase();
-      if (sLower.includes('effectu')) {
-        facultyStatus = 'Effectué';
-      } else if (sLower.includes('cours')) {
-        facultyStatus = 'En cours';
-      } else if (sLower.includes('hors')) {
-        facultyStatus = 'Hors programme';
-      }
-
-      const id = `c_${counter.toString().padStart(3, '0')}`;
-      counter++;
-
-      // Canonical question resolver
-      const questions = resolveCourseQuestions({ title: cleanTitle, rawTitle });
-      const weight = Number(((questions / 2227) * 100).toFixed(2));
-
-      // Inherit submodule from initialData if missing
-      const initCourse = this.matchInitialCourse(cleanTitle, rawTitle, id);
-      if (initCourse && !subModule && initCourse.submodule) {
-        subModule = initCourse.submodule;
-      }
-
-      courses.push({
-        id,
-        module: currentModule,
-        submodule: this.normalizeSubmodule(subModule, currentModule),
-        prof: currentProf,
-        rawTitle,
-        title: cleanTitle,
-        observation: rawObs,
-        badges,
-        facultyStatus,
-        questions,
-        weight,
-        sheetC1: c1,
-        sheetC2: c2
-      });
     }
 
     return {
       courses,
-      sheetUpdateDate,
+      sheetUpdateDate: mapping.sheetUpdateDate,
       syncedAt: new Date().toISOString()
     };
   },
@@ -660,7 +738,7 @@ export const Sync = {
     try {
       console.log('[Sync] Trying Tier 1: Google Visualization JSONP...');
       const data = await this.fetchViaGvizJsonp(sheetId, gid);
-      console.log('[Sync] JSONP successful! Courses count:', data.courses.length);
+      console.log('[Sync] JSONP successful! Extracted courses count:', data.courses.length);
       return { success: true, data };
     } catch (errJsonp) {
       console.warn('[Sync] JSONP failed, trying Tier 2 direct CSV:', errJsonp.message);
@@ -669,7 +747,7 @@ export const Sync = {
     // Tier 2: Try direct CSV fetch with normalized export URL
     try {
       const data = await this.fetchDirectCsv(csvExportUrl);
-      console.log('[Sync] Direct CSV fetch successful!');
+      console.log('[Sync] Direct CSV fetch successful! Extracted courses count:', data.courses.length);
       return { success: true, data };
     } catch (errDirect) {
       console.warn('[Sync] Direct CSV failed, trying Tier 3 proxy:', errDirect.message);
@@ -678,7 +756,7 @@ export const Sync = {
     // Tier 3: Try CORS proxy with normalized export URL
     try {
       const data = await this.fetchViaProxy(csvExportUrl);
-      console.log('[Sync] Proxy fetch successful!');
+      console.log('[Sync] Proxy fetch successful! Extracted courses count:', data.courses.length);
       return { success: true, data };
     } catch (errProxy) {
       console.warn('[Sync] All remote sync tiers failed:', errProxy.message);
@@ -692,6 +770,9 @@ export const Sync = {
     };
   },
 
+  /**
+   * Difference detector for notifying status changes
+   */
   findDifferences(oldCourses, newCourses) {
     if (!oldCourses || !oldCourses.length) return [];
     const oldMap = new Map();

@@ -1005,14 +1005,21 @@ function getFilteredCourses() {
     if (state.filters.facStatus && course.facultyStatus !== state.filters.facStatus) return false;
     if (state.filters.prof && course.prof !== state.filters.prof) return false;
     if (state.filters.observation) {
-      const oType = state.filters.observation;
+      const oType = state.filters.observation.toLowerCase();
       const oLower = (course.observation || '').toLowerCase();
+      const badges = course.badges || [];
       let match = false;
-      if (oType === 'drive' && (oLower.includes('drive promo') || oLower.includes('dispo drive'))) match = true;
-      else if (oType === 'new' && oLower.includes('nouveau cours')) match = true;
-      else if (oType === 'unchanged' && (oLower.includes('inchang') || oLower.includes('inchange'))) match = true;
-      else if (oType === 'changed' && ((oLower.includes('chang') && !oLower.includes('inchang')) || oLower.includes('modifications'))) match = true;
-      else if (oType === 'prof' && (oLower.includes('prof') || oLower.includes('enseigné l\'année dernière'))) match = true;
+      if (oType === 'drive') {
+        match = oLower.includes('drive') || badges.some(b => b.category === 'drive' || b.type === 'drive');
+      } else if (oType === 'new') {
+        match = oLower.includes('nouveau') || badges.some(b => b.category === 'new' || b.type === 'new_course' || b.type === 'new');
+      } else if (oType === 'unchanged') {
+        match = oLower.includes('inchang') || oLower.includes('inchange') || badges.some(b => b.category === 'unchanged' || b.type === 'unchanged');
+      } else if (oType === 'changed') {
+        match = ((oLower.includes('chang') && !oLower.includes('inchang')) || oLower.includes('modif') || oLower.includes('schéma') || oLower.includes('schema') || badges.some(b => b.category === 'changed' || b.type === 'changed_course'));
+      } else if (oType === 'prof') {
+        match = (oLower.includes('prof') || oLower.includes('enseign') || badges.some(b => b.category === 'prof' || b.type === 'prof_change'));
+      }
       if (!match) return false;
     }
 
@@ -1726,6 +1733,21 @@ function renderCardsView(courses) {
  * Setup Click Actions for Rows & Cards
  */
 function setupActionListeners() {
+  document.querySelectorAll('.obs-badge[data-obs-cat]').forEach(badge => {
+    badge.onclick = (e) => {
+      e.stopPropagation();
+      const cat = badge.getAttribute('data-obs-cat');
+      if (cat) {
+        state.filters.observation = state.filters.observation === cat ? '' : cat;
+        if (elements.filterObservation) elements.filterObservation.value = state.filters.observation;
+        renderCoursesView();
+        refreshIcons();
+        if (state.filters.observation) {
+          showToast(`Filtre observation activé : ${badge.textContent.trim()}`, 'info');
+        }
+      }
+    };
+  });
   // Faculty Status Select Dropdowns
   document.querySelectorAll('.change-fac-status-select').forEach(select => {
     select.onchange = (e) => {
@@ -2127,6 +2149,14 @@ function setupEventListeners() {
     renderCoursesView();
     refreshIcons();
   };
+
+  if (elements.filterObservation) {
+    elements.filterObservation.onchange = (e) => {
+      state.filters.observation = e.target.value;
+      renderCoursesView();
+      refreshIcons();
+    };
+  }
 
   elements.btnResetFilters.onclick = resetAllFilters;
   if (elements.btnToggleWeightSort) {
