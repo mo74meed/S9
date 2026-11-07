@@ -264,3 +264,129 @@ body #statFacBar{background:var(--s-ok)}
 html.dark body #statMyBar{background:var(--brand)}
 body #moduleCardsContainer>*{background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1);transition:border-color .15s,transform .2s var(--ease)}
 body #moduleCardsContainer>*:hover{border-color:var(--brand);transform:translateY(-2px)}
+
+/* ============ v7 — Exams page: module hues, calendar, agenda ============ */
+/* module tag (set by the script in index.html) drives --mod everywhere on this page */
+#examsPageView{--mod:var(--brand);--mod-ink:var(--brand);--mod-pill:var(--brand);--mod-deep:var(--hero)}
+[data-mod="gyneco"]{--mod:var(--m-gyneco);--mod-ink:var(--m-gyneco-ink);--mod-pill:var(--pill-gyneco);--mod-deep:#4a1238}
+[data-mod="orl"]{--mod:var(--m-orl);--mod-ink:var(--m-orl-ink);--mod-pill:var(--pill-orl);--mod-deep:#4a2a05}
+[data-mod="sante"]{--mod:var(--m-sante);--mod-ink:var(--m-sante-ink);--mod-pill:var(--pill-sante);--mod-deep:#07382a}
+[data-mod="urgences"]{--mod:var(--m-urgences);--mod-ink:var(--m-urgences-ink);--mod-pill:var(--pill-urgences);--mod-deep:#0f2a6b}
+
+/* --- Décompte: hero takes the next exam's hue, the four cards each wear their own --- */
+body #examSectionCountdown>div:first-child[data-mod]{background-color:var(--mod-deep);
+  background-image:none;
+  border-color:color-mix(in srgb,var(--mod) 45%,transparent)}
+body #examSectionCountdown>div:first-child[data-mod] #heroSemesterProgressBar{background:var(--mod);filter:brightness(1.25) saturate(1.1)}
+body #examCardsGrid>*{--m:var(--mod,var(--brand));position:relative;overflow:hidden;border-radius:16px;background-color:var(--surface);
+  background-image:none;background-color:color-mix(in srgb,var(--m) 5%,var(--surface));
+  border:1px solid color-mix(in srgb,var(--m) 34%,var(--line));box-shadow:var(--sh-1);
+  transition:transform .25s var(--ease),border-color .2s,box-shadow .25s var(--ease)}
+body #examCardsGrid>*:hover{border-color:var(--m);box-shadow:var(--sh-2)}
+body #examCardsGrid>* :is(h3,h4,h5,[class*="font-black"]){color:var(--mod-ink,var(--ink))}
+
+/* ============ v10 — Agenda: editorial month grid (hairlines, one event chip, one study lane) ============ */
+body #examSectionCalendar>div:first-child{background:transparent;border:0;padding:0 0 .75rem;border-radius:0}
+body #examSectionCalendar>div:first-child>div:first-child>div:first-child{display:none}
+body #calendarMonthTitle[class]{font-size:clamp(1.6rem,1.3rem + 1.2vw,2.25rem);line-height:1.05;letter-spacing:-.02em}
+.cal-legend{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;list-style:none;margin:0;padding:0;font-size:.8125rem;font-weight:500;color:var(--muted)}
+.cal-legend li{display:inline-flex;align-items:center;gap:.5rem}
+.lg{display:inline-block;flex:none}
+.lg-exam{width:1.1rem;height:.7rem;border-radius:3px;background:var(--brand)}
+.lg-rev{width:1.1rem;height:4px;border-radius:2px;background:var(--brand);opacity:.55}
+.lg-hol{width:.55rem;height:.55rem;border-radius:9999px;background:var(--s-off)}
+
+body #examSectionCalendar div:has(>#calendarDaysGrid){background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-1);padding:0;overflow:hidden}
+body #examSectionCalendar div:has(>#calendarDaysGrid)>.grid-cols-7{margin:0;padding:.7rem 0;gap:0;background:var(--surface-2);border-bottom:1px solid var(--line)}
+body #examSectionCalendar div:has(>#calendarDaysGrid)>.grid-cols-7>div{font-size:.75rem;font-weight:600;letter-spacing:.06em;color:var(--muted);padding:0}
+body #calendarDaysGrid{gap:0}
+
+/* cell base: hairline grid, no tiles, no radius, no glow */
+body #calendarDaysGrid>.calendar-day-cell{position:relative;display:flex;flex-direction:column;gap:.4rem;min-height:68px;padding:.45rem .5rem;
+  border:0;border-top:1px solid var(--line);border-left:1px solid var(--line);border-radius:0;background:var(--surface);background-image:none;
+  box-shadow:none;outline:0;transform:none;font-weight:500;color:var(--ink);cursor:pointer;transition:background-color .15s}
+@media(min-width:640px){body #calendarDaysGrid>.calendar-day-cell{min-height:112px;padding:.6rem .7rem}}
+body #calendarDaysGrid>.calendar-day-cell:nth-child(7n+1){border-left:0}
+body #calendarDaysGrid>.calendar-day-cell:nth-child(-n+7){border-top:0}
+body #calendarDaysGrid>.calendar-day-cell:nth-child(7n),body #calendarDaysGrid>.calendar-day-cell:nth-child(7n+6){background:color-mix(in srgb,var(--surface-2) 55%,var(--surface))}
+body #calendarDaysGrid>.calendar-day-cell:hover{background:var(--surface-2);transform:none;box-shadow:none}
+body #calendarDaysGrid>.calendar-day-cell.is-outside{background:var(--surface-2);opacity:1;pointer-events:none;color:var(--subtle)}
+body #calendarDaysGrid>.calendar-day-cell.is-outside span{opacity:.55;font-weight:500;font-size:.8125rem}
+/* day number: small sans; selection = filled circle */
+body .calendar-day-cell:not(.is-outside)>div:first-child>span:first-child{display:inline-flex;align-items:center;justify-content:center;min-width:1.65rem;height:1.65rem;
+  margin:-.2rem 0 0 -.3rem;padding:0 .3rem;border-radius:9999px;font:600 .8125rem/1 var(--font-sans);font-variant-numeric:tabular-nums;color:var(--ink)}
+body .calendar-day-cell:not(.is-outside)>div:first-child>span:nth-child(2){display:none}
+body #calendarDaysGrid>.calendar-day-cell.is-selected{background:color-mix(in srgb,var(--brand) 5%,var(--surface));outline:0;box-shadow:none}
+body #calendarDaysGrid>.calendar-day-cell.is-selected>div:first-child>span:first-child{background:var(--brand);color:var(--on-brand)}
+body #calendarDaysGrid>.calendar-day-cell:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+/* exam = one solid event chip in the module colour */
+body #calendarDaysGrid>.calendar-day-cell.is-exam{border-width:0;border-top-width:1px;border-left-width:1px;color:var(--ink)}
+body #calendarDaysGrid>.calendar-day-cell.is-exam:nth-child(7n+1){border-left-width:0}
+body .calendar-day-cell.is-exam>div:nth-child(2){margin:0;padding:.35rem .5rem;border-radius:6px;background:var(--mod-pill)}
+body .calendar-day-cell.is-exam>div:nth-child(2) :is(div,span){color:#fff;font-size:.75rem;line-height:1.25;white-space:normal;overflow:visible;text-overflow:clip}
+body .calendar-day-cell.is-exam>div:nth-child(2)>div:first-child{font-weight:700}
+body .calendar-day-cell.is-exam>div:nth-child(2)>div+div{font-weight:500;opacity:.92;font-variant-numeric:tabular-nums}
+/* revision = a thin study lane in the colour of the exam it leads to; label kept for screen readers only */
+body #calendarDaysGrid>.calendar-day-cell.is-revision:not([data-mod]){--mod:var(--m-orl)}
+body #calendarDaysGrid>.calendar-day-cell.is-revision{box-shadow:inset 0 -4px 0 color-mix(in srgb,var(--mod) 55%,transparent)}
+body #calendarDaysGrid>.calendar-day-cell.is-exam{box-shadow:inset 0 -4px 0 var(--mod)}
+body .calendar-day-cell.is-revision>div:nth-child(2){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* holiday = quiet red label, no pattern */
+body #calendarDaysGrid>.calendar-day-cell.is-holiday{background:color-mix(in srgb,var(--s-off) 5%,var(--surface))}
+body .calendar-day-cell.is-holiday>div:first-child>span:first-child{color:var(--s-off)}
+body .calendar-day-cell.is-holiday>div:nth-child(2)>span{color:var(--s-off);font-size:.75rem;font-weight:600;line-height:1.25;white-space:normal;overflow:visible;text-overflow:clip}
+
+/* --- selected day: flat card, colour only on the tile and the button --- */
+body #calendarDayDetail{background-color:var(--surface);background-image:none;border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-1)}
+body #calendarDayDetail #detailDayBadge{border-radius:10px;box-shadow:none}
+body #detailDayNumber{font-family:var(--font-display);font-size:1.25rem;line-height:1}
+body #calendarDayDetail[data-mod] #detailDayBadge{background:var(--mod-pill);color:#fff}
+body #calendarDayDetail[data-mod] #detailDayActionContainer button{background:var(--mod-pill);color:#fff;border-radius:10px}
+body #calendarDayDetail[data-mod] #detailDayDesc strong{color:var(--mod-ink)}
+
+/* --- agenda + official table --- */
+body .timeline-item{border-radius:12px;box-shadow:none;border-color:var(--line);background-color:var(--surface);background-image:none}
+body .timeline-item[data-mod]>div.relative{background:var(--mod-pill);color:#fff;border-radius:10px;box-shadow:none}
+body .timeline-item[data-mod] span.border.rounded-full:not(.bg-slate-900){background:color-mix(in srgb,var(--mod) 14%,var(--surface));color:var(--mod-ink);border-color:color-mix(in srgb,var(--mod) 38%,transparent)}
+body .timeline-item[data-mod] .bg-indigo-600{background:var(--mod)}
+body .timeline-stem{background:var(--line)}
+body #officialScheduleTbody tr[data-mod]:hover{background:color-mix(in srgb,var(--mod) 7%,transparent)}
+body #officialScheduleTbody tr[data-mod]>td:nth-child(3){color:var(--mod-ink)}
+body #officialScheduleTbody tr[data-mod]>td:first-child{font-weight:700}
+
+/* ============ v8 — Course cards: one signal per layer, quiet by default ============ */
+/* module = soft hue at the left edge + the badge; state = check, pill and (for catch-up) an amber outline. No stacked tints. */
+body .course-row{background-color:var(--surface);background-image:linear-gradient(90deg,color-mix(in srgb,var(--mod) 10%,transparent),transparent 170px);
+  border:1px solid var(--line);border-radius:14px;box-shadow:none}
+body .course-row:hover{border-color:var(--line-2);box-shadow:var(--sh-1)}
+body .course-row.is-done{background-color:var(--surface);border-color:var(--line)}
+body .course-row.is-catchup{background-color:var(--surface);border:1.5px solid color-mix(in srgb,var(--m-orl) 62%,var(--line));
+  box-shadow:0 8px 16px -12px color-mix(in srgb,var(--m-orl) 75%,transparent)}
+/* studied: title steps back instead of being struck through in black */
+body .course-row .line-through{color:var(--subtle);text-decoration-thickness:1px;text-decoration-color:var(--line-2)}
+/* off-programme: recedes, no alarm red */
+body .status-hors-programme{--c:var(--subtle)}
+body .course-row:has(.status-hors-programme){background-image:none}
+body .course-row:has(.status-hors-programme) :is(h3,h4,.font-bold,.font-semibold,.font-extrabold):is(.text-sm,.text-base){color:var(--muted)}
+/* chips: only what needs attention. "inchangé" and "drive" live in the note line already. */
+body .course-row .title-badge[data-kind="unchanged"],body .course-row .title-badge[data-kind="drive"]{display:none}
+body .title-badge[data-kind="catchup"]{--c:var(--m-orl-ink);font-weight:700}
+body .title-badge[data-kind="new"]{--c:var(--o-new)}
+body .title-badge[data-kind="changed"]{--c:var(--o-changed)}
+body .title-badge[data-kind="prof"]{--c:var(--o-prof)}
+/* note: plain muted text next to the professor, not a second pill */
+body .course-obs-note{background:none;border:0;padding:0;gap:.35rem;color:var(--subtle);font-size:.8125rem;font-weight:500}
+body .course-obs-note:hover{background:none;color:var(--muted)}
+/* layers: same size, same rhythm */
+body .couche-chip{min-width:2.25rem;min-height:2rem;display:inline-flex;align-items:center;justify-content:center;border-radius:8px}
+
+/* ---- Décompte cards: every inner part wears the module hue (markup from renderExamCards) ---- */
+body #examCardsGrid>[data-mod] [id^="examCardCountdown_"]:not(.bg-slate-100){background:color-mix(in srgb,var(--mod) 16%,var(--surface));color:var(--mod-ink);border-color:color-mix(in srgb,var(--mod) 42%,transparent)}
+body #examCardsGrid>[data-mod] .bg-indigo-600{background:var(--mod)}
+body #examCardsGrid>[data-mod] span.text-indigo-600{color:var(--mod-ink)}
+body #examCardsGrid>[data-mod] .btn-filter-exam-module{background:var(--mod-pill);color:#fff;border-radius:10px}
+body #examCardsGrid>[data-mod] .btn-filter-exam-module:hover{filter:brightness(1.08)}
+body #examCardsGrid>[data-mod] .p-2\.5{background:color-mix(in srgb,var(--mod) 7%,var(--surface));border-color:color-mix(in srgb,var(--mod) 22%,transparent)}
+body #examCardsGrid>[data-mod] .bg-slate-200{background:color-mix(in srgb,var(--mod) 20%,var(--surface-2))}
+body #examCardsGrid>[data-mod] h5 i{color:var(--mod-ink)}
+body #examCardsGrid>[data-mod] .border-t{border-color:color-mix(in srgb,var(--mod) 20%,var(--line))}

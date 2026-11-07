@@ -2827,7 +2827,7 @@ function updateExamsCountdown() {
     if (elements.tickerCountdownBadge) elements.tickerCountdownBadge.textContent = 'En cours';
     if (elements.tickerNextExamName) elements.tickerNextExamName.textContent = nextExam.shortTitle;
     if (elements.heroExamStatusLabel) elements.heroExamStatusLabel.textContent = 'Épreuve en cours !';
-    if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title;
+    if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title; setHeroModule(nextExam);
     if (elements.cdDays) elements.cdDays.textContent = '0';
     if (elements.cdHours) elements.cdHours.textContent = '00';
     if (elements.cdMinutes) elements.cdMinutes.textContent = '00';
@@ -2859,7 +2859,7 @@ function updateExamsCountdown() {
   if (elements.heroExamBadgeDate) {
     elements.heroExamBadgeDate.innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i><span>${nextExam.dayName} ${String(nextExam.dayNumber).padStart(2, '0')} Janvier ${config.year} • ${nextExam.startTime.replace(':', 'h')} - ${nextExam.endTime.replace(':', 'h')}</span>`;
   }
-  if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title;
+  if (elements.heroExamTitle) elements.heroExamTitle.textContent = nextExam.title; setHeroModule(nextExam);
   if (elements.heroExamSubtitle) {
     const meta = MODULES_META[nextExam.moduleKey];
     elements.heroExamSubtitle.textContent = nextExam.periodNote + ' • ' + (meta?.coeffShort || '');
@@ -2896,6 +2896,26 @@ function updateExamsCountdown() {
   });
 }
 
+// Module token used to theme exam cards, calendar days and agenda rows (see css: [data-mod])
+function modToken(key) {
+  const k = String(key || '').toUpperCase();
+  if (k.indexOf('GYNECO') !== -1) return 'gyneco';
+  if (k.indexOf('ORL') !== -1 || k.indexOf('OPHTALMO') !== -1) return 'orl';
+  if (k.indexOf('SOCIALE') !== -1 || k.indexOf('SANT') !== -1) return 'sante';
+  if (k.indexOf('URGENCES') !== -1) return 'urgences';
+  return '';
+}
+function modAttr(key) {
+  const t = modToken(key);
+  return t ? ' data-mod="' + t + '"' : '';
+}
+function setHeroModule(exam) {
+  const hero = document.querySelector('#examSectionCountdown > div');
+  if (!hero) return;
+  const t = exam ? modToken(exam.moduleKey) : '';
+  if (t) hero.setAttribute('data-mod', t); else hero.removeAttribute('data-mod');
+}
+
 function renderExamCards() {
   if (!elements.examCardsGrid) return;
   const config = S9_EXAMS_CONFIG[selectedExamYear] || S9_EXAMS_CONFIG[2027];
@@ -2922,7 +2942,7 @@ function renderExamCards() {
     }
 
     return `
-      <div class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border ${exam.accentBorder} bg-white shadow-xs hover:shadow-md transition">
+      <div${modAttr(exam.moduleKey)} class="light-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between border ${exam.accentBorder} bg-white shadow-xs hover:shadow-md transition">
         <div class="space-y-3">
           <!-- Card Header: Number & Tag -->
           <div class="flex items-center justify-between gap-2">
@@ -3072,7 +3092,7 @@ function renderCalendarGrid() {
     }
 
     cellsHtml += `
-      <div class="${cellClasses}" data-day="${day}" style="cursor: pointer;">
+      <div class="${cellClasses}"${(() => { const _e = examMap[day] || (!isHoliday && isPeriod ? config.exams.find(e => e.dayNumber > day) : null); return _e ? modAttr(_e.moduleKey) : ''; })()} data-day="${day}" style="cursor: pointer;">
         ${cellContent}
       </div>
     `;
@@ -3121,7 +3141,7 @@ function selectCalendarDay(dayNumber) {
 
   const ex = config.exams.find(e => e.dayNumber === dayNumber);
   const hol = config.holidays ? config.holidays[dayNumber] : null;
-  const isPeriod = dayNumber >= config.periodStart && dayNumber <= config.periodEnd;
+  const isPeriod = dayNumber >= config.periodStart && dayNumber <= config.periodEnd; { const _m = ex || (!hol && isPeriod ? config.exams.find(e => e.dayNumber > dayNumber) : null); if (_m && modToken(_m.moduleKey)) elements.calendarDayDetail.setAttribute('data-mod', modToken(_m.moduleKey)); else elements.calendarDayDetail.removeAttribute('data-mod'); }
 
   // Compute day of week name
   const dayDate = new Date(year, config.month, dayNumber);
@@ -3254,7 +3274,7 @@ function renderOfficialScheduleTable() {
   ];
 
   elements.officialScheduleTbody.innerHTML = rows.map(r => `
-    <tr class="hover:bg-slate-50 transition ${r.isExam ? '' : 'bg-rose-50/30'}">
+    <tr${modAttr(r.moduleKey)} class="hover:bg-slate-50 transition ${r.isExam ? '' : 'bg-rose-50/30'}">
       <td class="px-4 py-3 font-bold text-slate-900 whitespace-nowrap">${r.date}</td>
       <td class="px-4 py-3 font-mono font-medium text-slate-700 whitespace-nowrap">${r.time}</td>
       <td class="px-4 py-3 font-extrabold ${r.isExam ? 'text-indigo-700' : 'text-rose-700'}">${r.module}</td>
@@ -3454,7 +3474,7 @@ function renderExamTimelineStream() {
     }
 
     return `
-      <div class="timeline-item relative flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 transition">
+      <div${modAttr(item.moduleKey)} class="timeline-item relative flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 transition">
         <div class="timeline-stem"></div>
         <div class="relative z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${item.iconBg} flex items-center justify-center shadow-xs flex-shrink-0">
           <i data-lucide="${item.icon}" class="w-4 h-4 sm:w-5 sm:h-5"></i>

@@ -68,7 +68,7 @@
   <script src="https://unpkg.com/lucide@0.469.0"></script>
   
   <!-- Light Theme Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=6.0">
+  <link rel="stylesheet" href="css/styles.css?v=10.0">
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10 transition-colors duration-200">
 
@@ -596,21 +596,12 @@
             </div>
           </div>
 
-          <!-- Legend Pills -->
-          <div class="flex flex-wrap items-center gap-2 text-xs">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-              Épreuve S9
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              Révision
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-semibold">
-              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-              Jour Férié
-            </span>
-          </div>
+          <!-- Legend -->
+          <ul class="cal-legend" aria-label="Légende du calendrier">
+            <li><span class="lg lg-exam" aria-hidden="true"></span>Épreuve</li>
+            <li><span class="lg lg-rev" aria-hidden="true"></span>Révision (couleur de la prochaine épreuve)</li>
+            <li><span class="lg lg-hol" aria-hidden="true"></span>Jour férié</li>
+          </ul>
         </div>
 
         <!-- Month Calendar Grid -->
@@ -952,6 +943,14 @@ function u(){var n=0;ids.forEach(function(i){var e=document.getElementById(i);if
 d.addEventListener('change',u);setInterval(u,800);u()})();
 function ic(){if(window.lucide&&lucide.createIcons)lucide.createIcons()}
 window.addEventListener('load',function(){ic();setTimeout(ic,500)});
+</script>
+<script>
+(function(){var host=document.getElementById('coursesMainView');if(!host)return;
+var K=[['catchup',/rattrap/],['new',/nouveau/],['changed',/modifi|schema/],['prof',/enseignant|prof\./],['unchanged',/inchang/],['drive',/drive/]];
+function n(t){return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+var p=0;function run(){p=0;var els=host.querySelectorAll('.title-badge:not([data-kind])');
+for(var i=0;i<els.length;i++){var t=n(els[i].textContent);for(var j=0;j<K.length;j++)if(K[j][1].test(t)){els[i].setAttribute('data-kind',K[j][0]);break}}}
+new MutationObserver(function(){if(!p){p=1;requestAnimationFrame(run)}}).observe(host,{childList:true,subtree:true});run()})();
 </script>
 </body>
 </html>
