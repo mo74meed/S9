@@ -2,10 +2,14 @@
 <html lang="fr" class="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Recensement S9 - Suivi des Cours & Avancement Médical</title>
   <meta name="description" content="Dashboard clair de suivi des cours S9 Médecine - Recensement faculté et avancement personnel">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Immediate Theme Initializer (Anti-Flicker) -->
   <script>
     (function() {
@@ -22,7 +26,7 @@
       } catch(e) {}
     })();
   </script>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%231d2955%27/%3E%3Cpath d=%27M16 8v16M8 16h16%27 stroke=%27%23fff%27 stroke-width=%273.5%27 stroke-linecap=%27round%27/%3E%3C/svg%3E"><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
   
   <!-- Tailwind CSS CDN (with dev notice filter) -->
   <script>
@@ -40,8 +44,9 @@
       darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            brand: {
+          fontFamily: { sans: ['Figtree','system-ui','sans-serif'], display: ['Newsreader','Georgia','serif'] },
+          colors: {"indigo": {"50": "#f1f3f9", "100": "#e3e7f3", "200": "#c5cfed", "300": "#9eb0e0", "400": "#6c87d0", "500": "#3d61c2", "600": "#314d9b", "700": "#273e7c", "800": "#1f3061", "900": "#17254a", "950": "#101932"}, "blue": {"50": "#f1f4f8", "100": "#e3e9f2", "200": "#c6d4eb", "300": "#a1b7de", "400": "#7092cd", "500": "#426fbd", "600": "#355997", "700": "#2a4779", "800": "#21385e", "900": "#192a48", "950": "#111d31"}, "sky": {"50": "#f2f6f8", "100": "#e4edf1", "200": "#c9dee9", "300": "#a4c8da", "400": "#75acc7", "500": "#4a91b5", "600": "#3b7491", "700": "#2f5d74", "800": "#25495b", "900": "#1c3745", "950": "#13262f"}, "cyan": {"50": "#f1f7f9", "100": "#e3eff2", "200": "#c6e4ec", "300": "#9fd2df", "400": "#6ebbcf", "500": "#40a6bf", "600": "#338599", "700": "#296a7a", "800": "#205360", "900": "#183f49", "950": "#112b32"}, "amber": {"50": "#faf6f0", "100": "#f5eee1", "200": "#f2e1c0", "300": "#e9cd95", "400": "#deb35e", "500": "#d49c2b", "600": "#a97c23", "700": "#87641c", "800": "#6a4e16", "900": "#503b10", "950": "#37280b"}, "emerald": {"50": "#f3f6f4", "100": "#e7eee8", "200": "#d0e1d3", "300": "#b1cdb6", "400": "#89b390", "500": "#639c6d", "600": "#507c57", "700": "#406446", "800": "#324e36", "900": "#263b29", "950": "#1a281c"}, "rose": {"50": "#f9f2f1", "100": "#f2e5e3", "200": "#eccbc6", "300": "#dfa89f", "400": "#cf7b6e", "500": "#bf5140", "600": "#994133", "700": "#7a3429", "800": "#602820", "900": "#491f18", "950": "#321511"}, "red": {"50": "#f9f2f1", "100": "#f2e5e3", "200": "#eccbc6", "300": "#dfa89f", "400": "#cf7b6e", "500": "#bf5140", "600": "#994133", "700": "#7a3429", "800": "#602820", "900": "#491f18", "950": "#321511"}, "violet": {"50": "#f7f3f6", "100": "#efe6ed", "200": "#e3cede", "300": "#d1adc8", "400": "#b983ac", "500": "#a35c91", "600": "#834974", "700": "#683b5d", "800": "#522e49", "900": "#3e2337", "950": "#2a1826"}, "purple": {"50": "#f7f3f6", "100": "#efe6ed", "200": "#e3cede", "300": "#d1adc8", "400": "#b983ac", "500": "#a35c91", "600": "#834974", "700": "#683b5d", "800": "#522e49", "900": "#3e2337", "950": "#2a1826"}, "brand": {"50": "#f1f3f9", "100": "#e3e7f3", "200": "#c5cfed", "300": "#9eb0e0", "400": "#6c87d0", "500": "#3d61c2", "600": "#314d9b", "700": "#273e7c", "800": "#1f3061", "900": "#17254a", "950": "#101932"}, "slate": {"50": "#f8f5ee", "100": "#f0ece2", "200": "#e3ded1", "300": "#cdc7b6", "400": "#8791ad", "500": "#5f6785", "600": "#3d4561", "700": "#2d3552", "800": "#1b2542", "900": "#121a2f", "950": "#0b1020"},
+            brandOld: {
               50: '#eef2ff',
               100: '#e0e7ff',
               200: '#c7d2fe',
@@ -60,13 +65,14 @@
   </script>
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.469.0"></script>
   
   <!-- Light Theme Styles -->
-  <link rel="stylesheet" href="css/styles.css?v=3.0">
+  <link rel="stylesheet" href="css/styles.css?v=5.0">
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white pb-20 md:pb-10 transition-colors duration-200">
 
+  <a class="skip-link" href="#main">Aller au contenu</a>
   <!-- TOP HEADER -->
   <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 shadow-xs transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
@@ -114,12 +120,12 @@
         </button>
 
                 <!-- Theme Mode Toggle (Dark / Light) -->
-        <button id="btnThemeToggle" type="button" title="Basculer entre Mode Sombre et Mode Clair" class="theme-toggle-btn p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 transition">
+        <button id="btnThemeToggle" aria-label="Basculer entre mode sombre et mode clair" type="button" title="Basculer entre Mode Sombre et Mode Clair" class="theme-toggle-btn p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 transition">
           <i data-lucide="moon" id="themeIcon" class="theme-toggle-icon w-4 h-4"></i>
         </button>
 
         <!-- Settings / Backup Modal Trigger -->
-        <button id="btnOpenSettings" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 transition">
+        <button id="btnOpenSettings" aria-label="Paramètres et sauvegarde" title="Paramètres et sauvegarde" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 active:scale-95 border border-slate-200 text-slate-600 dark:text-slate-300 hover:text-slate-900 transition">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -127,7 +133,7 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 pt-5 pb-12">
+  <main id="main" class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 pt-5 pb-12">
 
     <!-- COURSES MAIN VIEW -->
     <div id="coursesMainView" class="space-y-6">
@@ -138,7 +144,7 @@
         <i data-lucide="info" id="bannerIcon" class="w-5 h-5 flex-shrink-0"></i>
         <span id="bannerMessage">Information</span>
       </div>
-      <button id="btnCloseBanner" class="p-1 text-slate-400 hover:text-slate-700 rounded">
+      <button id="btnCloseBanner" aria-label="Fermer la notification" class="p-1 text-slate-400 hover:text-slate-700 rounded">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
     </div>
@@ -208,7 +214,7 @@
           <span class="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
             <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
             File Prioritaire : À Rattraper
-            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+            
           </span>
           <div class="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 font-bold text-xs">
             Priorité
@@ -239,14 +245,14 @@
 
         <div class="grid grid-cols-2 gap-3 pt-1">
           <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 border border-slate-200 dark:border-slate-700/80 text-center">
-            <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 1 (C1)</div>
+            <div class="text-[11px] text-slate-500 font-bold uppercase">C1 · Lecture</div>
             <div id="statC1Count" class="text-xl font-black text-slate-900 dark:text-white mt-0.5">0</div>
-            <div class="text-[10px] text-slate-400">cours révisés</div>
+            <div class="text-[10px] text-slate-400">1ʳᵉ lecture</div>
           </div>
           <div class="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 border border-slate-200 dark:border-slate-700/80 text-center">
-            <div class="text-[11px] text-slate-500 font-bold uppercase">Couche 2 (C2)</div>
+            <div class="text-[11px] text-slate-500 font-bold uppercase">C2 · Consolidation</div>
             <div id="statC2Count" class="text-xl font-black text-slate-900 dark:text-white mt-0.5">0</div>
-            <div class="text-[10px] text-slate-400">cours consolidés</div>
+            <div class="text-[10px] text-slate-400">consolidés</div>
           </div>
         </div>
       </div>
@@ -287,12 +293,12 @@
         <div class="relative flex-1">
           <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
           <input 
-            type="text" 
+            type="search" aria-label="Rechercher un cours" 
             id="searchInput" 
             placeholder="Rechercher un cours, un enseignant (Pr.), ou un mot-clé..."
             class="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-slate-850 transition"
           />
-          <button id="btnClearSearch" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1">
+          <button id="btnClearSearch" aria-label="Effacer la recherche" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1">
             <i data-lucide="x" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -314,9 +320,9 @@
         </div>
 
         <!-- Weight / Questions Filter Button -->
-        <button id="btnToggleWeightSort" type="button" class="weight-sort-btn flex-shrink-0" title="Afficher le nombre de questions et trier les leçons par poids d'examen">
+        <button id="btnToggleWeightSort" type="button" class="weight-sort-btn flex-shrink-0" title="Nombre de questions tombées par cours : trie les cours les plus rentables en premier">
           <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i>
-          <span>Poids Questions</span>
+          <span>Poids d'examen</span>
           <span id="weightFilterIndicator" class="text-[10px] px-1.5 py-0.2 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-extrabold border border-amber-200 dark:border-amber-800">2227 Qs</span>
         </button>
 
@@ -337,7 +343,8 @@
       </div>
 
       <!-- Secondary Filters (Module, Prof, Faculty Status) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+      <details id="advFilters" class="adv-filters"><summary>Filtres avancés <span id="advFilterCount" hidden>0</span></summary>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 text-xs">
         
         <!-- Module Dropdown -->
         <select id="filterModule" class="w-full lg:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs">
@@ -365,11 +372,11 @@
         <!-- Observation Dropdown -->
         <select id="filterObservation" class="w-full lg:w-auto bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-xs truncate">
           <option value="">Observations: Toutes</option>
-          <option value="drive">📁 Dispo Drive Promo (13)</option>
-          <option value="new">✨ Nouveaux cours (7)</option>
-          <option value="unchanged">✓ Cours inchangés (39)</option>
-          <option value="changed">✏️ Cours modifiés / Schémas (5)</option>
-          <option value="prof">👤 Changement Enseignant (9)</option>
+          <option value="drive">Dispo Drive Promo (13)</option>
+          <option value="new">Nouveaux cours (7)</option>
+          <option value="unchanged">Cours inchangés (39)</option>
+          <option value="changed">Cours modifiés / Schémas (5)</option>
+          <option value="prof">Changement Enseignant (9)</option>
         </select>
 
         <!-- Reset Button -->
@@ -377,7 +384,7 @@
           <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
           <span>Réinitialiser</span>
         </button>
-      </div>
+      </div></details>
 
     </section>
 
@@ -697,7 +704,7 @@
   </main>
 
   <!-- MOBILE BOTTOM DOCK -->
-  <nav class="md:hidden mobile-bottom-dock px-2 sm:px-4 py-1.5 dark:bg-slate-900/95 dark:border-slate-800">
+  <nav aria-label="Navigation principale" class="md:hidden mobile-bottom-dock px-2 sm:px-4 py-1.5 dark:bg-slate-900/95 dark:border-slate-800">
     <div class="flex items-center justify-around">
       <button id="btnMobileSyllabus" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-indigo-600 active" data-nav="syllabus">
         <i data-lucide="book-open" class="w-4 h-4"></i>
@@ -730,7 +737,7 @@
   </nav>
 
   <!-- NOTE MODAL (LIGHT THEMED) -->
-  <div id="noteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+  <div id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteModalTitle" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
     <div class="light-card rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-xl relative bg-white">
       <div class="flex items-start justify-between gap-4">
         <div>
@@ -738,7 +745,7 @@
           <h3 id="noteModalTitle" class="text-base font-bold text-slate-900 dark:text-white">Titre du cours</h3>
           <p id="noteModalProf" class="text-xs text-slate-500">Enseignant</p>
         </div>
-        <button id="btnCloseNoteModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <button id="btnCloseNoteModal" aria-label="Fermer" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -771,7 +778,7 @@
   </div>
 
   <!-- SETTINGS MODAL (LIGHT THEMED) -->
-  <div id="settingsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+  <div id="settingsModal" role="dialog" aria-modal="true" aria-label="Paramètres et synchronisation" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
     <div class="light-card rounded-2xl w-full max-w-xl p-6 space-y-5 shadow-xl relative bg-white max-h-[90vh] overflow-y-auto">
       
       <div class="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -784,7 +791,7 @@
             <p class="text-xs text-slate-500">Configuration de la synchronisation et de la sauvegarde</p>
           </div>
         </div>
-        <button id="btnCloseSettingsModal" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+        <button id="btnCloseSettingsModal" aria-label="Fermer" class="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -841,9 +848,9 @@
               Vue par Défaut Préférée
             </div>
             <select id="settingDefaultView" class="bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-2.5 py-1 text-xs text-slate-800 dark:text-slate-200 font-semibold focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer shadow-2xs">
-              <option value="syllabus">📚 Syllabus Organisé (Modules)</option>
-              <option value="table">📋 Tableau / Liste Compacte</option>
-              <option value="cards">🗂️ Grille de Cartes</option>
+              <option value="syllabus">Syllabus Organisé (Modules)</option>
+              <option value="table">Tableau / Liste Compacte</option>
+              <option value="cards">Grille de Cartes</option>
             </select>
           </div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400">La vue sélectionnée s'ouvre automatiquement au démarrage et reste active lors de la navigation.</div>
@@ -930,12 +937,19 @@
   </div>
 
   <!-- TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-20 md:bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-xl text-xs md:text-sm text-slate-800">
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-20 md:bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-xl text-xs md:text-sm text-slate-800">
     <i data-lucide="check-circle" id="toastIcon" class="w-5 h-5 text-emerald-600"></i>
     <span id="toastMessage">Notification</span>
   </div>
 
   <!-- BUNDLED SCRIPT (Double-click and HTTP compatible) -->
-  <script src="js/bundle.js?v=3.7"></script>
+  <script src="js/bundle.js?v=3.8"></script>
+<script>
+(function(){var d=document.getElementById('advFilters'),c=document.getElementById('advFilterCount');if(!d||!c)return;
+var ids=['filterModule','filterFacStatus','filterProf','filterObservation'];
+if(window.matchMedia('(min-width:1024px)').matches)d.open=true;
+function u(){var n=0;ids.forEach(function(i){var e=document.getElementById(i);if(e&&e.value)n++});c.textContent=n;c.hidden=!n}
+d.addEventListener('change',u);setInterval(u,800);u()})();
+</script>
 </body>
 </html>

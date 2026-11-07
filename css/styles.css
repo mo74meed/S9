@@ -1,887 +1,242 @@
-/* Design System for Recensement S9 Dashboard (Light & Dark Theme) */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
-:root {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --bg-main: #f8fafc;
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --card-border-hover: #cbd5e1;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
-  --brand-primary: #4f46e5;
-  --brand-hover: #4338ca;
-}
-
-html.dark {
-  --bg-main: #090d16;
-  --card-bg: #111827;
-  --card-border: #1f2937;
-  --card-border-hover: #374151;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-subtle: #64748b;
-  --brand-primary: #6366f1;
-  --brand-hover: #818cf8;
-}
-
-body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* Crisp Clean Panels */
-.light-panel {
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--card-border);
-}
-
-html.dark .light-panel {
-  background-color: rgba(17, 24, 39, 0.92);
-  border-color: #1f2937;
-}
-
-.light-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.light-card:hover {
-  border-color: var(--card-border-hover);
-  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
-}
-
-html.dark .light-card {
-  background-color: #111827;
-  border-color: #1f2937;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
-}
-
-html.dark .light-card:hover {
-  border-color: #374151;
-  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.45);
-}
-
-/* Course Row in Syllabus View */
-.course-row {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  transition: all 0.18s ease;
-  position: relative;
-}
-
-.course-row:hover {
-  border-color: #cbd5e1;
-  background-color: #fbfcfe;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.05);
-}
-
-.course-row.is-done {
-  background-color: #f8faff;
-  border-color: #c7d2fe;
-}
-
-.course-row.is-catchup {
-  background-color: #fffdf5;
-  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35);
-}
-
-html.dark .course-row {
-  background-color: #111827;
-  border-color: #1f2937;
-  color: #f1f5f9;
-}
-
-html.dark .course-row:hover {
-  border-color: #374151;
-  background-color: #162032;
-  box-shadow: 0 3px 10px -1px rgba(0, 0, 0, 0.4);
-}
-
-html.dark .course-row.is-done {
-  background-color: rgba(30, 27, 75, 0.35);
-  border-color: rgba(99, 102, 241, 0.35);
-}
-
-html.dark .course-row.is-catchup {
-  background-color: rgba(120, 53, 15, 0.2);
-  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.4);
-}
-
-/* ======================================================== */
-/* DISTINCT MODULE COLOR SIGNATURES (NEVER OVERRIDDEN)       */
-/* ======================================================== */
-
-/* 1. Left Color Indicator Bars on Course Rows */
-.course-row.mod-gyneco {
-  border-left: 4.5px solid #f43f5e !important;
-}
-.course-row.mod-ophtalmo {
-  border-left: 4.5px solid #06b6d4 !important;
-}
-.course-row.mod-orl {
-  border-left: 4.5px solid #f59e0b !important;
-}
-.course-row.mod-sante {
-  border-left: 4.5px solid #10b981 !important;
-}
-.course-row.mod-urgences {
-  border-left: 4.5px solid #3b82f6 !important;
-}
-
-/* 2. Submodule High-Contrast Pill Badges */
-.badge-submod {
-  font-size: 0.685rem;
-  font-weight: 800;
-  padding: 0.2rem 0.55rem;
-  border-radius: 0.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.badge-submod-gyneco {
-  background-color: #ffe4e6;
-  color: #be123c;
-  border: 1px solid #fecdd3;
-}
-html.dark .badge-submod-gyneco {
-  background-color: rgba(225, 29, 72, 0.25);
-  color: #fda4af;
-  border: 1px solid rgba(244, 63, 94, 0.5);
-}
-
-.badge-submod-ophtalmo {
-  background-color: #cffafe;
-  color: #0e7490;
-  border: 1px solid #a5f3fc;
-}
-html.dark .badge-submod-ophtalmo {
-  background-color: rgba(6, 182, 212, 0.25);
-  color: #67e8f9;
-  border: 1px solid rgba(6, 182, 212, 0.5);
-}
-
-.badge-submod-orl {
-  background-color: #fef3c7;
-  color: #b45309;
-  border: 1px solid #fde68a;
-}
-html.dark .badge-submod-orl {
-  background-color: rgba(245, 158, 11, 0.25);
-  color: #fcd34d;
-  border: 1px solid rgba(245, 158, 11, 0.5);
-}
-
-.badge-submod-sante {
-  background-color: #d1fae5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
-}
-html.dark .badge-submod-sante {
-  background-color: rgba(16, 185, 129, 0.25);
-  color: #6ee7b7;
-  border: 1px solid rgba(16, 185, 129, 0.5);
-}
-
-.badge-submod-urgences {
-  background-color: #dbeafe;
-  color: #1d4ed8;
-  border: 1px solid #bfdbfe;
-}
-html.dark .badge-submod-urgences {
-  background-color: rgba(59, 130, 246, 0.25);
-  color: #93c5fd;
-  border: 1px solid rgba(59, 130, 246, 0.5);
-}
-
-/* 3. Section Accordion Headers - Tinted per module */
-.mod-header-gyneco {
-  background: linear-gradient(to right, rgba(244, 63, 94, 0.1), rgba(255, 255, 255, 0.95));
-}
-html.dark .mod-header-gyneco {
-  background: linear-gradient(to right, rgba(244, 63, 94, 0.2), rgba(17, 24, 39, 0.95));
-}
-
-.mod-header-orl-ophtalmo {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(255, 255, 255, 0.95));
-}
-html.dark .mod-header-orl-ophtalmo {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(17, 24, 39, 0.95));
-}
-
-.mod-header-sante-publique {
-  background: linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(255, 255, 255, 0.95));
-}
-html.dark .mod-header-sante-publique {
-  background: linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(17, 24, 39, 0.95));
-}
-
-.mod-header-urgences-rea {
-  background: linear-gradient(to right, rgba(59, 130, 246, 0.1), rgba(255, 255, 255, 0.95));
-}
-html.dark .mod-header-urgences-rea {
-  background: linear-gradient(to right, rgba(59, 130, 246, 0.2), rgba(17, 24, 39, 0.95));
-}
-
-/* 4. Submodule Segmented Nav Pills */
-.submod-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border: 1px solid #e2e8f0;
-  background-color: #ffffff;
-  color: #334155;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-  user-select: none;
-  cursor: pointer;
-}
-
-html.dark .submod-nav-btn {
-  background-color: #111827;
-  border-color: #1f2937;
-  color: #cbd5e1;
-}
-
-.submod-nav-btn:hover {
-  border-color: #cbd5e1;
-  background-color: #f8fafc;
-  transform: translateY(-1px);
-}
-
-html.dark .submod-nav-btn:hover {
-  border-color: #374151;
-  background-color: #1e293b;
-}
-
-/* Active Nav Pill states with distinctive module illumination */
-.submod-nav-btn.active-all {
-  background-color: #4f46e5 !important;
-  color: #ffffff !important;
-  border-color: #4338ca !important;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
-}
-.submod-nav-btn.active-gyneco {
-  background-color: #f43f5e !important;
-  color: #ffffff !important;
-  border-color: #e11d48 !important;
-  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.35);
-}
-.submod-nav-btn.active-ophtalmo {
-  background-color: #06b6d4 !important;
-  color: #ffffff !important;
-  border-color: #0891b2 !important;
-  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
-}
-.submod-nav-btn.active-orl {
-  background-color: #f59e0b !important;
-  color: #ffffff !important;
-  border-color: #d97706 !important;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
-}
-.submod-nav-btn.active-sante {
-  background-color: #10b981 !important;
-  color: #ffffff !important;
-  border-color: #059669 !important;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
-}
-.submod-nav-btn.active-urgences {
-  background-color: #3b82f6 !important;
-  color: #ffffff !important;
-  border-color: #2563eb !important;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
-}
-
-/* 5. Submodule Dividers inside Accordion */
-.submod-divider-ophtalmo {
-  background: linear-gradient(to right, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0.02));
-  border-left: 3.5px solid #06b6d4;
-  border-radius: 0.75rem;
-}
-html.dark .submod-divider-ophtalmo {
-  background: linear-gradient(to right, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.03));
-  border-left: 3.5px solid #06b6d4;
-}
-
-.submod-divider-orl {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.02));
-  border-left: 3.5px solid #f59e0b;
-  border-radius: 0.75rem;
-}
-html.dark .submod-divider-orl {
-  background: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.03));
-  border-left: 3.5px solid #f59e0b;
-}
-
-/* 6. Weight / Question Count Badges & Toggle Button */
-.weight-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.685rem;
-  font-weight: 800;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
-  background-color: #fef3c7;
-  color: #b45309;
-  border: 1px solid #fde68a;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  white-space: nowrap;
-}
-
-html.dark .weight-badge {
-  background-color: rgba(245, 158, 11, 0.22);
-  color: #fcd34d;
-  border: 1px solid rgba(245, 158, 11, 0.45);
-}
-
-.weight-sort-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border: 1px solid #e2e8f0;
-  background-color: #ffffff;
-  color: #334155;
-  transition: all 0.18s ease;
-  cursor: pointer;
-  white-space: nowrap;
-  user-select: none;
-}
-
-html.dark .weight-sort-btn {
-  background-color: #1e293b;
-  border-color: #334155;
-  color: #cbd5e1;
-}
-
-.weight-sort-btn:hover {
-  border-color: #f59e0b;
-  color: #d97706;
-}
-
-html.dark .weight-sort-btn:hover {
-  border-color: #f59e0b;
-  color: #fbbf24;
-}
-
-.weight-sort-btn.is-active {
-  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-  color: #ffffff !important;
-  border-color: #b45309 !important;
-  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35) !important;
-}
-
-/* Slim Medical Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-html.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
-}
-
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-/* Status Pills */
-.status-pill {
-  font-size: 0.725rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
-.status-effectue {
-  background-color: #ecfdf5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
-}
-
-.status-en-cours {
-  background-color: #fffbeb;
-  color: #b45309;
-  border: 1px solid #fde68a;
-}
-
-.status-non-effectue {
-  background-color: #f8fafc;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-}
-
-.status-hors-programme {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border: 1px solid #fecaca;
-}
-
-html.dark .status-effectue {
-  background-color: rgba(6, 78, 59, 0.4);
-  color: #34d399;
-  border-color: rgba(16, 185, 129, 0.45);
-}
-
-html.dark .status-en-cours {
-  background-color: rgba(120, 53, 15, 0.4);
-  color: #fbbf24;
-  border-color: rgba(245, 158, 11, 0.45);
-}
-
-html.dark .status-non-effectue {
-  background-color: rgba(30, 41, 59, 0.6);
-  color: #94a3b8;
-  border-color: #334155;
-}
-
-html.dark .status-hors-programme {
-  background-color: rgba(127, 29, 29, 0.4);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.45);
-}
-
-/* Title Annotation & Observation Badges */
-.title-badge {
-  font-size: 0.685rem;
-  font-weight: 700;
-  padding: 0.18rem 0.55rem;
-  border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border-width: 1px;
-  line-height: 1.1;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-.title-badge:hover {
-  transform: translateY(-0.5px);
-  filter: brightness(0.97);
-}
-
-/* Category: Drive Promo */
-.obs-badge-drive {
-  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-  color: #4338ca;
-  border-color: #c7d2fe;
-}
-html.dark .obs-badge-drive {
-  background: linear-gradient(135deg, rgba(67, 56, 202, 0.3) 0%, rgba(79, 70, 229, 0.2) 100%);
-  color: #c7d2fe;
-  border-color: rgba(165, 180, 252, 0.35);
-}
-
-/* Category: Cours Inchangé */
-.obs-badge-unchanged {
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  color: #047857;
-  border-color: #a7f3d0;
-}
-html.dark .obs-badge-unchanged {
-  background: linear-gradient(135deg, rgba(4, 120, 87, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%);
-  color: #a7f3d0;
-  border-color: rgba(110, 231, 183, 0.35);
-}
-
-/* Category: Nouveau Cours */
-.obs-badge-new {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  color: #0369a1;
-  border-color: #bae6fd;
-}
-html.dark .obs-badge-new {
-  background: linear-gradient(135deg, rgba(3, 105, 161, 0.25) 0%, rgba(14, 165, 233, 0.15) 100%);
-  color: #bae6fd;
-  border-color: rgba(125, 211, 252, 0.35);
-}
-
-/* Category: Cours Modifié / Schémas */
-.obs-badge-changed {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-  color: #b45309;
-  border-color: #fde68a;
-}
-html.dark .obs-badge-changed {
-  background: linear-gradient(135deg, rgba(180, 83, 9, 0.25) 0%, rgba(245, 158, 11, 0.15) 100%);
-  color: #fde68a;
-  border-color: rgba(252, 211, 77, 0.35);
-}
-
-/* Category: Enseignant / Prof Change */
-.obs-badge-prof {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-  color: #7e22ce;
-  border-color: #e9d5ff;
-}
-html.dark .obs-badge-prof {
-  background: linear-gradient(135deg, rgba(126, 34, 206, 0.25) 0%, rgba(168, 85, 247, 0.15) 100%);
-  color: #e9d5ff;
-  border-color: rgba(216, 180, 254, 0.35);
-}
-
-/* Pedagogical Observation Note Subline */
-.course-obs-note {
-  font-size: 0.69rem;
-  letter-spacing: -0.01em;
-  transition: all 0.15s ease;
-}
-.course-obs-note:hover {
-  background-color: rgba(241, 245, 249, 0.9);
-}
-html.dark .course-obs-note:hover {
-  background-color: rgba(51, 65, 85, 0.9);
-}
-
-/* Pulse animation for 20:00 sync indicator */
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.9; }
-  50% { transform: scale(1.25); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.9; }
-}
-
-.pulse-indicator {
-  animation: pulse-ring 2.2s infinite ease-in-out;
-}
-
-/* Couche Chip (C1 / C2) */
-.couche-chip {
-  padding: 0.2rem 0.5rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-
-.couche-chip.active {
-  background-color: #4f46e5;
-  color: #ffffff;
-  border: 1px solid #4338ca;
-  box-shadow: 0 1px 3px rgba(79, 70, 229, 0.3);
-}
-
-.couche-chip.inactive {
-  background-color: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-}
-
-.couche-chip.inactive:hover {
-  background-color: #e2e8f0;
-  color: #334155;
-}
-
-html.dark .couche-chip.active {
-  background-color: #6366f1;
-  border-color: #4f46e5;
-  box-shadow: 0 1px 4px rgba(99, 102, 241, 0.45);
-}
-
-html.dark .couche-chip.inactive {
-  background-color: #1e293b;
-  color: #94a3b8;
-  border-color: #334155;
-}
-
-html.dark .couche-chip.inactive:hover {
-  background-color: #334155;
-  color: #f8fafc;
-}
-
-/* Checkbox Toggle Button */
-.check-toggle-btn {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 9999px;
-  border: 2px solid #cbd5e1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  flex-shrink: 0;
-  background-color: #ffffff;
-}
-
-.check-toggle-btn:hover {
-  border-color: #4f46e5;
-  transform: scale(1.05);
-}
-
-.check-toggle-btn.is-checked {
-  background-color: #4f46e5;
-  border-color: #4f46e5;
-  color: #ffffff;
-  box-shadow: 0 1px 4px rgba(79, 70, 229, 0.35);
-}
-
-html.dark .check-toggle-btn {
-  background-color: #1e293b;
-  border-color: #475569;
-  color: #ffffff;
-}
-
-html.dark .check-toggle-btn:hover {
-  border-color: #818cf8;
-}
-
-html.dark .check-toggle-btn.is-checked {
-  background-color: #6366f1;
-  border-color: #6366f1;
-  box-shadow: 0 1px 4px rgba(99, 102, 241, 0.45);
-}
-
-/* Mobile Dock Navigation */
-@media (max-width: 768px) {
-  .mobile-bottom-dock {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    background-color: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid #e2e8f0;
-    padding-bottom: max(env(safe-area-inset-bottom, 0px), 0.5rem);
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
-  }
-
-  html.dark .mobile-bottom-dock {
-    background-color: rgba(17, 24, 39, 0.97);
-    border-color: #1f2937;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
-  }
-
-  .mobile-nav-btn {
-    position: relative;
-    transition: all 0.15s ease;
-    padding: 0.35rem 0.45rem;
-    border-radius: 0.75rem;
-    touch-action: manipulation;
-  }
-
-  .mobile-nav-btn:active {
-    transform: scale(0.92);
-  }
-
-  .mobile-nav-btn.active {
-    color: #4f46e5;
-    background-color: rgba(79, 70, 229, 0.08);
-  }
-
-  html.dark .mobile-nav-btn.active {
-    color: #818cf8;
-    background-color: rgba(99, 102, 241, 0.15);
-  }
-
-  .mobile-nav-btn.active[data-nav="exams"] {
-    color: #d97706;
-    background-color: rgba(217, 119, 6, 0.1);
-  }
-
-  html.dark .mobile-nav-btn.active[data-nav="exams"] {
-    color: #f59e0b;
-    background-color: rgba(245, 158, 11, 0.18);
-  }
-}
-
-/* Agenda Timeline Stream */
-.timeline-stem {
-  position: absolute;
-  top: 1.5rem;
-  bottom: -1.5rem;
-  left: 1.125rem;
-  width: 2px;
-  background: #e2e8f0;
-}
-.timeline-item:last-child .timeline-stem {
-  display: none;
-}
-html.dark .timeline-stem {
-  background: #334155;
-}
-
-/* Touch and Mobile Ergonomics */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-@media (max-width: 640px) {
-  .check-toggle-btn {
-    width: 1.65rem;
-    height: 1.65rem;
-  }
-
-  .couche-chip {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.72rem;
-    min-height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .status-pill {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.7rem;
-    min-height: 28px;
-  }
-
-  .course-row {
-    padding: 0.75rem 0.85rem;
-  }
-}
-
-/* Calendar Grid & Exam Window */
-.calendar-day-cell {
-  position: relative;
-  min-height: 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 0.75rem;
-  padding: 0.25rem 0.35rem;
-  border: 1px solid #e2e8f0;
-  background-color: #ffffff;
-  transition: all 0.15s ease;
-  user-select: none;
-  touch-action: manipulation;
-}
-
-@media (min-width: 640px) {
-  .calendar-day-cell {
-    min-height: 70px;
-    padding: 0.5rem 0.6rem;
-  }
-}
-
-.calendar-day-cell:hover {
-  border-color: #cbd5e1;
-  background-color: #f8fafc;
-}
-
-.calendar-day-cell:active {
-  transform: scale(0.97);
-}
-
-.calendar-day-cell.is-outside {
-  background-color: #f8fafc;
-  border-color: #f1f5f9;
-  color: #cbd5e1;
-  opacity: 0.35;
-  pointer-events: none;
-}
-
-.calendar-day-cell.is-period {
-  background-color: rgba(238, 242, 255, 0.45);
-  border-color: #e0e7ff;
-}
-
-.calendar-day-cell.is-revision {
-  background-color: #fffdf5;
-  border-color: #fef08a;
-}
-
-.calendar-day-cell.is-holiday {
-  background-color: #fef2f2;
-  border-color: #fecaca;
-}
-
-.calendar-day-cell.is-exam {
-  cursor: pointer;
-  border-width: 2px;
-  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.08);
-}
-
-.calendar-day-cell.is-exam:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.12);
-}
-
-.calendar-day-cell.is-selected {
-  outline: 2px solid #4f46e5;
-  outline-offset: 2px;
-}
-
-/* Dark mode for calendar */
-html.dark .calendar-day-cell {
-  background-color: #111827;
-  border-color: #1f2937;
-  color: #e2e8f0;
-}
-
-html.dark .calendar-day-cell:hover {
-  border-color: #374151;
-  background-color: #1e293b;
-}
-
-html.dark .calendar-day-cell.is-outside {
-  background-color: #0b0f19;
-  border-color: #151d2d;
-  color: #475569;
-}
-
-html.dark .calendar-day-cell.is-period {
-  background-color: rgba(49, 46, 129, 0.25);
-  border-color: rgba(99, 102, 241, 0.35);
-}
-
-html.dark .calendar-day-cell.is-revision {
-  background-color: rgba(120, 53, 15, 0.25);
-  border-color: rgba(245, 158, 11, 0.35);
-}
-
-html.dark .calendar-day-cell.is-holiday {
-  background-color: rgba(127, 29, 29, 0.25);
-  border-color: rgba(239, 68, 68, 0.35);
-}
-
-html.dark .calendar-day-cell.is-selected {
-  outline: 2px solid #818cf8;
-}
+/* Recensement S9 — "Atlas clinique" design system v5
+   Warm paper, ink navy, serif plates. Tailwind CDN injects after this file, so selectors
+   are prefixed with `body` / [class] to win on specificity without !important. */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap');
+
+:root{
+  --font-sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Newsreader',Georgia,'Times New Roman',serif;
+  --bg:#f5f1e8; --surface:#fffdf8; --surface-2:#f0ebdf; --line:#e2dccd; --line-2:#cbc3af;
+  --ink:#14213d; --muted:#4d5670; --subtle:#5e6683;
+  --brand:#1d2955; --brand-hover:#141d40; --brand-soft:#e6eaf5; --on-brand:#fff;
+  --focus:#2f4d8c; --ring:rgba(47,77,140,.22);
+  --sh-1:0 1px 2px rgba(20,33,61,.05),0 6px 16px -10px rgba(20,33,61,.12);
+  --sh-2:0 2px 4px rgba(20,33,61,.06),0 18px 32px -16px rgba(20,33,61,.25);
+  --ease:cubic-bezier(.16,1,.3,1);
+  /* module pigments: wash (decor) / ink (text, AA on tint) */
+  --m-gyneco:#9b4a78;--m-gyneco-ink:#7d2f5c;
+  --m-ophtalmo:#2a7f93;--m-ophtalmo-ink:#1f6677;
+  --m-orl:#b07a1e;--m-orl-ink:#8a5a10;
+  --m-sante:#54855c;--m-sante-ink:#3d6a45;
+  --m-urgences:#3f62a8;--m-urgences-ink:#2f4d8c;
+  /* status (red is only for "hors programme") */
+  --s-ok:#3d6a45;--s-wip:#8a5a10;--s-todo:#4d5670;--s-off:#98392d;
+  --o-drive:#2f4d8c;--o-new:#1f6677;--o-changed:#8a5a10;--o-prof:#7d2f5c;
+  color-scheme:light;
+}
+html.dark{
+  --bg:#0b1020; --surface:#121a2f; --surface-2:#1a2542; --line:#26324f; --line-2:#3a4870;
+  --ink:#ece8dc; --muted:#b3bbd0; --subtle:#8e99b6;
+  --brand:#b4c3f2; --brand-hover:#cfd9f8; --brand-soft:#1c2750; --on-brand:#0b1020;
+  --focus:#b4c3f2; --ring:rgba(180,195,242,.25);
+  --sh-1:0 1px 2px rgba(0,0,0,.4),0 8px 18px -10px rgba(0,0,0,.6);
+  --sh-2:0 2px 6px rgba(0,0,0,.45),0 20px 36px -16px rgba(0,0,0,.7);
+  --m-gyneco-ink:#e8b0cd;--m-ophtalmo-ink:#93d3e0;--m-orl-ink:#ebc87c;--m-sante-ink:#a9d3ae;--m-urgences-ink:#adc3f2;
+  --s-ok:#a9d3ae;--s-wip:#ebc87c;--s-todo:#b3bbd0;--s-off:#f0aaa0;
+  --o-drive:#adc3f2;--o-new:#93d3e0;--o-changed:#ebc87c;--o-prof:#e8b0cd;
+  color-scheme:dark;
+}
+
+/* ---------- Base ---------- */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html body{font-family:var(--font-sans);background-color:var(--bg);color:var(--ink);line-height:1.5;
+  -webkit-tap-highlight-color:transparent;transition:background-color .25s,color .25s}
+body :is(h1,h2,h3,h4,h5){text-wrap:balance}
+body :is(p,li){text-wrap:pretty}
+body :is(table,.calendar-day-cell,[id^="cd"],[id^="stat"],.weight-badge,.status-pill,.couche-chip){font-variant-numeric:tabular-nums}
+::selection{background:var(--brand);color:var(--on-brand)}
+input,textarea{caret-color:var(--brand)}
+input[type=checkbox]{accent-color:var(--brand)}
+body :is(a,button,input,select,textarea,summary,[tabindex],[role=button]):focus-visible{
+  outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 5px var(--ring)}
+body :is(input[type=text],input[type=search],textarea,select):focus-visible{outline-offset:0;box-shadow:0 0 0 4px var(--ring)}
+.skip-link{position:fixed;left:12px;top:-60px;z-index:100;padding:.6rem 1rem;border-radius:10px;background:var(--brand);color:var(--on-brand);font-weight:700;font-size:.8rem;transition:top .2s var(--ease)}
+.skip-link:focus{top:12px}
+/* minimum legible size for every utility-sized micro label */
+body :is([class*="text-[9px]"],[class*="text-[10px]"],[class*="text-[11px]"]){font-size:.75rem}
+/* muted utility text: keep AA on paper in light, readable in dark */
+html:not(.dark) body :is(.text-slate-400,.text-slate-500){color:var(--subtle)}
+html.dark body :is(.text-slate-900,.text-slate-800,.text-slate-700){color:var(--ink)}
+html.dark body :is(.text-slate-600,.text-slate-500,.text-slate-400){color:var(--muted)}
+
+/* ---------- Typography: serif plates, sans data ---------- */
+body :is(h1,h2,h3,h5)[class]{font-family:var(--font-display);font-weight:600;letter-spacing:-.012em}
+body h1[class]{font-size:clamp(1.15rem,1rem + .7vw,1.45rem)}
+body h3[class]{font-size:1.125rem}
+body :is(h2,h4)[class*="uppercase"]{font-family:var(--font-sans);font-weight:700;font-size:.75rem;letter-spacing:.04em;color:var(--muted)}
+body #examsPageView h2[class]{font-size:1.6rem}
+body #heroExamTitle[class]{font-size:clamp(1.7rem,1.2rem + 1.8vw,2.6rem);line-height:1.1;letter-spacing:-.02em}
+body :is(#statMyPercent,#statCatchupCount,#statC1Count,#statC2Count)[class]{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em}
+body #statCatchupCount[class]{font-size:3rem;line-height:1;color:var(--m-orl-ink)}
+body :is(#statC1Count,#statC2Count)[class]{font-size:1.75rem}
+
+/* ---------- Shell ---------- */
+body header.sticky{background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:saturate(1.3) blur(14px);
+  -webkit-backdrop-filter:saturate(1.3) blur(14px);border-bottom:1px solid var(--line);box-shadow:none}
+body header #btnBrandHome>div:first-child{background:var(--brand);color:var(--on-brand);border-radius:10px;box-shadow:none}
+body header :is(button,#syncBadge){border-radius:10px;transition:background-color .15s,border-color .15s,transform .15s var(--ease)}
+body header span[class*="uppercase"]{border-radius:6px;background:var(--brand-soft);color:var(--brand);border-color:transparent}
+body :is(#btnSyncManual,#btnSaveNote,#btnSaveSettingsModal,#btnEmptyReset){background:var(--brand);color:var(--on-brand);border-radius:10px}
+body :is(#btnSyncManual,#btnSaveNote,#btnSaveSettingsModal,#btnEmptyReset):hover{background:var(--brand-hover)}
+body :is(#btnToggleAllAccordions,#btnResetDefaultSheet){color:var(--brand)}
+body #btnResetAllData{padding:.5rem .8rem;border:1px solid color-mix(in srgb,var(--s-off) 40%,transparent);border-radius:10px;color:var(--s-off);background:color-mix(in srgb,var(--s-off) 7%,transparent)}
+body #btnResetFacultyOverrides{padding:.5rem .8rem;border:1px solid var(--line);border-radius:10px}
+
+/* ---------- Surfaces ---------- */
+body .light-card,body .light-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh-1);
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
+body .light-card:hover{border-color:var(--line-2)}
+body section.grid>#cardPriorityCatchup{order:-1}
+body :is(#cardPriorityCatchup,#examQuickTicker){background-image:none;background-color:color-mix(in srgb,var(--m-orl) 8%,var(--surface));
+  border-color:color-mix(in srgb,var(--m-orl) 35%,var(--line))}
+body :is(#examQuickTicker button){background:var(--m-orl-ink);color:#fff;border-radius:10px}
+html.dark body #examQuickTicker button{color:#0b1020}
+body .animate-ping{display:none}
+body .light-card .rounded-xl.border{border-radius:10px;background:var(--surface-2);border-color:transparent;box-shadow:none}
+body :is(#statMyBar,#statFacBar,#heroSemesterProgressBar){transition:width .9s var(--ease)}
+body #statMyBar{background:var(--brand)}
+body #heroSemesterProgressBar{background-image:none;background:#9fd3b0}
+
+/* ---------- Controls ---------- */
+body :is(#searchInput,select,textarea,#settingSheetUrl){background:var(--surface);border:1px solid var(--line);border-radius:10px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+body :is(#searchInput,select,textarea,#settingSheetUrl):hover{border-color:var(--line-2)}
+body #searchInput[class]{padding-top:.75rem;padding-bottom:.75rem}
+body #searchInput::placeholder{color:var(--subtle)}
+body :is(.quick-tab-btn,.exam-tab-btn,#btnViewSyllabus,#btnViewTable,#btnViewCards,#btnExamYear2027,#btnExamYear2026){border-radius:8px;transition:background-color .15s,color .15s}
+body :is(.quick-tab-btn,.exam-tab-btn).active{background:var(--surface);color:var(--brand);box-shadow:var(--sh-1)}
+html.dark body :is(.quick-tab-btn,.exam-tab-btn).active{background:var(--surface-2);color:var(--ink)}
+/* advanced filters live behind one control */
+.adv-filters{border-top:1px solid var(--line);padding-top:.5rem}
+.adv-filters>summary{list-style:none;display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;padding:.45rem .8rem;border-radius:10px;
+  font-size:.8125rem;font-weight:600;color:var(--muted);border:1px solid var(--line);background:var(--surface);user-select:none}
+.adv-filters>summary::-webkit-details-marker{display:none}
+.adv-filters>summary:hover{border-color:var(--line-2);color:var(--ink)}
+.adv-filters>summary::after{content:"";width:.45rem;height:.45rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s var(--ease)}
+.adv-filters[open]>summary::after{transform:rotate(-135deg)}
+#advFilterCount{min-width:1.25rem;padding:0 .35rem;border-radius:9999px;background:var(--brand);color:var(--on-brand);font-size:.72rem;font-weight:700;text-align:center;line-height:1.25rem}
+.adv-filters>div{margin-top:.6rem}
+.adv-filters[open]{padding-bottom:.25rem}
+
+/* ---------- Module sections (plate captions) ---------- */
+body :is(.mod-header-gyneco,.mod-header-orl-ophtalmo,.mod-header-sante-publique,.mod-header-urgences-rea){--mod:var(--line-2);
+  background:color-mix(in srgb,var(--mod) 8%,var(--surface));border-top:2px solid var(--mod);border-radius:12px}
+body .mod-header-gyneco{--mod:var(--m-gyneco)} body .mod-header-orl-ophtalmo{--mod:var(--m-orl)}
+body .mod-header-sante-publique{--mod:var(--m-sante)} body .mod-header-urgences-rea{--mod:var(--m-urgences)}
+body :is(.submod-divider-ophtalmo,.submod-divider-orl){border:1px solid var(--line);border-radius:10px}
+body .submod-divider-ophtalmo{background:color-mix(in srgb,var(--m-ophtalmo) 8%,var(--surface))}
+body .submod-divider-orl{background:color-mix(in srgb,var(--m-orl) 8%,var(--surface))}
+body #moduleCardsContainer>*{border-radius:12px}
+
+/* ---------- Course rows ---------- */
+body .course-row{--mod:var(--line-2);position:relative;background-color:var(--surface);
+  background-image:linear-gradient(90deg,color-mix(in srgb,var(--mod) 13%,transparent),transparent 180px);
+  border:1px solid var(--line);border-radius:12px;transition:border-color .15s,background-color .15s,box-shadow .15s}
+body .course-row:hover{border-color:var(--line-2);box-shadow:var(--sh-1)}
+body .course-row.is-done{background-color:color-mix(in srgb,var(--brand) 5%,var(--surface));border-color:color-mix(in srgb,var(--brand) 28%,var(--line))}
+body .course-row.is-catchup{background-color:color-mix(in srgb,var(--m-orl) 8%,var(--surface));border-color:color-mix(in srgb,var(--m-orl) 45%,var(--line));box-shadow:none}
+body .course-row.mod-gyneco{--mod:var(--m-gyneco)} body .course-row.mod-ophtalmo{--mod:var(--m-ophtalmo)}
+body .course-row.mod-orl{--mod:var(--m-orl)} body .course-row.mod-sante{--mod:var(--m-sante)} body .course-row.mod-urgences{--mod:var(--m-urgences)}
+/* title = serif plate; everything else stays quiet sans */
+body .course-row :is(h3,h4,.font-bold,.font-semibold,.font-extrabold):is(.text-sm,.text-base){font-family:var(--font-display);font-size:1.0625rem;font-weight:600;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+body .course-row :is(.text-xs,[class*="text-[11px]"],[class*="text-[10px]"]){color:var(--muted)}
+
+/* ---------- Chips (full base layout restored) ---------- */
+body :is(.badge-submod,.title-badge,.weight-badge,.status-pill){--c:var(--muted);display:inline-flex;flex-direction:row;align-items:center;gap:.35rem;
+  white-space:nowrap;line-height:1.2;color:var(--c);background:color-mix(in srgb,var(--c) 11%,var(--surface));
+  border:1px solid color-mix(in srgb,var(--c) 26%,transparent);border-radius:6px;box-shadow:none;background-image:none}
+body :is(.badge-submod,.title-badge,.weight-badge,.status-pill) svg{width:.8rem;height:.8rem;flex:none}
+body .badge-submod{padding:.2rem .55rem;font-size:.72rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+body .title-badge{padding:.15rem .5rem;font-size:.75rem;font-weight:600;transition:border-color .15s}
+body .title-badge:hover{transform:none;filter:none;border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+body .weight-badge{--c:var(--o-changed);padding:.15rem .5rem;font-size:.75rem;font-weight:700}
+body .status-pill{padding:.2rem .6rem;font-size:.75rem;font-weight:600;border-radius:9999px}
+body .badge-submod-gyneco{--c:var(--m-gyneco-ink)} body .badge-submod-ophtalmo{--c:var(--m-ophtalmo-ink)}
+body .badge-submod-orl{--c:var(--m-orl-ink)} body .badge-submod-sante{--c:var(--m-sante-ink)} body .badge-submod-urgences{--c:var(--m-urgences-ink)}
+body .obs-badge-drive{--c:var(--o-drive)} body .obs-badge-new{--c:var(--o-new)}
+body .obs-badge-changed{--c:var(--o-changed)} body .obs-badge-prof{--c:var(--o-prof)}
+/* default state is quiet: only exceptions get a chip */
+body .obs-badge-unchanged{--c:var(--subtle);background:none;border-color:transparent;padding-left:0;font-weight:500}
+body .status-effectue{--c:var(--s-ok)} body .status-en-cours{--c:var(--s-wip)}
+body .status-non-effectue{--c:var(--s-todo)} body .status-hors-programme{--c:var(--s-off)}
+body .course-obs-note{font-size:.75rem;border-radius:8px}
+body .course-obs-note:hover{background:var(--surface-2)}
+
+/* Filter pills: solid, AA-safe module fills */
+body .submod-nav-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .85rem;border-radius:9999px;font-size:.8125rem;font-weight:600;white-space:nowrap;
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:background-color .15s,border-color .15s,color .15s}
+body .submod-nav-btn:hover{border-color:var(--line-2);background:var(--surface-2);color:var(--ink);transform:none}
+body .submod-nav-btn[class*="active-"]{color:#fff;box-shadow:none}
+body .submod-nav-btn.active-all{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+body .submod-nav-btn.active-gyneco{background:#7d2f5c;border-color:#7d2f5c}
+body .submod-nav-btn.active-ophtalmo{background:#1f6677;border-color:#1f6677}
+body .submod-nav-btn.active-orl{background:#8a5a10;border-color:#8a5a10}
+body .submod-nav-btn.active-sante{background:#3d6a45;border-color:#3d6a45}
+body .submod-nav-btn.active-urgences{background:#2f4d8c;border-color:#2f4d8c}
+body .weight-sort-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .8rem;border-radius:10px;font-size:.8125rem;font-weight:600;white-space:nowrap;
+  background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+body .weight-sort-btn:hover{border-color:var(--m-orl);color:var(--m-orl-ink)}
+body .weight-sort-btn.is-active{background:#8a5a10;background-image:none;border-color:#8a5a10;color:#fff;box-shadow:none}
+body .couche-chip{border-radius:6px;font-weight:700;font-size:.75rem;padding:.2rem .5rem;cursor:pointer}
+body .couche-chip.active{background:var(--brand);border:1px solid var(--brand);color:var(--on-brand);box-shadow:none}
+body .couche-chip.inactive{background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+body .check-toggle-btn{width:1.5rem;height:1.5rem;border-radius:9999px;display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;
+  background:var(--surface);border:2px solid var(--line-2);transition:border-color .15s,background-color .15s}
+body .check-toggle-btn:hover{border-color:var(--brand);transform:none}
+body .check-toggle-btn.is-checked{background:var(--brand);border-color:var(--brand);color:var(--on-brand);box-shadow:none}
+
+/* ---------- Exams ---------- */
+body #examSectionCountdown>div:first-child{background:#14203f;background-image:none;border:1px solid #26365f;border-radius:16px;box-shadow:var(--sh-2);color:#fff}
+body #examSectionCountdown .blur-3xl{display:none}
+body #examSectionCountdown [id^="cd"]{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em}
+body #examSectionCountdown .grid>div{background:rgba(255,255,255,.05);backdrop-filter:none;border:1px solid rgba(255,255,255,.1);border-radius:12px}
+.calendar-day-cell{display:flex;flex-direction:column;justify-content:space-between;min-height:48px;padding:.25rem .35rem;border:1px solid var(--line);background:var(--surface);border-radius:10px;
+  transition:border-color .15s,background-color .15s,transform .15s var(--ease);touch-action:manipulation}
+@media(min-width:640px){.calendar-day-cell{min-height:72px;padding:.5rem .6rem}}
+.calendar-day-cell:hover{border-color:var(--line-2);background:var(--surface-2)}
+.calendar-day-cell.is-outside{background:transparent;border-color:transparent;opacity:.35;pointer-events:none}
+.calendar-day-cell.is-period{background:color-mix(in srgb,var(--brand) 7%,var(--surface));border-color:color-mix(in srgb,var(--brand) 22%,var(--line))}
+.calendar-day-cell.is-revision{background:color-mix(in srgb,var(--m-orl) 9%,var(--surface));border-color:color-mix(in srgb,var(--m-orl) 32%,var(--line))}
+.calendar-day-cell.is-holiday{background:color-mix(in srgb,var(--s-off) 8%,var(--surface));border-color:color-mix(in srgb,var(--s-off) 30%,var(--line))}
+.calendar-day-cell.is-exam{cursor:pointer;border-width:1.5px;box-shadow:var(--sh-1)}
+.calendar-day-cell.is-exam:hover{transform:translateY(-2px);box-shadow:var(--sh-2)}
+.calendar-day-cell.is-selected{outline:2px solid var(--focus);outline-offset:2px}
+.timeline-stem{position:absolute;top:1.5rem;bottom:-1.5rem;left:1.125rem;width:2px;background:var(--line)}
+.timeline-item:last-child .timeline-stem{display:none}
+body table thead{background:var(--surface-2)}
+body table tbody tr:hover{background:color-mix(in srgb,var(--brand) 4%,transparent)}
+
+/* ---------- Overlays ---------- */
+html.dark body :is(#noteModal,#settingsModal,#examsPageView,#facultyStatusPopover,#toast) :is(.bg-white,.bg-slate-50,.bg-slate-100){background-color:var(--surface-2)}
+html.dark body :is(#noteModal,#settingsModal)>div,html.dark body :is(#facultyStatusPopover,#toast){background-color:var(--surface)}
+body :is(#noteModal,#settingsModal){background:rgba(11,16,32,.55)}
+body :is(#noteModal,#settingsModal)>div{border-radius:16px;box-shadow:var(--sh-2)}
+body :is(#facultyStatusPopover,#toast){border-radius:12px;box-shadow:var(--sh-2)}
+
+/* ---------- Mobile ---------- */
+@media(max-width:768px){
+  .mobile-bottom-dock{position:fixed;inset:auto 0 0 0;z-index:50;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:max(env(safe-area-inset-bottom,0px),.5rem)}
+  .mobile-nav-btn{position:relative;padding:.4rem .5rem;min-width:44px;min-height:44px;border-radius:10px;touch-action:manipulation;transition:background-color .15s,color .15s}
+  .mobile-nav-btn:active{transform:scale(.94)}
+  body .mobile-nav-btn span{font-size:.6875rem;line-height:1.2}
+  .mobile-nav-btn.active{color:var(--brand);background:var(--brand-soft)}
+  .mobile-nav-btn.active[data-nav="exams"]{color:var(--m-orl-ink);background:color-mix(in srgb,var(--m-orl) 14%,transparent)}
+}
+@media(max-width:640px){
+  body .check-toggle-btn{width:1.75rem;height:1.75rem}
+  body :is(.couche-chip,.status-pill){min-height:28px}
+  body .course-row{padding:.75rem .85rem}
+}
+
+/* ---------- Scrollbars, motion ---------- */
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:9999px;border:2px solid transparent;background-clip:content-box}
+.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+@keyframes pulse-ring{0%,100%{transform:scale(.95);opacity:.9}50%{transform:scale(1.25);opacity:.4}}
+.pulse-indicator{animation:pulse-ring 2.2s infinite ease-in-out}
+@keyframes settle{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body #coursesMainView>section:first-of-type>*{animation:settle .7s var(--ease) both}
+body #coursesMainView>section:first-of-type>*:nth-child(2){animation-delay:.07s}
+body #coursesMainView>section:first-of-type>*:nth-child(3){animation-delay:.14s}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

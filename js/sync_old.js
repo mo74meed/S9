@@ -30,7 +30,7 @@ export const Sync = {
    */
   extractSheetInfo(url) {
     const idMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    const sheetId = idMatch ? idMatch[1] : '1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74';
+    const sheetId = idMatch ? idMatch[1] : '14gGLPRgQy2IKL4ijUFfuSRVREefqL2sri0-ONSlPDvo';
 
     const gidMatch = url.match(/[?#&]gid=([0-9]+)/);
     const gid = gidMatch ? gidMatch[1] : '0';

@@ -2195,7 +2195,7 @@ function setupEventListeners() {
   const btnResetDefaultSheet = document.getElementById('btnResetDefaultSheet');
   if (btnResetDefaultSheet) {
     btnResetDefaultSheet.onclick = () => {
-      const defaultUrl = 'https://docs.google.com/spreadsheets/d/1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74/edit?gid=0#gid=0';
+      const defaultUrl = 'https://docs.google.com/spreadsheets/d/14gGLPRgQy2IKL4ijUFfuSRVREefqL2sri0-ONSlPDvo/edit?gid=0#gid=0';
       elements.settingSheetUrl.value = defaultUrl;
       Storage.saveSettings({ sheetUrl: defaultUrl });
       showToast('Lien officiel S9 rétabli !', 'info');

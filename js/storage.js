@@ -7,7 +7,7 @@ const STORAGE_KEYS = {
   PERSONAL_PROGRESS: 'recensement_personal_progress_v1',
   SETTINGS: 'recensement_settings_v1',
   SYNC_META: 'recensement_sync_meta_v1',
-  CACHED_COURSES: 'recensement_cached_courses_v4',
+  CACHED_COURSES: 'recensement_cached_courses_v5',
   FACULTY_OVERRIDES: 'recensement_faculty_overrides_v1',
   FACULTY_DATES: 'recensement_faculty_dates_v1',
   SEEN_CATCHUP_IDS: 'recensement_seen_catchup_ids_v1',
@@ -21,7 +21,7 @@ const DEFAULT_SETTINGS = {
   autoSync: true,
   syncHour: 20,
   syncMinute: 0,
-  sheetUrl: 'https://docs.google.com/spreadsheets/d/1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74/export?format=csv&gid=0',
+  sheetUrl: 'https://docs.google.com/spreadsheets/d/14gGLPRgQy2IKL4ijUFfuSRVREefqL2sri0-ONSlPDvo/export?format=csv&gid=0',
   viewMode: 'syllabus', // 'syllabus' | 'table' | 'cards'
   sortByWeight: false,
   enableCouches: true
@@ -141,7 +141,16 @@ export const Storage = {
       localStorage.removeItem('recensement_cached_courses_v1');
       localStorage.removeItem('recensement_cached_courses_v2');
       localStorage.removeItem('recensement_cached_courses_v3');
+      localStorage.removeItem('recensement_cached_courses_v4');
       localStorage.removeItem('recensement_s9_courses');
+      // Migrate saved sheetUrl from old spreadsheet to new one
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS) || '{}');
+        if (saved.sheetUrl && saved.sheetUrl.includes('1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74')) {
+          saved.sheetUrl = saved.sheetUrl.replace('1MB7Ay2KFM3QEOW-5RMaBr4GQQgBvx76E1NHqB2Mg_74', '14gGLPRgQy2IKL4ijUFfuSRVREefqL2sri0-ONSlPDvo');
+          localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(saved));
+        }
+      } catch(_) {}
       const raw = localStorage.getItem(STORAGE_KEYS.CACHED_COURSES);
       return raw ? JSON.parse(raw) : null;
     } catch (e) {
